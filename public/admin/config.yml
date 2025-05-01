@@ -6,71 +6,40 @@ backend:
   base_url: https://sveltia-cms-auth.frc8193.workers.dev
 media_folder: public/images
 collections:
-  - name: "blog"
-    label: "Blog Post"
+  - name: "posts"
+    label: "Posts"
     folder: "src/content/blog"
     create: true
+    preview: false
     slug: "{{slug}}"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Publish Date", name: "date", widget: "datetime" }
       - {
-          label: "Featured Image",
+          label: "Author",
+          name: "author",
+          widget: "relation",
+          collection: "authors",
+          value_field: "{{filename}}",
+          search_fields: ["name"],
+          display_fields: ["name"],
+        }
+      - {
+          label: "Image",
           name: "thumbnail",
           widget: "image",
-          required: false,
         }
       - { label: "Body", name: "body", widget: "markdown" }
-      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Tags", name: "tags", widget: "list" }
 
-  - name: "members"
-    label: "Team Member"
-    folder: "src/content/members"
+  - name: "authors"
+    label: "Authors"
+    folder: "src/content/authors"
     create: true
+    identifier_field: name
     slug: "{{slug}}"
+    extension: md
+    format: frontmatter
     fields:
       - { label: "Name", name: "name", widget: "string" }
       - { label: "Role", name: "role", widget: "string" }
-      - { label: "Image", name: "image", widget: "image" }
-      - { label: "Bio", name: "bio", widget: "markdown" }
-      - { label: "Order", name: "order", widget: "number", default: 100 }
-
-  - name: "pages"
-    label: "Pages"
-    files:
-      - file: "src/content/pages/home.md"
-        label: "Home Page"
-        name: "home"
-        fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Hero Image", name: "hero_image", widget: "image" }
-          - { label: "Hero Text", name: "hero_text", widget: "markdown" }
-          - label: "Sections"
-            name: "sections"
-            widget: "list"
-            fields:
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Content", name: "content", widget: "markdown" }
-              - {
-                  label: "Image",
-                  name: "image",
-                  widget: "image",
-                  required: false,
-                }
-
-      - file: "src/content/pages/about.md"
-        label: "About Page"
-        name: "about"
-        fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Content", name: "content", widget: "markdown" }
-          - label: "Team Section"
-            name: "team_section"
-            widget: "object"
-            fields:
-              - { label: "Title", name: "title", widget: "string" }
-              - {
-                  label: "Description",
-                  name: "description",
-                  widget: "markdown",
-                }

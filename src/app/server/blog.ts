@@ -7,22 +7,44 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import rehypePrism from "rehype-prism-plus";
-import yaml from "js-yaml";
 import type { BlogPost, BlogPostFrontmatter, Author } from "@/lib/types";
 
 const blogDir = path.join(process.cwd(), "src/content/blog");
-const authorsFile = path.join(process.cwd(), "src/content/authors.yaml");
+const authorsDir = path.join(process.cwd(), "src/content/authors");
 
 /**
- * Load authors from YAML file
- * @returns Object with authors indexed by username
+ * Load authors from individual markdown files
+ * @returns Object with authors indexed by username (filename without extension)
  */
 const loadAuthors = (): Record<string, Author> => {
   try {
-    const fileContents = fs.readFileSync(authorsFile, "utf8");
-    return yaml.load(fileContents) as Record<string, Author>;
+    const authors: Record<string, Author> = {};
+
+    // Check if authors directory exists
+    if (!fs.existsSync(authorsDir)) {
+      console.warn("Authors directory not found:", authorsDir);
+      return {};
+    }
+
+    const fileNames = fs.readdirSync(authorsDir);
+
+    fileNames.forEach((fileName) => {
+      if (fileName.endsWith(".md")) {
+        const authorId = fileName.replace(/\.md$/, "");
+        const fullPath = path.join(authorsDir, fileName);
+        const fileContents = fs.readFileSync(fullPath, "utf8");
+        const { data } = matter(fileContents);
+
+        authors[authorId] = {
+          name: (data.name as string) ?? "Unknown",
+          role: data.role as string | undefined,
+        };
+      }
+    });
+
+    return authors;
   } catch (error) {
-    console.error("Error reading authors file:", error);
+    console.error("Error reading authors:", error);
     return {};
   }
 };
