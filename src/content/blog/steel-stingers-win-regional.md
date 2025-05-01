@@ -1,5 +1,5 @@
 ---
-title: Steel Stingers Win Regional Competition
+title: 2
 slug: steel-stingers-win-regional
 date: 2023-04-15
 author: test

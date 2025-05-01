@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPostsByTag, getAllTags } from "~/app/server/blog";
-import BlogPostCard from "@/components/blog/BlogPostCard";
 import { ChevronLeftIcon } from "lucide-react";
+import BlogPosts from "~/components/blog/BlogPosts";
 
 // Generate metadata for the tag page
 export async function generateMetadata(props: {
@@ -62,15 +62,7 @@ export default async function TagPage(props: {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {posts.map((post) => (
-          <BlogPostCard
-            key={post.slug}
-            post={post}
-            highlightedTag={decodedTag}
-          />
-        ))}
-      </div>
+      <BlogPosts posts={posts} highlightedTag={decodedTag} />
     </main>
   );
 }

@@ -1,5 +1,5 @@
 ---
-title: 9
+title: 6
 slug: test-author-info
 date: 2023-04-30
 author: gyoni25

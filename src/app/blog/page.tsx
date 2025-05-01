@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllPosts, getAllTags } from "@/app/server/blog";
-import BlogPostCard from "@/components/blog/BlogPostCard";
 import { Badge } from "@/components/ui/badge";
+import BlogPosts from "~/components/blog/BlogPosts";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -34,11 +34,7 @@ export default async function BlogPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {posts.map((post) => (
-          <BlogPostCard key={post.slug} post={post} />
-        ))}
-      </div>
+      <BlogPosts posts={posts} />
     </main>
   );
 }
