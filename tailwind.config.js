@@ -12,6 +12,7 @@ export default {
       fontFamily: {
         sans: ["Inter", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
+        montserrat: ["Montserrat", "sans-serif"],
       },
     },
   },

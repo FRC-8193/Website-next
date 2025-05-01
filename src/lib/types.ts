@@ -1,26 +1,7 @@
-// Common types used across the application
-
-// Navigation
-export interface NavItem {
-  href: string;
-  label: string;
-  external?: boolean;
-}
-
-// Theme
-export type Theme = "dark" | "light";
-
-// Blog post
 export interface Author {
   name: string;
   avatar: string;
   role?: string;
-  bio?: string;
-  socialLinks?: {
-    twitter?: string;
-    github?: string;
-    linkedin?: string;
-  };
 }
 
 export interface BlogPost {
@@ -30,7 +11,6 @@ export interface BlogPost {
   author: Author;
   excerpt: string;
   content: string;
-  featured: boolean;
   image: {
     src: string;
     alt: string;
@@ -38,7 +18,6 @@ export interface BlogPost {
   tags: string[];
 }
 
-// Timeline event
 export interface TimelineEvent {
   title: string;
   date: string;

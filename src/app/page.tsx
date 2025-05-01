@@ -10,7 +10,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { RocketIcon, InfoIcon, ExternalLinkIcon } from "lucide-react";
+import { RocketIcon, InfoIcon, Book } from "lucide-react";
+import Link from "next/link";
 import { motion } from "motion/react";
 
 export default function HomePage() {
@@ -46,37 +47,28 @@ export default function HomePage() {
           priority
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-black/60">
+        <div className="absolute inset-0 bg-black/50">
           <div className="container mx-auto flex h-full flex-col items-center justify-center px-4 text-center">
             <motion.h1
-              className="mb-6 text-5xl font-bold tracking-tight text-white sm:text-6xl"
+              className="font-montserrat mb-6 text-5xl font-black tracking-tight text-white italic sm:text-6xl"
               initial={{ y: -50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5 }}
+              style={{
+                WebkitTextStroke: "3px black",
+                paintOrder: "stroke fill",
+              }}
             >
-              Steel Stingers
+              New Lothrop Robotics
             </motion.h1>
             <motion.p
               className="mx-auto mb-8 max-w-2xl text-xl text-zinc-200"
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ duration: 0.5 }}
             >
-              FRC Team 8193 from New Lothrop building robots and engineering the
-              future.
+              FRC Team 8193 from New Lothrop slogan slogan slogan
             </motion.p>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <Button
-                size="lg"
-                className="bg-white text-black hover:bg-zinc-200"
-              >
-                Learn More
-              </Button>
-            </motion.div>
           </div>
         </div>
       </div>
@@ -93,8 +85,8 @@ export default function HomePage() {
             Engineering the Future
           </h2>
           <p className="text-lg text-zinc-600">
-            Our team is dedicated to building innovative robots and developing
-            the next generation of engineers and technology leaders.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
         </motion.div>
 
@@ -105,18 +97,18 @@ export default function HomePage() {
           animate="visible"
         >
           <motion.li variants={itemVariants}>
-            <Card className="h-full border-zinc-200 transition-all duration-300 hover:shadow-md">
+            <Card className="h-full border-zinc-200 transition-all duration-300 hover:shadow-xl">
               <CardHeader>
                 <RocketIcon className="mb-2 h-6 w-6 text-black" />
                 <CardTitle>Our Mission</CardTitle>
                 <CardDescription>
-                  Building the next generation of engineers
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <p className="text-zinc-600">
-                  Our team focuses on innovation, teamwork, and technical
-                  excellence in the FIRST Robotics Competition.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                  do eiusmod tempor incididunt ut labore et dolore
                 </p>
               </CardContent>
               <CardFooter>
@@ -128,18 +120,18 @@ export default function HomePage() {
           </motion.li>
 
           <motion.li variants={itemVariants}>
-            <Card className="h-full border-zinc-200 transition-all duration-300 hover:shadow-md">
+            <Card className="h-full border-zinc-200 transition-all duration-300 hover:shadow-xl">
               <CardHeader>
                 <InfoIcon className="mb-2 h-6 w-6 text-black" />
                 <CardTitle>About Us</CardTitle>
                 <CardDescription>
-                  Meet the team behind the robots
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <p className="text-zinc-600">
-                  We are a diverse group of students and mentors passionate
-                  about science, technology, and engineering.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                  do eiusmod tempor incididunt ut labore
                 </p>
               </CardContent>
               <CardFooter>
@@ -151,22 +143,28 @@ export default function HomePage() {
           </motion.li>
 
           <motion.li variants={itemVariants}>
-            <Card className="h-full border-zinc-200 transition-all duration-300 hover:shadow-md">
+            <Card className="h-full border-zinc-200 transition-all duration-300 hover:shadow-xl">
               <CardHeader>
-                <ExternalLinkIcon className="mb-2 h-6 w-6 text-black" />
-                <CardTitle>Get Involved</CardTitle>
-                <CardDescription>Join us in our journey</CardDescription>
+                <Book className="mb-2 h-6 w-6 text-black" />
+                <CardTitle>Read Our Blog</CardTitle>
+                <CardDescription>Lorem ipsum dolor sit amet.</CardDescription>
               </CardHeader>
               <CardContent>
                 <p className="text-zinc-600">
-                  Whether you&apos;re a student, mentor, or sponsor, there are
-                  many ways to be part of our robotics family.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                  do eiusmod tempor incididunt ut labore et dolore
                 </p>
               </CardContent>
               <CardFooter>
-                <Button variant="outline" size="sm" className="mt-4">
-                  Contact Us
-                </Button>
+                <Link href="/blog">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="mt-4 cursor-pointer"
+                  >
+                    Go to the Blog Page
+                  </Button>
+                </Link>
               </CardFooter>
             </Card>
           </motion.li>
