@@ -1,6 +1,6 @@
 ---
-name: test3
-role: asd
+name: author
+role: something
 bio: ''
 ---
 
