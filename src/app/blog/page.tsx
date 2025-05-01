@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllPosts, getAllTags } from "@/app/server/blog";
 import BlogPostCard from "@/components/blog/BlogPostCard";
+import { Badge } from "@/components/ui/badge";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -26,12 +27,8 @@ export default async function BlogPage() {
         <div className="flex flex-wrap justify-center gap-2">
           <span className="mr-2 font-semibold">Filter by tags:</span>
           {tags.map((tag) => (
-            <Link
-              key={tag}
-              href={`/blog/tag/${tag}`}
-              className="rounded-full bg-black px-3 py-1 text-white transition-colors hover:bg-gray-800"
-            >
-              {tag}
+            <Link key={tag} href={`/blog/tag/${tag}`}>
+              <Badge variant="outline">{tag}</Badge>
             </Link>
           ))}
         </div>

@@ -1,30 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-
-interface Author {
-  name: string;
-  avatar: string;
-  role?: string;
-}
-
-interface BlogPost {
-  title: string;
-  slug: string;
-  date: string;
-  author: Author;
-  excerpt: string;
-  content: string;
-  image: {
-    src: string;
-    alt: string;
-  };
-  tags: string[];
-}
-
-interface BlogPostCardProps {
-  post: BlogPost;
-  highlightedTag?: string;
-}
+import type { BlogPostCardProps } from "@/lib/types";
+import { AuthorInfo } from "@/components/AuthorInfo";
 
 const BlogPostCard = ({ post, highlightedTag }: BlogPostCardProps) => {
   return (
@@ -57,18 +34,7 @@ const BlogPostCard = ({ post, highlightedTag }: BlogPostCardProps) => {
           </div>
           <h2 className="mb-2 text-2xl font-bold">{post.title}</h2>
           <p className="mb-4 text-gray-600">{post.excerpt}</p>
-          <div className="flex items-center gap-3">
-            <div className="relative h-10 w-10 overflow-hidden rounded-full">
-              <Image
-                src={post.author.avatar}
-                alt={post.author.name}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-cover"
-              />
-            </div>
-            <span className="font-medium">{post.author.name}</span>
-          </div>
+          <AuthorInfo author={post.author} size="sm" />
         </div>
       </Link>
     </article>

@@ -2,13 +2,7 @@
 title: Introducing Our New Robotics Lab
 slug: new-robotics-lab
 date: 2023-03-10
-author:
-  name: Sarah Chen
-  avatar: /images/authors/sarah-chen.png
-  role: Team Captain
-  bio: Senior student leading the programming division
-  socialLinks:
-    github: https://github.com/sarahchen
+author: gyoni25
 excerpt: Thanks to our sponsors, we now have a state-of-the-art robotics lab to develop and test our robots.
 image:
   src: /images/team.png

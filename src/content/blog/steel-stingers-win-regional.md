@@ -2,10 +2,7 @@
 title: Steel Stingers Win Regional Competition
 slug: steel-stingers-win-regional
 date: 2023-04-15
-author:
-  name: Coach Thompson
-  avatar: /images/authors/coach-thompson.png
-  role: Head Coach
+author: test
 excerpt: Team 8193 Steel Stingers secured first place at the regional competition with their innovative robot design.
 image:
   src: /images/team.png

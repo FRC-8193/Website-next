@@ -55,7 +55,7 @@ export default async function TagPage(props: {
         </Link>
 
         <h1 className="text-4xl font-bold">
-          Posts tagged with `&quot;`{decodedTag}`&quot;`
+          Posts tagged with &quot;{decodedTag}&quot;
         </h1>
         <p className="mt-2 text-xl text-gray-600">
           Found {posts.length} post{posts.length !== 1 ? "s" : ""}

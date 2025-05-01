@@ -6,44 +6,29 @@ import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
-
-interface Author {
-  name: string;
-  avatar: string;
-  role?: string;
-}
-
-interface BlogPost {
-  title: string;
-  slug: string;
-  date: string;
-  author: Author;
-  excerpt: string;
-  content: string;
-  image: {
-    src: string;
-    alt: string;
-  };
-  tags: string[];
-}
-
-interface BlogPostFrontmatter {
-  title?: string;
-  date?: string;
-  author?: {
-    name?: string;
-    avatar?: string;
-    role?: string;
-  };
-  excerpt?: string;
-  image?: {
-    src?: string;
-    alt?: string;
-  };
-  tags?: string[];
-}
+import rehypePrism from "rehype-prism-plus";
+import yaml from "js-yaml";
+import type { BlogPost, BlogPostFrontmatter, Author } from "@/lib/types";
 
 const blogDir = path.join(process.cwd(), "src/content/blog");
+const authorsFile = path.join(process.cwd(), "src/content/authors.yaml");
+
+/**
+ * Load authors from YAML file
+ * @returns Object with authors indexed by username
+ */
+const loadAuthors = (): Record<string, Author> => {
+  try {
+    const fileContents = fs.readFileSync(authorsFile, "utf8");
+    return yaml.load(fileContents) as Record<string, Author>;
+  } catch (error) {
+    console.error("Error reading authors file:", error);
+    return {};
+  }
+};
+
+// Load authors data
+const authors = loadAuthors();
 
 /**
  * Parse markdown content to HTML
@@ -55,6 +40,7 @@ const markdownToHtml = async (markdown: string): Promise<string> => {
     const result = await unified()
       .use(remarkParse)
       .use(remarkRehype)
+      .use(rehypePrism, { ignoreMissing: true })
       .use(rehypeStringify)
       .process(markdown);
 
@@ -98,16 +84,17 @@ const getPostData = async (slug: string): Promise<BlogPost> => {
     // Convert markdown to HTML
     const htmlContent = await markdownToHtml(content);
 
+    let authorInfo: Author = { name: "Unknown" };
+    if (typeof frontmatter.author === "string") {
+      authorInfo = authors[frontmatter.author] || { name: frontmatter.author };
+    }
+
     return {
       slug,
       content: htmlContent ?? "", // Provide default value
       title: frontmatter.title ?? "",
       date: frontmatter.date ?? new Date().toISOString(),
-      author: {
-        name: frontmatter.author?.name ?? "Unknown",
-        avatar: frontmatter.author?.avatar ?? "/images/authors/default.png",
-        role: frontmatter.author?.role,
-      },
+      author: authorInfo,
       excerpt: frontmatter.excerpt ?? "",
       image: {
         src: frontmatter.image?.src ?? "/images/default.png",

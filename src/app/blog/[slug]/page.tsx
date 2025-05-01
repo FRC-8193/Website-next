@@ -3,6 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { getPostBySlug, getAllPosts } from "~/app/server/blog";
 import { ChevronLeftIcon } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { AuthorInfo } from "@/components/AuthorInfo";
 
 // Generate metadata for the blog post
 export async function generateMetadata(props: {
@@ -132,26 +134,8 @@ export default async function BlogPostPage(props: {
 
         <div className="mb-8">
           <h1 className="mb-4 text-4xl font-bold">{post.title}</h1>
-          <div className="mb-6 flex items-center gap-4">
-            <div className="flex items-center gap-3">
-              <div className="relative h-10 w-10 overflow-hidden rounded-full">
-                <Image
-                  src={post.author.avatar}
-                  alt={post.author.name}
-                  fill
-                  className="object-cover"
-                  sizes="40px"
-                />
-              </div>
-              <div>
-                <div className="font-medium">{post.author.name}</div>
-                {post.author.role && (
-                  <div className="text-sm text-gray-500">
-                    {post.author.role}
-                  </div>
-                )}
-              </div>
-            </div>
+          <div className="mb-6 flex flex-col gap-4">
+            <AuthorInfo author={post.author} size="lg" />
             <time className="text-gray-500">
               {new Date(post.date).toLocaleDateString("en-US", {
                 year: "numeric",
@@ -163,12 +147,8 @@ export default async function BlogPostPage(props: {
 
           <div className="mb-8 flex flex-wrap gap-2">
             {post.tags.map((tag) => (
-              <Link
-                key={tag}
-                href={`/blog/tag/${tag}`}
-                className="rounded-full bg-black px-3 py-1 text-sm text-white transition-colors hover:bg-gray-800"
-              >
-                {tag}
+              <Link key={tag} href={`/blog/tag/${tag}`}>
+                <Badge variant="outline">{tag}</Badge>
               </Link>
             ))}
           </div>
@@ -188,25 +168,8 @@ export default async function BlogPostPage(props: {
           <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
         </article>
 
-        <div className="mt-8 border-t border-gray-200 pt-8">
-          <h2 className="mb-4 text-2xl font-bold">About the Author</h2>
-          <div className="flex items-start gap-4">
-            <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-full">
-              <Image
-                src={post.author.avatar}
-                alt={post.author.name}
-                width={64}
-                height={64}
-                className="object-cover"
-              />
-            </div>
-            <div>
-              <h3 className="text-xl font-bold">{post.author.name}</h3>
-              {post.author.role && (
-                <div className="mb-2 text-gray-600">{post.author.role}</div>
-              )}
-            </div>
-          </div>
+        <div className="mt-8 border-t border-gray-400 pt-8">
+          <AuthorInfo author={post.author} size="lg" />
         </div>
       </div>
     </main>
