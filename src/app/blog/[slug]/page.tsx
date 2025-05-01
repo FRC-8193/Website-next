@@ -2,20 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { getPostBySlug, getAllPosts } from "~/app/server/blog";
-import { unified } from "unified";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import rehypeStringify from "rehype-stringify";
-import rehypeSanitize from "rehype-sanitize";
-import rehypeHighlight from "rehype-highlight";
 import { ChevronLeftIcon } from "lucide-react";
 
 // Generate metadata for the blog post
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
+  const params = await props.params;
   // Await the params.slug before using it
   const slug = params.slug;
   const post = await getPostBySlug(slug);
@@ -47,12 +40,8 @@ export async function generateStaticParams() {
   }));
 }
 
-// Process markdown content with remark and rehype
 const renderMarkdown = async (content: string): Promise<string> => {
   try {
-    // The blog.ts already converts the markdown to HTML, so we can use this HTML directly
-    // But let's add Tailwind classes to enhance the styling
-
     let html = content;
 
     // Add Tailwind classes to HTML elements
@@ -100,7 +89,7 @@ const renderMarkdown = async (content: string): Promise<string> => {
       // Code blocks
       .replace(
         /<pre><code class="(.*?)">(.*?)<\/code><\/pre>/gs,
-        (match, language, code) => {
+        (language, code) => {
           return `<pre class="rounded-md bg-gray-900 p-4 my-6 overflow-x-auto"><code class="language-${language} text-sm font-mono text-white">${code}</code></pre>`;
         },
       )
@@ -118,11 +107,10 @@ const renderMarkdown = async (content: string): Promise<string> => {
   }
 };
 
-export default async function BlogPostPage({
-  params,
-}: {
-  params: { slug: string };
+export default async function BlogPostPage(props: {
+  params: Promise<{ slug: string }>;
 }) {
+  const params = await props.params;
   const post = await getPostBySlug(params.slug);
 
   // Check if post.content exists before trying to render it

@@ -5,11 +5,12 @@ import { getPostsByTag, getAllTags } from "~/app/server/blog";
 import BlogPostCard from "@/components/blog/BlogPostCard";
 
 // Generate metadata for the tag page
-export async function generateMetadata({
-  params,
-}: {
-  params: { tag: string };
-}): Promise<Metadata> {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ tag: string }>;
+  }
+): Promise<Metadata> {
+  const params = await props.params;
   const decodedTag = decodeURIComponent(params.tag);
   const posts = await getPostsByTag(decodedTag);
 
@@ -32,7 +33,8 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function TagPage({ params }: { params: { tag: string } }) {
+export default async function TagPage(props: { params: Promise<{ tag: string }> }) {
+  const params = await props.params;
   const decodedTag = decodeURIComponent(params.tag);
   const posts = await getPostsByTag(decodedTag);
 
