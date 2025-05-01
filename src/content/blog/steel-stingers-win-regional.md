@@ -6,19 +6,14 @@ author:
   name: Coach Thompson
   avatar: /images/authors/coach-thompson.png
   role: Head Coach
-  bio: Leading the Steel Stingers since 2018
-  socialLinks:
-    twitter: https://twitter.com/coachthompson
-    linkedin: https://linkedin.com/in/coachthompson
 excerpt: Team 8193 Steel Stingers secured first place at the regional competition with their innovative robot design.
 image:
-  src: /images/blog/regional-win.jpg
+  src: /images/team.png
   alt: Steel Stingers team celebrating their regional win
 tags:
   - competition
   - victory
   - robotics
-featured: true
 ---
 
 # Steel Stingers Win Regional Competition

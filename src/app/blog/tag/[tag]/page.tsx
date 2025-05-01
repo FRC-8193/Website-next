@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPostsByTag, getAllTags } from "@/lib/blog";
+import { getPostsByTag, getAllTags } from "~/app/server/blog";
 import BlogPostCard from "@/components/blog/BlogPostCard";
 
 // Generate metadata for the tag page

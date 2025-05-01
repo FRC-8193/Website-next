@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getAllPosts, getAllTags } from "@/lib/blog";
+import { getAllPosts, getAllTags } from "@/app/server/blog";
 import BlogPostCard from "@/components/blog/BlogPostCard";
 
 export const metadata: Metadata = {

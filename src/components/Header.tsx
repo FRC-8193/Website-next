@@ -38,8 +38,9 @@ export default function Header() {
             <Image
               src="/images/team-logo-transparent.png"
               alt="Steel Stingers Logo"
-              width={80}
-              height={80}
+              width={40}
+              height={40}
+              style={{ width: "auto", height: 40 }}
               draggable={false}
             />
             <span className="text-xl font-bold text-black">Steel Stingers</span>

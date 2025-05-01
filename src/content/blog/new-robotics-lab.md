@@ -11,13 +11,11 @@ author:
     github: https://github.com/sarahchen
 excerpt: Thanks to our sponsors, we now have a state-of-the-art robotics lab to develop and test our robots.
 image:
-  src: /images/blog/new-lab.jpg
+  src: /images/team.png
   alt: Steel Stingers new robotics laboratory
 tags:
   - facilities
   - sponsors
-  - development
-featured: false
 ---
 
 # Introducing Our New Robotics Lab

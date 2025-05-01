@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { getPostBySlug, getAllPosts } from "@/lib/blog";
+import { getPostBySlug, getAllPosts } from "~/app/server/blog";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import rehypeSanitize from "rehype-sanitize";
 import rehypeHighlight from "rehype-highlight";
+import { ChevronLeftIcon } from "lucide-react";
 
 // Generate metadata for the blog post
 export async function generateMetadata({
@@ -15,10 +16,12 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const post = await getPostBySlug(params.slug);
+  // Await the params.slug before using it
+  const slug = params.slug;
+  const post = await getPostBySlug(slug);
 
   return {
-    title: `${post.title} | FRC Team 8193 Steel Stingers Blog`,
+    title: post.title,
     description: post.excerpt,
     openGraph: {
       title: post.title,
@@ -46,73 +49,73 @@ export async function generateStaticParams() {
 
 // Process markdown content with remark and rehype
 const renderMarkdown = async (content: string): Promise<string> => {
-  const result = await unified()
-    .use(remarkParse)
-    .use(remarkRehype)
-    .use(rehypeSanitize)
-    .use(rehypeHighlight)
-    .use(rehypeStringify)
-    .process(content);
+  try {
+    // The blog.ts already converts the markdown to HTML, so we can use this HTML directly
+    // But let's add Tailwind classes to enhance the styling
 
-  let html = String(result);
+    let html = content;
 
-  // Add Tailwind classes to HTML elements
-  html = html
-    // Headers
-    .replace(/<h1>(.*?)<\/h1>/g, '<h1 class="text-4xl font-bold my-6">$1</h1>')
-    .replace(/<h2>(.*?)<\/h2>/g, '<h2 class="text-3xl font-bold my-5">$1</h2>')
-    .replace(/<h3>(.*?)<\/h3>/g, '<h3 class="text-2xl font-bold my-4">$1</h3>')
-    .replace(/<h4>(.*?)<\/h4>/g, '<h4 class="text-xl font-bold my-3">$1</h4>')
-    .replace(/<h5>(.*?)<\/h5>/g, '<h5 class="text-lg font-bold my-2">$1</h5>')
-    .replace(/<h6>(.*?)<\/h6>/g, '<h6 class="text-base font-bold my-2">$1</h6>')
+    // Add Tailwind classes to HTML elements
+    html = html
+      // Headers
+      .replace(
+        /<h1>(.*?)<\/h1>/g,
+        '<h1 class="text-4xl font-bold my-6">$1</h1>',
+      )
+      .replace(
+        /<h2>(.*?)<\/h2>/g,
+        '<h2 class="text-3xl font-bold my-5">$1</h2>',
+      )
+      .replace(
+        /<h3>(.*?)<\/h3>/g,
+        '<h3 class="text-2xl font-bold my-4">$1</h3>',
+      )
+      .replace(/<h4>(.*?)<\/h4>/g, '<h4 class="text-xl font-bold my-3">$1</h4>')
+      .replace(/<h5>(.*?)<\/h5>/g, '<h5 class="text-lg font-bold my-2">$1</h5>')
+      .replace(
+        /<h6>(.*?)<\/h6>/g,
+        '<h6 class="text-base font-bold my-2">$1</h6>',
+      )
 
-    // Paragraphs
-    .replace(/<p>(.*?)<\/p>/g, '<p class="my-4 text-lg">$1</p>')
+      // Paragraphs
+      .replace(/<p>(.*?)<\/p>/g, '<p class="my-4 text-lg">$1</p>')
 
-    // Lists
-    .replace(/<ul>/g, '<ul class="my-4">')
-    .replace(/<ol>/g, '<ol class="my-4">')
-    .replace(/<li>/g, '<li class="ml-6 list-disc">')
-    .replace(/<li class="ml-6 list-disc">/g, (match, index) => {
-      // Check if this is inside an ordered list by looking backwards
-      const prevOl = html.lastIndexOf('<ol class="my-4">', index);
-      const prevUl = html.lastIndexOf('<ul class="my-4">', index);
+      // Lists
+      .replace(/<ul>/g, '<ul class="my-4 list-disc ml-6">')
+      .replace(/<ol>/g, '<ol class="my-4 list-decimal ml-6">')
+      .replace(/<li>/g, '<li class="ml-6 mb-2">')
 
-      // If the nearest list opening tag is an ol, use decimal list style
-      if (prevOl > prevUl && prevOl !== -1) {
-        return '<li class="ml-6 list-decimal">';
-      }
+      // Links
+      .replace(
+        /<a href="(.*?)">(.*?)<\/a>/g,
+        '<a href="$1" class="text-black font-medium underline hover:text-gray-700 transition-colors" target="_blank" rel="noopener noreferrer">$2</a>',
+      )
 
-      return match;
-    })
+      // Images
+      .replace(
+        /<img src="(.*?)" alt="(.*?)">/g,
+        '<img src="$1" alt="$2" class="w-full rounded-lg my-6 shadow-lg">',
+      )
 
-    // Links
-    .replace(
-      /<a href="(.*?)">(.*?)<\/a>/g,
-      '<a href="$1" class="text-black font-medium underline hover:text-gray-700 transition-colors" target="_blank" rel="noopener noreferrer">$2</a>',
-    )
+      // Code blocks
+      .replace(
+        /<pre><code class="(.*?)">(.*?)<\/code><\/pre>/gs,
+        (match, language, code) => {
+          return `<pre class="rounded-md bg-gray-900 p-4 my-6 overflow-x-auto"><code class="language-${language} text-sm font-mono text-white">${code}</code></pre>`;
+        },
+      )
 
-    // Images
-    .replace(
-      /<img src="(.*?)" alt="(.*?)">/g,
-      '<img src="$1" alt="$2" class="w-full rounded-lg my-6 shadow-lg">',
-    )
+      // Inline code
+      .replace(
+        /<code>(.*?)<\/code>/g,
+        '<code class="rounded bg-gray-100 px-1 py-0.5 font-mono text-sm">$1</code>',
+      );
 
-    // Code blocks
-    .replace(
-      /<pre><code class="(.*?)">(.*?)<\/code><\/pre>/gs,
-      (match, language, code) => {
-        return `<pre class="rounded-md bg-gray-900 p-4 my-6 overflow-x-auto"><code class="language-${language} text-sm font-mono text-white">${code}</code></pre>`;
-      },
-    )
-
-    // Inline code
-    .replace(
-      /<code>(.*?)<\/code>/g,
-      '<code class="rounded bg-gray-100 px-1 py-0.5 font-mono text-sm">$1</code>',
-    );
-
-  return html;
+    return html;
+  } catch (error) {
+    console.error("Error rendering markdown:", error);
+    return content; // Return original content if rendering fails
+  }
 };
 
 export default async function BlogPostPage({
@@ -121,7 +124,12 @@ export default async function BlogPostPage({
   params: { slug: string };
 }) {
   const post = await getPostBySlug(params.slug);
-  const contentHtml = await renderMarkdown(post.content);
+
+  // Check if post.content exists before trying to render it
+  let contentHtml = "";
+  if (post.content) {
+    contentHtml = await renderMarkdown(post.content);
+  }
 
   return (
     <main className="container mx-auto px-4 py-12">
@@ -130,19 +138,7 @@ export default async function BlogPostPage({
           href="/blog"
           className="mb-8 inline-flex items-center gap-2 hover:underline"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="m15 18-6-6 6-6" />
-          </svg>
+          <ChevronLeftIcon />
           Back to all posts
         </Link>
 
@@ -156,6 +152,7 @@ export default async function BlogPostPage({
                   alt={post.author.name}
                   fill
                   className="object-cover"
+                  sizes="40px"
                 />
               </div>
               <div>

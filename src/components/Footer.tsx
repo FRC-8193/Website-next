@@ -26,8 +26,9 @@ export default function Footer() {
               <Image
                 src="/images/team-logo.png"
                 alt="Steel Stingers Logo"
-                width={80}
-                height={80}
+                width={50}
+                height={50}
+                style={{ width: "auto", height: 50 }}
                 draggable={false}
               />
               <span className="flex text-xl font-bold text-black">
@@ -127,6 +128,7 @@ export default function Footer() {
                   alt="Facebook"
                   width={24}
                   height={24}
+                  style={{ width: 24, height: 24 }}
                 />
               </a>
             </div>
