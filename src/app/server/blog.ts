@@ -27,7 +27,22 @@ interface BlogPost {
   tags: string[];
 }
 
-// Use the correct content directory path
+interface BlogPostFrontmatter {
+  title?: string;
+  date?: string;
+  author?: {
+    name?: string;
+    avatar?: string;
+    role?: string;
+  };
+  excerpt?: string;
+  image?: {
+    src?: string;
+    alt?: string;
+  };
+  tags?: string[];
+}
+
 const blogDir = path.join(process.cwd(), "src/content/blog");
 
 /**
@@ -78,26 +93,27 @@ const getPostData = async (slug: string): Promise<BlogPost> => {
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data, content } = matter(fileContents);
 
+    const frontmatter = data as BlogPostFrontmatter;
+
     // Convert markdown to HTML
     const htmlContent = await markdownToHtml(content);
 
-    // Ensure all expected properties are present
     return {
       slug,
-      content: htmlContent || "", // Provide default value
-      title: data.title || "",
-      date: data.date || new Date().toISOString(),
+      content: htmlContent ?? "", // Provide default value
+      title: frontmatter.title ?? "",
+      date: frontmatter.date ?? new Date().toISOString(),
       author: {
-        name: data.author?.name || "Unknown",
-        avatar: data.author?.avatar || "/images/authors/default.png",
-        role: data.author?.role,
+        name: frontmatter.author?.name ?? "Unknown",
+        avatar: frontmatter.author?.avatar ?? "/images/authors/default.png",
+        role: frontmatter.author?.role,
       },
-      excerpt: data.excerpt || "",
+      excerpt: frontmatter.excerpt ?? "",
       image: {
-        src: data.image?.src || "/images/default.png",
-        alt: data.image?.alt || "Blog post image",
+        src: frontmatter.image?.src ?? "/images/default.png",
+        alt: frontmatter.image?.alt ?? "Blog post image",
       },
-      tags: data.tags || [],
+      tags: frontmatter.tags ?? [],
     };
   } catch (error) {
     console.error(`Error reading file ${fullPath}:`, error);

@@ -28,7 +28,6 @@ export default function Footer() {
                 alt="Steel Stingers Logo"
                 width={50}
                 height={50}
-                style={{ width: "auto", height: 50 }}
                 draggable={false}
               />
               <span className="flex text-xl font-bold text-black">

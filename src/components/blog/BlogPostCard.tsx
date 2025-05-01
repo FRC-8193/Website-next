@@ -1,6 +1,25 @@
 import Link from "next/link";
 import Image from "next/image";
-import type { BlogPost } from "@/lib/types";
+
+interface Author {
+  name: string;
+  avatar: string;
+  role?: string;
+}
+
+interface BlogPost {
+  title: string;
+  slug: string;
+  date: string;
+  author: Author;
+  excerpt: string;
+  content: string;
+  image: {
+    src: string;
+    alt: string;
+  };
+  tags: string[];
+}
 
 interface BlogPostCardProps {
   post: BlogPost;
@@ -44,6 +63,7 @@ const BlogPostCard = ({ post, highlightedTag }: BlogPostCardProps) => {
                 src={post.author.avatar}
                 alt={post.author.name}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-cover"
               />
             </div>

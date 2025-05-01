@@ -40,7 +40,6 @@ export default function Header() {
               alt="Steel Stingers Logo"
               width={40}
               height={40}
-              style={{ width: "auto", height: 40 }}
               draggable={false}
             />
             <span className="text-xl font-bold text-black">Steel Stingers</span>
