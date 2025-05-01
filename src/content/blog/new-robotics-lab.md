@@ -1,5 +1,5 @@
 ---
-title: 1
+title: test1
 slug: new-robotics-lab
 date: 2023-03-10
 author: gyoni25

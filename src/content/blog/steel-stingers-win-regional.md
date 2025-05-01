@@ -1,5 +1,5 @@
 ---
-title: 2
+title: test2
 slug: steel-stingers-win-regional
 date: 2023-04-15
 author: test

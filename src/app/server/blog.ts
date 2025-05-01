@@ -86,7 +86,7 @@ const getPostData = async (slug: string): Promise<BlogPost> => {
 
     let authorInfo: Author = { name: "Unknown" };
     if (typeof frontmatter.author === "string") {
-      authorInfo = authors[frontmatter.author] || { name: frontmatter.author };
+      authorInfo = authors[frontmatter.author] ?? { name: frontmatter.author };
     }
 
     return {
