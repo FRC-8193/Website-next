@@ -82,7 +82,7 @@ export default function HomePage() {
           transition={{ duration: 0.5 }}
         >
           <h2 className="mb-4 text-3xl font-bold text-black sm:text-4xl">
-            Engineering the Future
+            text text text
           </h2>
           <p className="text-lg text-zinc-600">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
