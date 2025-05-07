@@ -1,6 +1,6 @@
 media:
   label: Website Media
-  input: src/public/media # Store uploaded media in src/public/media/
+  input: public/media
   output: /media          # URLs in content will be /media/image.png
 
 content:
