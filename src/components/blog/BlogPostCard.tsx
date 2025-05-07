@@ -7,15 +7,17 @@ const BlogPostCard = ({ post, highlightedTag }: BlogPostCardProps) => {
   return (
     <article className="overflow-hidden rounded-lg border border-gray-200 transition-all hover:shadow-lg">
       <Link href={`/blog/${post.slug}`}>
-        <div className="relative aspect-video">
-          <Image
-            src={post.image.src}
-            alt={post.image.alt}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
-        </div>
+        {post.image && (
+          <div className="relative aspect-video">
+            <Image
+              src={post.image.src}
+              alt={post.image.alt}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </div>
+        )}
         <div className="p-6">
           <div className="mb-4 flex items-center gap-2">
             <time className="text-sm text-gray-500">

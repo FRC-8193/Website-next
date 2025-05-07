@@ -11,7 +11,7 @@ export interface BlogPost {
   author: Author;
   excerpt: string;
   content: string;
-  image: {
+  image?: {
     src: string;
     alt: string;
   };

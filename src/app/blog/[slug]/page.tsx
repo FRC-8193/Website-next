@@ -15,20 +15,24 @@ export async function generateMetadata(props: {
   const slug = params.slug;
   const post = await getPostBySlug(slug);
 
-  return {
-    title: post.title,
-    description: post.excerpt,
-    openGraph: {
-      title: post.title,
-      description: post.excerpt,
-      images: [
+  const openGraphImages = post.image
+    ? [
         {
           url: post.image.src,
           width: 1200,
           height: 630,
           alt: post.image.alt,
         },
-      ],
+      ]
+    : [];
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      images: openGraphImages,
     },
   };
 }
@@ -134,7 +138,7 @@ export default async function BlogPostPage(props: {
 
         <div className="mb-8">
           <h1 className="mb-4 text-4xl font-bold">{post.title}</h1>
-          <div className="mb-6 flex flex-col gap-4">
+          <div className="flex flex-col gap-4 border-b border-gray-400 pb-8">
             <AuthorInfo author={post.author} size="lg" />
             <time className="text-gray-500">
               {new Date(post.date).toLocaleDateString("en-US", {
@@ -154,15 +158,17 @@ export default async function BlogPostPage(props: {
           </div>
         </div>
 
-        <div className="relative mb-10 aspect-video overflow-hidden rounded-lg">
-          <Image
-            src={post.image.src}
-            alt={post.image.alt}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
-        </div>
+        {post.image && (
+          <div className="relative mb-10 aspect-video overflow-hidden rounded-lg">
+            <Image
+              src={post.image.src}
+              alt={post.image.alt}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </div>
+        )}
 
         <article className="prose prose-lg mb-12 max-w-none">
           <div dangerouslySetInnerHTML={{ __html: contentHtml }} />

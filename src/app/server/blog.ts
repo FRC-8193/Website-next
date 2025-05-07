@@ -9,7 +9,7 @@ import rehypeStringify from "rehype-stringify";
 import rehypePrism from "rehype-prism-plus";
 import type { BlogPost, BlogPostFrontmatter, Author } from "@/lib/types";
 
-const blogDir = path.join(process.cwd(), "src/content/blog");
+const blogDir = path.join(process.cwd(), "src/content/posts");
 const authorsDir = path.join(process.cwd(), "src/content/authors");
 
 /**
@@ -111,6 +111,9 @@ const getPostData = async (slug: string): Promise<BlogPost> => {
       authorInfo = authors[frontmatter.author] ?? { name: frontmatter.author };
     }
 
+    const imageSrc = frontmatter.image?.src;
+    const imageAlt = frontmatter.image?.alt;
+
     return {
       slug,
       content: htmlContent ?? "", // Provide default value
@@ -118,10 +121,13 @@ const getPostData = async (slug: string): Promise<BlogPost> => {
       date: frontmatter.date ?? new Date().toISOString(),
       author: authorInfo,
       excerpt: frontmatter.excerpt ?? "",
-      image: {
-        src: frontmatter.image?.src ?? "/images/default.png",
-        alt: frontmatter.image?.alt ?? "Blog post image",
-      },
+      image:
+        imageSrc && imageSrc.trim() !== ""
+          ? {
+              src: imageSrc,
+              alt: imageAlt ?? "Blog post image",
+            }
+          : undefined,
       tags: frontmatter.tags ?? [],
     };
   } catch (error) {
