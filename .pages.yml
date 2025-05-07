@@ -71,7 +71,7 @@ content:
     type: collection
     path: src/content/tags
     format: json
-    filename: "{fields.id}.json"
+    filename: "{fields.tagName}.json"
     fields:
       - name: tagName
         label: Name
@@ -82,11 +82,6 @@ content:
         type: string
         required: false
         description: "Description, not displayed anywhere."
-      - name: id
-        label: Id
-        type: uuid
-        options:
-          editable: false
     view:
       primary: tagName
       fields: [tagName, description]
