@@ -10,8 +10,8 @@ const BlogPostCard = ({ post, highlightedTag }: BlogPostCardProps) => {
         {post.image && (
           <div className="relative aspect-video">
             <Image
-              src={post.image.src}
-              alt={post.image.alt}
+              src={post.image}
+              alt={post.imageAlt ?? "Blog post image"}
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

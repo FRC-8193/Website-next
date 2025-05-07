@@ -11,29 +11,9 @@ export interface BlogPost {
   author: Author;
   excerpt: string;
   content: string;
-  image?: {
-    src: string;
-    alt: string;
-  };
+  image?: string;
+  imageAlt?: string;
   tags: string[];
-}
-
-export interface BlogPostFrontmatter {
-  title?: string;
-  date?: string;
-  author?:
-    | string
-    | {
-        name?: string;
-        avatar?: string;
-        role?: string;
-      };
-  excerpt?: string;
-  image?: {
-    src?: string;
-    alt?: string;
-  };
-  tags?: string[];
 }
 
 export interface BlogPostCardProps {

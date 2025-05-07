@@ -19,9 +19,19 @@ content:
         required: true
       - name: author
         label: Author
-        type: string
+        type: reference
         required: true
-        description: "Author username."
+        options:
+          collection: authors
+        description: "Select the author of the post."
+      - name: tags
+        label: Tags
+        type: reference
+        list: true
+        options:
+          collection: tags
+        required: false
+        description: "Select tags for the post."
       - name: excerpt
         label: Excerpt
         type: text
@@ -29,18 +39,77 @@ content:
       - name: image
         label: Image
         type: image
+        options:
+          extensions: [jpg, jpeg, png, gif, svg, webp]
         description: "Post image."
+      - name: imageAlt
+        label: Image Alt
+        type: string
+        description: "Image alt text. (required if image is set)"
       - name: body
         label: Main Content
         type: rich-text
         description: "The full content of the blog post."
     view:
       primary: title
-      fields: [title, date, author]
+      fields: [title, date, "author.displayName"]
       sort: [date, title]
       default:
         sort: date
         order: desc
+
+  - name: tags
+    label: Tags
+    type: collection
+    path: src/content/tags
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    fields:
+      - name: name
+        label: Tag Name
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: text
+        required: false
+    view:
+      primary: name
+      fields: [name, description]
+      sort: [name]
+      default:
+        sort: name
+        order: asc
+
+  - name: authors
+    label: Authors
+    type: collection
+    path: src/content/authors
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    fields:
+      - name: username
+        label: Username
+        type: string
+        required: true
+        description: "Your school username."
+      - name: displayName
+        label: Display Name
+        type: string
+        required: true
+        description: "Publicly visible name."
+      - name: role
+        label: Role
+        type: string
+        required: true
+        description: "Your role in the team."
+    view:
+      primary: username
+      fields: [username, displayName, role]
+      sort: [username, displayName]
+      default:
+        sort: username
+        order: asc
 
   # --- Add other content types here ---
   # Example for a single "About Us" page:

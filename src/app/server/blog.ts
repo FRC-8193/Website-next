@@ -7,7 +7,7 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import rehypePrism from "rehype-prism-plus";
-import type { BlogPost, BlogPostFrontmatter, Author } from "@/lib/types";
+import type { BlogPost, Author } from "@/lib/types";
 
 const blogDir = path.join(process.cwd(), "src/content/posts");
 const authorsDir = path.join(process.cwd(), "src/content/authors");
@@ -99,36 +99,72 @@ const getPostData = async (slug: string): Promise<BlogPost> => {
 
   try {
     const fileContents = fs.readFileSync(fullPath, "utf8");
-    const { data, content } = matter(fileContents);
+    const { data, content } = matter(fileContents); // data from gray-matter can have flexible structure
 
-    const frontmatter = data as BlogPostFrontmatter;
+    // Safely access and type-check frontmatter properties
+    const title = typeof data.title === "string" ? data.title : "";
+    const date =
+      typeof data.date === "string" ? data.date : new Date().toISOString();
+    const excerpt = typeof data.excerpt === "string" ? data.excerpt : "";
+    const tags = Array.isArray(data.tags)
+      ? data.tags.filter((tag) => typeof tag === "string")
+      : [];
 
-    // Convert markdown to HTML
+    const frontmatterAuthorData: unknown = data.author;
+    const frontmatterImageData: unknown = data.image;
+    const frontmatterImageAltData =
+      typeof data.imageAlt === "string" ? data.imageAlt : undefined;
+
     const htmlContent = await markdownToHtml(content);
 
     let authorInfo: Author = { name: "Unknown" };
-    if (typeof frontmatter.author === "string") {
-      authorInfo = authors[frontmatter.author] ?? { name: frontmatter.author };
+    if (typeof frontmatterAuthorData === "string") {
+      authorInfo = authors[frontmatterAuthorData] ?? {
+        name: frontmatterAuthorData,
+      };
+    } else if (
+      typeof frontmatterAuthorData === "object" &&
+      frontmatterAuthorData !== null
+    ) {
+      const authorObj = frontmatterAuthorData as {
+        name?: string;
+        role?: string;
+        avatar?: string;
+      };
+      authorInfo = {
+        name: authorObj.name ?? "Unknown",
+        role: authorObj.role,
+      };
     }
 
-    const imageSrc = frontmatter.image?.src;
-    const imageAlt = frontmatter.image?.alt;
+    let imagePath: string | undefined;
+    let imageAltText: string | undefined = frontmatterImageAltData; // Prioritize dedicated imageAlt
+
+    if (typeof frontmatterImageData === "string") {
+      imagePath = frontmatterImageData;
+    } else if (
+      typeof frontmatterImageData === "object" &&
+      frontmatterImageData !== null
+    ) {
+      const imageObj = frontmatterImageData as { src?: string; alt?: string };
+      if (typeof imageObj.src === "string") {
+        imagePath = imageObj.src;
+      }
+      if (imageAltText === undefined && typeof imageObj.alt === "string") {
+        imageAltText = imageObj.alt;
+      }
+    }
 
     return {
       slug,
-      content: htmlContent ?? "", // Provide default value
-      title: frontmatter.title ?? "",
-      date: frontmatter.date ?? new Date().toISOString(),
+      content: htmlContent ?? "",
+      title,
+      date,
       author: authorInfo,
-      excerpt: frontmatter.excerpt ?? "",
-      image:
-        imageSrc && imageSrc.trim() !== ""
-          ? {
-              src: imageSrc,
-              alt: imageAlt ?? "Blog post image",
-            }
-          : undefined,
-      tags: frontmatter.tags ?? [],
+      excerpt,
+      image: imagePath, // Now consistently a string or undefined
+      imageAlt: imageAltText, // Alt text is consolidated
+      tags,
     };
   } catch (error) {
     console.error(`Error reading file ${fullPath}:`, error);

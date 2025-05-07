@@ -18,10 +18,10 @@ export async function generateMetadata(props: {
   const openGraphImages = post.image
     ? [
         {
-          url: post.image.src,
+          url: post.image,
           width: 1200,
           height: 630,
-          alt: post.image.alt,
+          alt: post.imageAlt ?? "Blog post image",
         },
       ]
     : [];
@@ -161,8 +161,8 @@ export default async function BlogPostPage(props: {
         {post.image && (
           <div className="relative mb-10 aspect-video overflow-hidden rounded-lg">
             <Image
-              src={post.image.src}
-              alt={post.image.alt}
+              src={post.image}
+              alt={post.imageAlt ?? "Blog post image"}
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
