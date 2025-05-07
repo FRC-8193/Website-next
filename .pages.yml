@@ -1,52 +1,47 @@
 media:
   label: Website Media
   input: public/media
-  output: /media          # URLs in content will be /media/image.png
+  output: /media
 
 content:
   - name: posts
     label: Blog Posts
     type: collection
     path: src/content/posts
-    format: yaml-frontmatter # For Markdown files with YAML metadata
-    # '{primary}' uses the value of the field set as 'primary' in the 'view' section (default is 'title')
-    filename: '{year}-{month}-{day}-{primary}.md'
     fields:
       - name: title
         label: Title
         type: string
         required: true
-        description: "The main title of the blog post."
       - name: date
         label: Publication Date
         type: date
         required: true
-        default: ''
-        description: "The date the post is published."
       - name: author
         label: Author
         type: string
         required: true
-        description: "Name of the post's author."
+        description: "Author username."
       - name: excerpt
         label: Excerpt
         type: text
         description: "A short summary of the post, used for previews (optional)."
       - name: image
-        label: Featured Image
-        type: image # Uses the 'media' configuration defined above
-        description: "An optional image to be featured with the post."
-      - name: body # 'body' is a reserved field name for the main content of a frontmatter file
+        label: Image
+        type: image
+        description: "Post image."
+      - name: body
         label: Main Content
-        type: rich-text # Provides a WYSIWYG editor; use 'text' for plain Markdown
+        type: rich-text
         description: "The full content of the blog post."
-    view: # Optional: Configuration for how this collection is displayed in Pages CMS
-      primary: title # The 'title' field will be used as the primary identifier for entries
-      fields: [title, date, author] # Columns to show in the collection list view
-      sort: [date, title] # Fields by which the collection can be sorted in the UI
+    view:
+      primary: title
+      fields: [title, date, author]
+      sort: [date, title]
       default:
-        sort: date   # Default sorting
-        order: desc  # Sort by date, newest first
+        sort: date
+        order: desc
+
   # --- Add other content types here ---
   # Example for a single "About Us" page:
   # - name: about_page
