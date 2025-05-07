@@ -31,8 +31,8 @@ content:
         type: reference
         options:
           collection: tags
-          label: "{name}"
-          value: "{name}"
+          label: "{tagName}"
+          value: "{id}"
           multiple: true
         required: false
         description: "Select tags for the post."
@@ -73,7 +73,7 @@ content:
     format: json
     filename: "{fields.id}.json"
     fields:
-      - name: name
+      - name: tagName
         label: Name
         type: string
         required: true
