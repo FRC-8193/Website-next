@@ -32,7 +32,7 @@ content:
         label: Excerpt
         type: text
         description: "A short summary of the post, used for previews (optional)."
-      - name: featured_image
+      - name: image
         label: Featured Image
         type: image # Uses the 'media' configuration defined above
         description: "An optional image to be featured with the post."
