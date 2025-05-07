@@ -73,7 +73,7 @@ content:
         label: Description
         type: string
         required: false
-        description: "Description, not used on the website."
+        description: "Description, not displayed anywhere."
       - name: id
         label: Id
         type: uuid
