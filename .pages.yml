@@ -38,8 +38,11 @@ content:
         description: "Select tags for the post."
       - name: excerpt
         label: Excerpt
-        type: text
-        description: "A short summary of the post, used for previews (optional)."
+        type: string
+        required: true
+        options:
+          maxlength: 120
+        description: "A short summary of the post, used for previews."
       - name: image
         label: Image
         type: image
