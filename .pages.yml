@@ -85,8 +85,8 @@ content:
     label: Authors
     type: collection
     path: src/content/authors
-    format: yaml-frontmatter
-    filename: "{primary}.md"
+    format: json
+    filename: "{fields.username}.json"
     fields:
       - name: username
         label: Username
