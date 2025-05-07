@@ -25,6 +25,8 @@ content:
         required: true
         options:
           collection: authors
+          label: "{displayName}"
+          value: "{username}"
         description: "Select the author of the post."
       - name: tags
         label: Tags
@@ -113,11 +115,6 @@ content:
         type: string
         required: true
         description: "Your role in the team."
-      - name: id
-        label: Id
-        type: uuid
-        options:
-          editable: false
 
     view:
       primary: username
