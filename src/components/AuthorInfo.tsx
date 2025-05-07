@@ -4,14 +4,12 @@ interface AuthorInfoProps {
   author: Author;
   size?: "sm" | "md" | "lg";
   className?: string;
-  showBio?: boolean;
 }
 
 export const AuthorInfo = ({
   author,
   size = "md",
   className = "",
-  showBio = false,
 }: AuthorInfoProps) => {
   const sizeClasses = {
     sm: "text-sm",
@@ -35,14 +33,6 @@ export const AuthorInfo = ({
           )}
         </div>
       </div>
-
-      {showBio && author.bio && (
-        <div
-          className={`${size === "sm" ? "text-xs" : "text-sm"} mt-1 text-gray-700`}
-        >
-          {author.bio}
-        </div>
-      )}
     </div>
   );
 };

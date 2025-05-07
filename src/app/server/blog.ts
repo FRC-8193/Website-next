@@ -9,6 +9,12 @@ import rehypeStringify from "rehype-stringify";
 import rehypePrism from "rehype-prism-plus";
 import type { BlogPost, Author } from "@/lib/types";
 
+interface AuthorJsonData {
+  username?: string;
+  displayName: string;
+  role?: string;
+}
+
 const blogDir = path.join(process.cwd(), "src/content/posts");
 const authorsDir = path.join(process.cwd(), "src/content/authors");
 
@@ -29,16 +35,30 @@ const loadAuthors = (): Record<string, Author> => {
     const fileNames = fs.readdirSync(authorsDir);
 
     fileNames.forEach((fileName) => {
-      if (fileName.endsWith(".md")) {
-        const authorId = fileName.replace(/\.md$/, "");
+      if (fileName.endsWith(".json")) {
+        const authorId = fileName.replace(/\.json$/, "");
         const fullPath = path.join(authorsDir, fileName);
         const fileContents = fs.readFileSync(fullPath, "utf8");
-        const { data } = matter(fileContents);
 
-        authors[authorId] = {
-          name: (data.name as string) ?? "Unknown",
-          role: data.role as string | undefined,
-        };
+        try {
+          const authorData = JSON.parse(fileContents) as AuthorJsonData;
+
+          // Ensure authorData has the expected structure
+          if (authorData && typeof authorData.displayName === "string") {
+            authors[authorId] = {
+              name: authorData.displayName,
+              role: authorData.role,
+            };
+          } else {
+            console.warn(
+              `Invalid author data structure in ${fileName}: displayName is missing or not a string.`,
+            );
+            authors[authorId] = { name: authorId, role: undefined };
+          }
+        } catch (e) {
+          console.error(`Error parsing JSON from ${fileName}:`, e);
+          authors[authorId] = { name: authorId, role: undefined };
+        }
       }
     });
 

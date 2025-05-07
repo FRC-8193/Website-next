@@ -1,7 +1,6 @@
 export interface Author {
   name: string;
   role?: string;
-  bio?: string;
 }
 
 export interface BlogPost {
