@@ -26,6 +26,7 @@ content:
       - name: author
         label: Author
         type: string
+        required: true
         description: "Name of the post's author."
       - name: excerpt
         label: Excerpt
