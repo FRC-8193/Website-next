@@ -86,7 +86,7 @@ content:
     type: collection
     path: src/content/authors
     format: json
-    filename: "{fields.username}.json"
+    filename: "{fields.id}.json"
     fields:
       - name: username
         label: Username
@@ -103,6 +103,12 @@ content:
         type: string
         required: true
         description: "Your role in the team."
+      - name: id
+        label: Id
+        type: uuid
+        options:
+          editable: false
+
     view:
       primary: username
       fields: [username, displayName, role]
