@@ -29,7 +29,6 @@ content:
       - name: tags
         label: Tags
         type: reference
-        list: true
         options:
           collection: tags
           label: "{name}"
