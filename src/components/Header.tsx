@@ -42,7 +42,9 @@ export default function Header() {
               height={75}
               draggable={false}
             />
-            <span className="text-xl font-bold text-black">Steel Stingers</span>
+            <span className="text-xl font-bold text-black">
+              The Steel Stingers
+            </span>
           </Link>
         </div>
         <nav>
