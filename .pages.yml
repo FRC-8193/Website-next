@@ -62,8 +62,8 @@ content:
     label: Tags
     type: collection
     path: src/content/tags
-    format: yaml-frontmatter
-    filename: "{fields.id}.md"
+    format: json
+    filename: "{fields.id}.json"
     fields:
       - name: name
         label: Name
