@@ -32,7 +32,7 @@ content:
         options:
           collection: tags
           label: "{tagName}"
-          value: "{id}"
+          value: "{tagName}"
           multiple: true
         required: false
         description: "Select tags for the post."
