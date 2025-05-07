@@ -88,11 +88,11 @@ content:
         options:
           editable: false
     view:
-      primary: name
-      fields: [name, description]
-      sort: [name]
+      primary: tagName
+      fields: [tagName, description]
+      sort: [tagName]
       default:
-        sort: name
+        sort: tagName
         order: asc
 
   # Authors
