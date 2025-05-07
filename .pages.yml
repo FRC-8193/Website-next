@@ -63,16 +63,22 @@ content:
     type: collection
     path: src/content/tags
     format: yaml-frontmatter
-    filename: "{primary}.md"
+    filename: "{fields.id}.md"
     fields:
       - name: name
-        label: Tag Name
+        label: Name
         type: string
         required: true
       - name: description
         label: Description
-        type: text
+        type: string
         required: false
+        description: "Description, not used on the website."
+      - name: id
+        label: Id
+        type: uuid
+        options:
+          editable: false
     view:
       primary: name
       fields: [name, description]
