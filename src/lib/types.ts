@@ -14,8 +14,3 @@ export interface BlogPost {
   imageAlt?: string;
   tags: string[];
 }
-
-export interface BlogPostCardProps {
-  post: BlogPost;
-  highlightedTag?: string;
-}

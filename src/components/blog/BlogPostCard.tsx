@@ -1,7 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import type { BlogPostCardProps } from "@/lib/types";
+import type { BlogPost } from "@/lib/types";
 import { AuthorInfo } from "@/components/AuthorInfo";
+
+interface BlogPostCardProps {
+  post: BlogPost;
+  highlightedTag?: string;
+}
 
 const BlogPostCard = ({ post, highlightedTag }: BlogPostCardProps) => {
   return (

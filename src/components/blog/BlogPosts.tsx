@@ -15,9 +15,16 @@ import {
 interface BlogPostsProps {
   posts: BlogPost[];
   highlightedTag?: string;
+  maxPosts?: number;
+  pagination?: boolean;
 }
 
-export default function BlogPosts({ posts, highlightedTag }: BlogPostsProps) {
+export default function BlogPosts({
+  posts,
+  highlightedTag,
+  maxPosts,
+  pagination = true,
+}: BlogPostsProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(6);
   const [windowWidth, setWindowWidth] = useState(0);
@@ -51,8 +58,14 @@ export default function BlogPosts({ posts, highlightedTag }: BlogPostsProps) {
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-  const totalPages = Math.ceil(posts.length / postsPerPage);
+
+  const displayedPosts = maxPosts ? posts.slice(0, maxPosts) : posts;
+
+  const currentPosts = pagination
+    ? displayedPosts.slice(indexOfFirstPost, indexOfLastPost)
+    : displayedPosts;
+
+  const totalPages = Math.ceil(displayedPosts.length / postsPerPage);
 
   const handlePageChange = (pageNumber: number) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -71,7 +84,7 @@ export default function BlogPosts({ posts, highlightedTag }: BlogPostsProps) {
         ))}
       </div>
 
-      {totalPages > 1 && (
+      {pagination && totalPages > 1 && (
         <Pagination>
           <PaginationContent>
             {currentPage > 1 && (
