@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ChevronLeftIcon } from "lucide-react";
 import BlogPosts from "@/components/blog/BlogPosts";
 import { api } from "@/app/trpc/server";
-
+import { Back } from "@/components/ui/back";
 // Generate metadata for the tag page
 export async function generateMetadata(props: {
   params: Promise<{ tag: string }>;
@@ -50,13 +48,7 @@ export default async function TagPage(props: {
   return (
     <main className="container mx-auto px-4 py-12">
       <div className="mb-12">
-        <Link
-          href="/blog"
-          className="mb-4 inline-flex items-center gap-2 hover:underline"
-        >
-          <ChevronLeftIcon />
-          Back to all posts
-        </Link>
+        <Back />
 
         <h1 className="text-4xl font-bold">
           Posts tagged with &quot;{decodedTag}&quot;

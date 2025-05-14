@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronLeftIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { AuthorInfo } from "@/components/AuthorInfo";
 import { api } from "@/app/trpc/server";
+import { Back } from "@/components/ui/back";
 // Generate metadata for the blog post
 export async function generateMetadata(props: {
   params: Promise<{ slug: string }>;
@@ -127,13 +127,7 @@ export default async function BlogPostPage(props: {
   return (
     <main className="container mx-auto px-4 py-12">
       <div className="mx-auto max-w-4xl">
-        <Link
-          href="/blog"
-          className="mb-8 inline-flex items-center gap-2 hover:underline"
-        >
-          <ChevronLeftIcon />
-          Back to all posts
-        </Link>
+        <Back />
 
         <div className="mb-8 flex items-start justify-between border-b border-gray-400 pb-8">
           <div>
