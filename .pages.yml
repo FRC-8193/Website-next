@@ -61,7 +61,7 @@ content:
         description: "The full content of the blog post."
     view:
       primary: title
-      fields: [title, date, "author.displayName"]
+      fields: [title, date, author, tags]
       sort: [date, title]
       default:
         sort: date
