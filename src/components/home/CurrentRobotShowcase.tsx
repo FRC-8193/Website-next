@@ -78,7 +78,7 @@ export default function CurrentRobotShowcase() {
   return (
     <motion.section
       ref={sectionRef}
-      className="bg-white py-16 text-black md:py-24"
+      className="bg-white text-black"
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={sectionVariants}
