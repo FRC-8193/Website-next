@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPostsByTag, getAllTags } from "~/app/server/blog";
 import { ChevronLeftIcon } from "lucide-react";
-import BlogPosts from "~/components/blog/BlogPosts";
+import BlogPosts from "@/components/blog/BlogPosts";
+import { api } from "@/app/trpc/server";
 
 // Generate metadata for the tag page
 export async function generateMetadata(props: {
@@ -11,9 +11,10 @@ export async function generateMetadata(props: {
 }): Promise<Metadata> {
   const params = await props.params;
   const decodedTag = decodeURIComponent(params.tag);
-  const posts = await getPostsByTag(decodedTag);
 
-  if (posts.length === 0) {
+  const postsForTag = await api.blog.getByTag({ tag: decodedTag });
+
+  if (postsForTag.length === 0) {
     notFound();
   }
 
@@ -25,11 +26,13 @@ export async function generateMetadata(props: {
 
 // Generate static params for all tags
 export async function generateStaticParams() {
-  const tags = await getAllTags();
+  const tags = await api.blog.getTags();
 
-  return tags.map((tag) => ({
-    tag,
-  }));
+  return (
+    tags?.map((tag: string | { name: string }) => ({
+      tag: typeof tag === "string" ? tag : tag.name,
+    })) || []
+  );
 }
 
 export default async function TagPage(props: {
@@ -37,9 +40,10 @@ export default async function TagPage(props: {
 }) {
   const params = await props.params;
   const decodedTag = decodeURIComponent(params.tag);
-  const posts = await getPostsByTag(decodedTag);
 
-  if (posts.length === 0) {
+  const postsData = await api.blog.getByTag({ tag: decodedTag });
+
+  if (postsData.length === 0) {
     notFound();
   }
 
@@ -58,11 +62,13 @@ export default async function TagPage(props: {
           Posts tagged with &quot;{decodedTag}&quot;
         </h1>
         <p className="mt-2 text-xl text-gray-600">
-          Found {posts.length} post{posts.length !== 1 ? "s" : ""}
+          Found {postsData.length} post{postsData.length !== 1 ? "s" : ""}
         </p>
       </div>
 
-      <BlogPosts posts={posts} highlightedTag={decodedTag} />
+      {postsData.length > 0 && (
+        <BlogPosts posts={postsData} highlightedTag={decodedTag} />
+      )}
     </main>
   );
 }

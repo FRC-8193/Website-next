@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { getPostBySlug, getAllPosts } from "~/app/server/blog";
 import { ChevronLeftIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { AuthorInfo } from "@/components/AuthorInfo";
-
+import { api } from "@/app/trpc/server";
 // Generate metadata for the blog post
 export async function generateMetadata(props: {
   params: Promise<{ slug: string }>;
@@ -13,7 +12,7 @@ export async function generateMetadata(props: {
   const params = await props.params;
   // Await the params.slug before using it
   const slug = params.slug;
-  const post = await getPostBySlug(slug);
+  const post = await api.blog.getBySlug({ slug });
 
   const openGraphImages = post.image
     ? [
@@ -39,7 +38,7 @@ export async function generateMetadata(props: {
 
 // Generate static params for all blog posts
 export async function generateStaticParams() {
-  const posts = await getAllPosts();
+  const posts = await api.blog.getPosts();
 
   return posts.map((post) => ({
     slug: post.slug,
@@ -117,7 +116,7 @@ export default async function BlogPostPage(props: {
   params: Promise<{ slug: string }>;
 }) {
   const params = await props.params;
-  const post = await getPostBySlug(params.slug);
+  const post = await api.blog.getBySlug({ slug: params.slug });
 
   // Check if post.content exists before trying to render it
   let contentHtml = "";
@@ -136,26 +135,25 @@ export default async function BlogPostPage(props: {
           Back to all posts
         </Link>
 
-        <div className="mb-8">
-          <h1 className="mb-4 text-4xl font-bold">{post.title}</h1>
-          <div className="flex flex-col gap-4 border-b border-gray-400 pb-8">
-            <AuthorInfo author={post.author} size="lg" />
-            <time className="text-gray-500">
+        <div className="mb-8 flex items-start justify-between border-b border-gray-400 pb-8">
+          <div>
+            <h1 className="mb-2 text-4xl font-bold">{post.title}</h1>
+            <time className="mb-2 block text-gray-500">
               {new Date(post.date).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
               })}
             </time>
+            <div className="flex flex-wrap gap-2">
+              {post.tags.map((tag) => (
+                <Link key={tag} href={`/blog/tag/${tag}`}>
+                  <Badge variant="outline">{tag}</Badge>
+                </Link>
+              ))}
+            </div>
           </div>
-
-          <div className="mb-8 flex flex-wrap gap-2">
-            {post.tags.map((tag) => (
-              <Link key={tag} href={`/blog/tag/${tag}`}>
-                <Badge variant="outline">{tag}</Badge>
-              </Link>
-            ))}
-          </div>
+          <AuthorInfo author={post.author} size="lg" />
         </div>
 
         {post.image && (

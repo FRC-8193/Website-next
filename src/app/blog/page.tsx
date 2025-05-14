@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getAllPosts, getAllTags } from "@/app/server/blog";
+import { api } from "@/app/trpc/server";
 import { Badge } from "@/components/ui/badge";
-import BlogPosts from "~/components/blog/BlogPosts";
+import BlogPosts from "@/components/blog/BlogPosts";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogPage() {
-  const posts = await getAllPosts();
-  const tags = await getAllTags();
+  const posts = await api.blog.getPosts();
+  const tags = await api.blog.getTags();
 
   return (
     <main className="container mx-auto px-4 py-12">
