@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -35,7 +37,7 @@ export default function StartingCards() {
   };
 
   const listRef = useRef(null);
-  const isListInView = useInView(listRef);
+  const isInView = useInView(listRef, { amount: 0.25, once: true });
 
   return (
     <motion.ul
@@ -43,7 +45,7 @@ export default function StartingCards() {
       className="grid grid-cols-1 gap-8 md:grid-cols-3"
       variants={containerVariants}
       initial="hidden"
-      animate={isListInView ? "visible" : "hidden"}
+      animate={isInView ? "visible" : "hidden"}
     >
       <motion.li variants={itemVariants}>
         <Card className="h-full border-zinc-200 transition-all duration-300 hover:shadow-xl">

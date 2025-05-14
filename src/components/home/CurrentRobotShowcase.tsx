@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,9 +22,9 @@ const formattedRobotName = robotName.toLowerCase().replace(/\s+/g, "-");
 const robotImageUrl = `/media/robots/${robotYear}-${formattedRobotName}.png`;
 const robotImageAlt = `FRC Team 8193's ${robotYear} Robot: ${robotName} for ${robotGame}`;
 
-const CurrentRobotShowcase: React.FC = () => {
+export default function CurrentRobotShowcase() {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { amount: 0.25 });
+  const isInView = useInView(sectionRef, { amount: 0.25, once: true });
 
   const sectionVariants = {
     hidden: { opacity: 0 },
@@ -146,6 +148,4 @@ const CurrentRobotShowcase: React.FC = () => {
       </div>
     </motion.section>
   );
-};
-
-export default CurrentRobotShowcase;
+}

@@ -74,7 +74,9 @@ export default function BlogPosts({
 
   return (
     <div className="space-y-8">
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div
+        className={`grid grid-cols-1 gap-8 ${maxPosts === 1 ? "md:grid-cols-1" : maxPosts === 2 ? "md:grid-cols-2" : "md:grid-cols-2 lg:grid-cols-3"}`}
+      >
         {currentPosts.map((post) => (
           <BlogPostCard
             key={post.slug}
