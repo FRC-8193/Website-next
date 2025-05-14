@@ -74,7 +74,10 @@ export default function LatestBlogPost() {
         )}
 
         {/* Right Column: Text Content */}
-        <motion.div className="text-right" variants={itemVariants}>
+        <motion.div
+          className="flex flex-col justify-end text-right"
+          variants={itemVariants}
+        >
           <motion.h2
             className="mb-4 text-3xl font-bold text-black sm:text-4xl lg:text-5xl"
             variants={itemVariants}
@@ -82,7 +85,7 @@ export default function LatestBlogPost() {
             Latest Blog Post
           </motion.h2>
           <motion.p
-            className="mb-6 text-base text-[#333] sm:text-lg"
+            className="mb-6 text-[#333] sm:text-lg"
             variants={itemVariants}
           >
             Discover the latest news, updates, and stories from our team. We

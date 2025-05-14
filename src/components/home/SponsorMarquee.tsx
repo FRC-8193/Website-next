@@ -38,7 +38,7 @@ export default function SponsorMarquee() {
           >
             <Link href="/contact">
               <Button variant="outline" className="cursor-pointer">
-                Become One
+                Join Them
                 <ArrowRight />
               </Button>
             </Link>
