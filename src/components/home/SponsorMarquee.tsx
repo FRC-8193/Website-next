@@ -12,18 +12,14 @@ import { motion } from "motion/react";
 import { Button } from "../ui/button";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { api } from "@/app/trpc/react";
 
 export default function SponsorMarquee() {
-  interface Sponsor {
-    name: string;
-    image: string;
-  }
+  const sponsors = api.sponsor.list.useQuery();
 
-  const sponsors: Sponsor[] = [
-    { name: "Sponsor 1", image: "/images/team.png" },
-    { name: "Sponsor 2", image: "/images/team.png" },
-    { name: "Sponsor 3", image: "/images/team.png" },
-  ];
+  if (!sponsors || sponsors.data?.length === 0) {
+    return null;
+  }
 
   return (
     <TooltipProvider>
@@ -45,30 +41,46 @@ export default function SponsorMarquee() {
           </motion.div>
         </div>
         <Marquee pauseOnHover={true} gradient={true} autoFill={true} speed={75}>
-          {sponsors.map((sponsor) => (
-            <Tooltip key={sponsor.name} delayDuration={100}>
-              <TooltipTrigger asChild>
-                <div className="mx-4 flex cursor-default items-center justify-center overflow-hidden p-1">
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.2 }}
-                    className="relative h-16 w-24"
-                  >
-                    <Image
-                      src={sponsor.image}
-                      alt={sponsor.name}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-contain"
-                    />
-                  </motion.div>
-                </div>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{sponsor.name}</p>
-              </TooltipContent>
-            </Tooltip>
-          ))}
+          {sponsors.data?.map((sponsor) => {
+            const sponsorContent = (
+              <div className="mx-4 flex cursor-default items-center justify-center overflow-hidden p-1">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
+                  className="relative h-16 w-24"
+                >
+                  <Image
+                    src={sponsor.image}
+                    alt={sponsor.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-contain"
+                  />
+                </motion.div>
+              </div>
+            );
+
+            return (
+              <Tooltip key={sponsor.name} delayDuration={100}>
+                <TooltipTrigger asChild>
+                  {sponsor.website ? (
+                    <Link
+                      href={sponsor.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {sponsorContent}
+                    </Link>
+                  ) : (
+                    sponsorContent
+                  )}
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{sponsor.name}</p>
+                </TooltipContent>
+              </Tooltip>
+            );
+          })}
         </Marquee>
       </div>
     </TooltipProvider>
