@@ -124,23 +124,35 @@ content:
         sort: username
         order: asc
 
-  # --- Add other content types here ---
-  # Example for a single "About Us" page:
-  # - name: about_page
-  #   label: About Us Page
-  #   type: file
-  #   path: src/content/pages/about.md # Path to the single file
-  #   format: yaml-frontmatter
-  #   fields:
-  #     - name: title
-  #       label: Page Title
-  #       type: string
-  #     - name: hero_image
-  #       label: Hero Image
-  #       type: image
-  #     - name: mission_statement
-  #       label: Mission Statement
-  #       type: text
-  #     - name: body
-  #       label: Page Content
-  #       type: rich-text
+  # Sponsors
+  - name: sponsors
+    label: Sponsors
+    type: collection
+    path: src/content/sponsors
+    format: json
+    filename: "{fields.name}.json"
+    fields:
+      - name: name
+        label: Sponsor Name
+        type: string
+        required: true
+        description: "The official name of the sponsor."
+      - name: image
+        label: Sponsor Logo
+        type: image
+        required: true
+        options:
+          extensions: [jpg, jpeg, png, gif, svg, webp]
+        description: "The sponsor's logo."
+      - name: website
+        label: Website URL
+        type: string
+        required: false
+        description: "The URL of the sponsor's website."
+    view:
+      primary: name
+      fields: [name]
+      sort: [name]
+      default:
+        sort: name
+        order: asc
