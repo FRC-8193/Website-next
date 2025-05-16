@@ -140,6 +140,7 @@ export default function CurrentRobotShowcase() {
               src={robotImageUrl}
               alt={robotImageAlt}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="transform object-cover transition-transform duration-500 ease-in-out"
               priority
             />
