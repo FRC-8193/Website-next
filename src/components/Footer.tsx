@@ -4,6 +4,8 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { SlSocialFacebook } from "react-icons/sl";
+import { FaGithub } from "react-icons/fa6";
 
 export default function Footer() {
   const pathname = usePathname();
@@ -117,19 +119,22 @@ export default function Footer() {
               </p>
             </address>
             <div className="mt-4 flex space-x-4">
-              <a
+              <Link
+                href="https://github.com/FRC-8193"
+                className="text-zinc-600 transition-colors hover:text-black"
+                aria-label="GitHub"
+                target="_blank"
+              >
+                <FaGithub size={24} />
+              </Link>
+              <Link
                 href="https://www.facebook.com/people/New-Lothrop-Robotics-The-Steel-Stingers/100082742922158/"
                 className="text-zinc-600 transition-colors hover:text-black"
                 aria-label="Facebook"
+                target="_blank"
               >
-                <Image
-                  src="/images/facebook-logo.png"
-                  alt="Facebook"
-                  width={24}
-                  height={24}
-                  style={{ width: 24, height: 24 }}
-                />
-              </a>
+                <SlSocialFacebook size={24} />
+              </Link>
             </div>
           </div>
         </div>
