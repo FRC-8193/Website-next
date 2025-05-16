@@ -23,7 +23,9 @@ export default async function BlogPage() {
         </p>
       </div>
 
-      <div className="mb-8">
+      <BlogPosts posts={posts} />
+
+      <div className="mt-8">
         <div className="flex flex-wrap justify-center gap-2">
           <span className="mr-2 font-semibold">Filter by tags:</span>
           {tags.map((tag) => (
@@ -33,8 +35,6 @@ export default async function BlogPage() {
           ))}
         </div>
       </div>
-
-      <BlogPosts posts={posts} />
     </main>
   );
 }
