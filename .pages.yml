@@ -15,6 +15,12 @@ content:
         label: Title
         type: string
         required: true
+      - name: status
+        label: Current Status
+        type: select
+        required: true
+        options:
+          values: [Draft, Published, Archived]
       - name: date
         label: Publication Date
         type: date
@@ -54,7 +60,7 @@ content:
       - name: imageAlt
         label: Image Alt
         type: string
-        description: "Image alt text. (required if image is set)"
+        description: "What is visible on the image? (Required if image is set)"
       - name: body
         label: Main Content
         type: rich-text
