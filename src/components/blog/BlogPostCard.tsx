@@ -26,7 +26,7 @@ const BlogPostCard = ({ post, highlightedTag }: BlogPostCardProps) => {
         <div className="p-6">
           <div className="mb-4 flex items-center gap-2">
             <time className="text-sm text-gray-500">
-              {new Date(post.date).toLocaleDateString()}
+              {post.date.toLocaleDateString("en-US")}
             </time>
             {post.tags.map((tag) => (
               <span

@@ -6,7 +6,7 @@ export interface Author {
 export interface BlogPost {
   title: string;
   slug: string;
-  date: string;
+  date: Date;
   author: Author;
   excerpt: string;
   content: string;

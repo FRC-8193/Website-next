@@ -19,7 +19,7 @@ const BlogPostSchema = z.object({
   slug: z.string(),
   content: z.string(),
   title: z.string(),
-  date: z.string(),
+  date: z.date(),
   author: AuthorSchema,
   excerpt: z.string(),
   image: z.string().optional(),
@@ -134,8 +134,8 @@ const getPostData = async (
     const { data, content } = matter(fileContents);
 
     const title = typeof data.title === "string" ? data.title : "Untitled Post";
-    const date =
-      typeof data.date === "string" ? data.date : new Date().toISOString();
+
+    const date = data.date;
     const excerpt = typeof data.excerpt === "string" ? data.excerpt : "";
     const tags = Array.isArray(data.tags)
       ? data.tags.filter((tag): tag is string => typeof tag === "string")
