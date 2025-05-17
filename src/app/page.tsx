@@ -9,7 +9,9 @@ export default function HomePage() {
       <Hero />
       <div className="container mx-auto space-y-16 px-4 py-24 md:py-32">
         <StartingCards />
-        <SponsorMarquee />
+        <div id="sponsors" className="scroll-mt-[20vh]">
+          <SponsorMarquee />
+        </div>
         <CurrentRobotShowcase />
         <LatestBlogPost />
       </div>

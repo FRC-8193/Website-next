@@ -6,22 +6,7 @@ import Link from "next/link";
 import { motion, useInView } from "motion/react";
 import { api } from "@/app/trpc/react";
 
-const robotName = "Captain Stan";
-const robotYear = "2025";
-const robotGame = "Reefscape";
-const robotDescription = `Our pioneering robot engineered for the 2025 FRC Reefscape challenge, excelling in underwater navigation and precise coral placement.`;
-const robotFeatures = [
-  "Advanced Aquatic Propulsion System",
-  "AI-Powered Coral Recognition & Tracking",
-  "High-Precision Multi-Axis Manipulator Arm",
-  "Real-time Environmental Sensor Suite",
-  "Durable, Lightweight Waterproof Chassis",
-  "Autonomous Navigation & Task Execution",
-];
-
-const formattedRobotName = robotName.toLowerCase().replace(/\s+/g, "-");
-const robotImageUrl = `/media/robots/${robotYear}-${formattedRobotName}.png`;
-const robotImageAlt = `FRC Team 8193's ${robotYear} Robot: ${robotName} for ${robotGame}`;
+// const formattedRobotName = robotName.toLowerCase().replace(/\s+/g, "-");
 
 export default function CurrentRobotShowcase() {
   const sectionRef = useRef(null);
@@ -73,7 +58,7 @@ export default function CurrentRobotShowcase() {
       y: 0,
       transition: {
         duration: 0.4,
-        delay: robotFeatures.length * 0.07 + 0.1 + 0.4,
+        delay: (robots.data?.[0]?.features?.length ?? 0) * 0.07 + 0.1 + 0.4,
       },
     },
   };

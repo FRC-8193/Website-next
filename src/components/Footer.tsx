@@ -37,8 +37,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-sm text-zinc-600">
-              FRC Team 8193 from New Lothrop building robots and engineering the
-              future.
+              FRC Team 8193 from New Lothrop, Michigan
             </p>
           </div>
 
@@ -49,18 +48,10 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
-                  href="/about"
+                  href="/blog"
                   className="text-zinc-600 transition-colors hover:text-black"
                 >
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/team"
-                  className="text-zinc-600 transition-colors hover:text-black"
-                >
-                  Meet the Team
+                  Blog
                 </Link>
               </li>
               <li>
@@ -69,6 +60,14 @@ export default function Footer() {
                   className="text-zinc-600 transition-colors hover:text-black"
                 >
                   Our Robots
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="text-zinc-600 transition-colors hover:text-black"
+                >
+                  Contact
                 </Link>
               </li>
             </ul>
@@ -81,7 +80,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
-                  href="/sponsors"
+                  href="/#sponsors"
                   className="text-zinc-600 transition-colors hover:text-black"
                 >
                   Our Sponsors
@@ -93,14 +92,6 @@ export default function Footer() {
                   className="text-zinc-600 transition-colors hover:text-black"
                 >
                   Donate
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/volunteer"
-                  className="text-zinc-600 transition-colors hover:text-black"
-                >
-                  Volunteer
                 </Link>
               </li>
             </ul>
@@ -115,7 +106,12 @@ export default function Footer() {
                 New Lothrop Area Public Schools
               </p>
               <p className="mb-2 text-sm text-zinc-600">
-                Email: robotics@newlothrop.k12.mi.us
+                <Link
+                  href="mailto:robotics@newlothrop.k12.mi.us"
+                  className="text-zinc-600 transition-colors hover:text-black"
+                >
+                  robotics@newlothrop.k12.mi.us
+                </Link>
               </p>
             </address>
             <div className="mt-4 flex space-x-4">
