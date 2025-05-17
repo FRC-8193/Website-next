@@ -1,0 +1,15 @@
+{
+  "id": "captainstan-2025",
+  "name": "Captain Stan",
+  "year": "2025",
+  "game": "Reefscape",
+  "description": "captain stan very good",
+  "features": [
+    "feature 1",
+    "feature 2",
+    "feature 3",
+    "very long featurefeature 3"
+  ],
+  "imageUrl": "/media/WendlingOrtho-1.png",
+  "imageAlt": "asd"
+}
