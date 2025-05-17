@@ -90,11 +90,17 @@ export default function CurrentRobotShowcase() {
           <motion.div className="text-left" variants={textContainerVariants}>
             <motion.h2
               id="current-robot-heading"
-              className="mb-4 text-3xl font-bold text-black sm:text-4xl lg:text-5xl"
+              className="mb-2 text-3xl font-bold text-black sm:text-4xl lg:text-5xl"
               variants={textChildVariants}
             >
               {robotName} - {robotYear}
             </motion.h2>
+            <motion.p
+              className="mb-4 text-sm font-medium text-[#333] sm:text-base"
+              variants={textChildVariants}
+            >
+              {robotGame}
+            </motion.p>
             <motion.p
               className="mb-6 text-base text-[#333] sm:text-lg"
               variants={textChildVariants}

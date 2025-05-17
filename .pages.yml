@@ -163,3 +163,63 @@ content:
       default:
         sort: name
         order: asc
+
+  # Robots
+  - name: robots
+    label: Robots
+    type: collection
+    path: src/content/robots
+    format: json
+    filename: "{fields.id}.json"
+    fields:
+      - name: id
+        label: Robot ID
+        type: string
+        required: true
+        description: "{robot name}-{year} (captainstan-2025)"
+      - name: name
+        label: Robot Name
+        type: string
+        required: true
+        description: "The official name of the robot."
+      - name: year
+        label: Year
+        type: string
+        required: true
+        description: "The year the robot was built."
+      - name: game
+        label: Game
+        type: string
+        required: true
+        description: "The game the robot was built for."
+      - name: description
+        label: Description
+        type: string
+        required: true
+        description: "A short description of the robot."
+      - name: features
+        label: Features
+        type: select
+        required: true
+        description: "A list of features of the robot."
+        options:
+          creatable: true
+          multiple: true
+      - name: imageUrl
+        label: Robot Image
+        type: image
+        required: true
+        options:
+          extensions: [jpg, jpeg, png, gif, svg, webp]
+        description: "The image of the robot."
+      - name: imageAlt
+        label: Image Alt
+        type: string
+        description: "The alt text for the image."
+    view:
+      primary: name
+      fields: [name]
+      sort: [name]
+      default:
+        sort: name
+        order: asc

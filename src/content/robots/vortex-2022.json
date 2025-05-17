@@ -1,0 +1,16 @@
+{
+  "id": "vortex-2022",
+  "name": "Vortex",
+  "year": "2022",
+  "game": "Rapid React",
+  "description": "Vortex was engineered for Rapid React, specializing in cargo shooting and hangar climbing. Its turreted shooter and reliable climber were key to its success.",
+  "features": [
+    "360-degree turreted shooter",
+    "High-capacity cargo storage",
+    "Telescopic climber for traversal rung",
+    "Swerve drive for exceptional maneuverability",
+    "Automated aiming using limelight"
+  ],
+  "imageUrl": "/media/robots/2022-vortex.png",
+  "imageAlt": "FRC Team 8193's 2022 Robot: Vortex for Rapid React"
+} 

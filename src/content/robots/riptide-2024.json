@@ -1,0 +1,16 @@
+{
+  "id": "riptide-2024",
+  "name": "Riptide",
+  "year": "2024",
+  "game": "Crescendo",
+  "description": "Riptide was designed for the Crescendo challenge, excelling in note scoring and stage maneuvers. Its agile design and powerful shooter made it a formidable competitor.",
+  "features": [
+    "High-speed omni-directional drivetrain",
+    "Variable angle shooter for amp and speaker",
+    "Efficient note intake system",
+    "Robust climber for stage chains",
+    "Autonomous routines for multiple starting positions"
+  ],
+  "imageUrl": "/media/robots/2024-riptide.png",
+  "imageAlt": "FRC Team 8193's 2024 Robot: Riptide for Crescendo"
+} 

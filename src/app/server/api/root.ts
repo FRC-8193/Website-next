@@ -1,7 +1,7 @@
 import { blogRouter } from "./routers/blog";
 import { sponsorRouter } from "./routers/sponsor";
 import { createCallerFactory, createTRPCRouter } from "@/app/server/api/trpc";
-
+import { robotRouter } from "./routers/robot";
 /**
  * This is the primary router for your server.
  *
@@ -10,6 +10,7 @@ import { createCallerFactory, createTRPCRouter } from "@/app/server/api/trpc";
 export const appRouter = createTRPCRouter({
   blog: blogRouter,
   sponsor: sponsorRouter,
+  robot: robotRouter,
 });
 
 // export type definition of API
