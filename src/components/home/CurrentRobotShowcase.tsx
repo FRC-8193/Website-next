@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useInView } from "motion/react";
+import { api } from "@/app/trpc/react";
 
 const robotName = "Captain Stan";
 const robotYear = "2025";
@@ -25,6 +26,8 @@ const robotImageAlt = `FRC Team 8193's ${robotYear} Robot: ${robotName} for ${ro
 export default function CurrentRobotShowcase() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { amount: 0.25, once: true });
+
+  const robots = api.robot.list.useQuery();
 
   const sectionVariants = {
     hidden: { opacity: 0 },
@@ -85,6 +88,12 @@ export default function CurrentRobotShowcase() {
       aria-labelledby="current-robot-heading"
     >
       <div className="container mx-auto px-4">
+        <motion.h1
+          className="mb-8 text-center text-2xl font-bold text-black sm:text-3xl lg:text-4xl"
+          variants={textChildVariants}
+        >
+          This year's robot
+        </motion.h1>
         <div className="grid items-center gap-12 md:grid-cols-2 md:gap-16">
           {/* Left Column: Text Content */}
           <motion.div className="text-left" variants={textContainerVariants}>
@@ -93,19 +102,19 @@ export default function CurrentRobotShowcase() {
               className="mb-2 text-3xl font-bold text-black sm:text-4xl lg:text-5xl"
               variants={textChildVariants}
             >
-              {robotName} - {robotYear}
+              {robots.data?.[0]?.name} - {robots.data?.[0]?.year}
             </motion.h2>
             <motion.p
               className="mb-4 text-sm font-medium text-[#333] sm:text-base"
               variants={textChildVariants}
             >
-              {robotGame}
+              {robots.data?.[0]?.game}
             </motion.p>
             <motion.p
               className="mb-6 text-base text-[#333] sm:text-lg"
               variants={textChildVariants}
             >
-              {robotDescription}
+              {robots.data?.[0]?.description}
             </motion.p>
 
             <motion.h3
@@ -115,7 +124,7 @@ export default function CurrentRobotShowcase() {
               Key Features:
             </motion.h3>
             <motion.ul className="mb-8 list-inside list-disc space-y-2 text-[#333]">
-              {robotFeatures.map((feature, index) => (
+              {robots.data?.[0]?.features.map((feature, index) => (
                 <motion.li
                   key={feature}
                   custom={index}
@@ -138,19 +147,21 @@ export default function CurrentRobotShowcase() {
             </Link>
           </motion.div>
 
-          <motion.div
-            className="group relative aspect-[4/3] w-full overflow-hidden rounded-lg shadow-xl"
-            variants={imageVariants}
-          >
-            <Image
-              src={robotImageUrl}
-              alt={robotImageAlt}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="transform object-cover transition-transform duration-500 ease-in-out"
-              priority
-            />
-          </motion.div>
+          {robots.data?.[0]?.imageUrl && (
+            <motion.div
+              className="group relative aspect-[4/3] w-full overflow-hidden rounded-lg shadow-xl"
+              variants={imageVariants}
+            >
+              <Image
+                src={robots.data?.[0]?.imageUrl}
+                alt={robots.data?.[0]?.imageAlt}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="transform object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+                priority
+              />
+            </motion.div>
+          )}
         </div>
       </div>
     </motion.section>

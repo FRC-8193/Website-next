@@ -30,7 +30,7 @@ export default function SponsorMarquee() {
         transition={{ duration: 0.4 }}
       >
         <div className="mb-12 flex flex-row items-center justify-center gap-4 py-2">
-          <h1 className="text-center text-2xl font-bold lg:text-4xl">
+          <h1 className="text-center text-2xl font-bold sm:text-3xl lg:text-4xl">
             Our Sponsors
           </h1>
           <motion.div
