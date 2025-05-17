@@ -11,6 +11,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { motion } from "motion/react";
 
 interface BlogPostsProps {
   posts: BlogPost[];
@@ -18,6 +19,25 @@ interface BlogPostsProps {
   maxPosts?: number;
   pagination?: boolean;
 }
+
+// Animation variants for the container and items
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
+};
 
 export default function BlogPosts({
   posts,
@@ -30,28 +50,22 @@ export default function BlogPosts({
   const [windowWidth, setWindowWidth] = useState(0);
 
   useEffect(() => {
-    // Set initial window width
-    setWindowWidth(window.innerWidth);
-
-    // Update windowWidth when resized
-    const handleResize = () => {
+    if (typeof window !== "undefined") {
       setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+      const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+      };
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
   }, []);
 
   useEffect(() => {
-    // Adjust posts per page based on screen size
     if (windowWidth < 768) {
-      // Mobile
       setPostsPerPage(5);
     } else if (windowWidth < 1024) {
-      // Tablet
       setPostsPerPage(4);
     } else {
-      // Desktop
       setPostsPerPage(6);
     }
   }, [windowWidth]);
@@ -68,23 +82,29 @@ export default function BlogPosts({
   const totalPages = Math.ceil(displayedPosts.length / postsPerPage);
 
   const handlePageChange = (pageNumber: number) => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
     setCurrentPage(pageNumber);
   };
 
   return (
     <div className="space-y-8">
-      <div
+      <motion.div
         className={`grid grid-cols-1 gap-8 ${maxPosts === 1 ? "md:grid-cols-1" : maxPosts === 2 ? "md:grid-cols-2" : "md:grid-cols-2 lg:grid-cols-3"}`}
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
       >
         {currentPosts.map((post) => (
           <BlogPostCard
             key={post.slug}
             post={post}
             highlightedTag={highlightedTag}
+            variants={itemVariants}
           />
         ))}
-      </div>
+      </motion.div>
 
       {pagination && totalPages > 1 && (
         <Pagination>
