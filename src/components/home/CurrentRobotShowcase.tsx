@@ -73,12 +73,6 @@ export default function CurrentRobotShowcase() {
       aria-labelledby="current-robot-heading"
     >
       <div className="container mx-auto px-4">
-        <motion.h1
-          className="mb-8 text-center text-2xl font-bold text-black sm:text-3xl lg:text-4xl"
-          variants={textChildVariants}
-        >
-          This year's robot
-        </motion.h1>
         <div className="grid items-center gap-12 md:grid-cols-2 md:gap-16">
           {/* Left Column: Text Content */}
           <motion.div className="text-left" variants={textContainerVariants}>
