@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { SlSocialFacebook } from "react-icons/sl";
 import { FaGithub } from "react-icons/fa6";
+import SocialIcon from "@/components/ui/SocialIcon";
 
 export default function Footer() {
   const pathname = usePathname();
@@ -115,22 +116,16 @@ export default function Footer() {
               </p>
             </address>
             <div className="mt-4 flex space-x-4">
-              <Link
+              <SocialIcon
                 href="https://github.com/FRC-8193"
-                className="text-zinc-600 transition-colors hover:text-black"
-                aria-label="GitHub"
-                target="_blank"
-              >
-                <FaGithub size={24} />
-              </Link>
-              <Link
+                icon={FaGithub}
+                label="GitHub"
+              />
+              <SocialIcon
                 href="https://www.facebook.com/people/New-Lothrop-Robotics-The-Steel-Stingers/100082742922158/"
-                className="text-zinc-600 transition-colors hover:text-black"
-                aria-label="Facebook"
-                target="_blank"
-              >
-                <SlSocialFacebook size={24} />
-              </Link>
+                icon={SlSocialFacebook}
+                label="Facebook"
+              />
             </div>
           </div>
         </div>
