@@ -48,7 +48,7 @@ export default function StartingCards() {
       animate={isInView ? "visible" : "hidden"}
     >
       <motion.li variants={itemVariants}>
-        <Card className="h-full border-zinc-200 transition-all duration-300 hover:shadow-xl">
+        <Card className="h-full border-zinc-200 transition-all duration-300 hover:shadow-xl dark:shadow-white/20">
           <CardHeader>
             <RocketIcon className="mb-2 h-6 w-6 text-black dark:text-white" />
             <CardTitle>Our Mission</CardTitle>
@@ -71,7 +71,7 @@ export default function StartingCards() {
       </motion.li>
 
       <motion.li variants={itemVariants}>
-        <Card className="h-full border-zinc-200 transition-all duration-300 hover:shadow-xl">
+        <Card className="h-full border-zinc-200 transition-all duration-300 hover:shadow-xl dark:shadow-white/20">
           <CardHeader>
             <InfoIcon className="mb-2 h-6 w-6 text-black dark:text-white" />
             <CardTitle>About Us</CardTitle>
@@ -94,7 +94,7 @@ export default function StartingCards() {
       </motion.li>
 
       <motion.li variants={itemVariants}>
-        <Card className="h-full border-zinc-200 transition-all duration-300 hover:shadow-xl">
+        <Card className="h-full border-zinc-200 transition-all duration-300 hover:shadow-xl dark:shadow-white/20">
           <CardHeader>
             <Book className="mb-2 h-6 w-6 text-black dark:text-white" />
             <CardTitle>Read Our Blog</CardTitle>
