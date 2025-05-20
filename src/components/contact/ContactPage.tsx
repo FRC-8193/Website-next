@@ -7,6 +7,7 @@ import { motion } from "motion/react";
 import { type ChangeEvent, type FormEvent, useState } from "react";
 import SocialIcon from "@/components/ui/SocialIcon";
 import Link from "next/link";
+import { api } from "~/app/trpc/react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -62,19 +63,25 @@ export default function ContactPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const sendEmail = api.email.sendContactEmail.useMutation();
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
-    // TODO: Implement actual form submission logic here
+    sendEmail.mutate({
+      name: formData.name,
+      email: formData.email,
+      subject: formData.subject,
+      message: formData.message,
+    });
 
     await new Promise((resolve) => setTimeout(resolve, 1500));
-    const success = false;
-    if (success) {
+    if (sendEmail.isError) {
+      setSubmitStatus("error");
+    } else {
       setSubmitStatus("success");
       setFormData({ name: "", email: "", subject: "", message: "" });
-    } else {
-      setSubmitStatus("error");
     }
     setIsSubmitting(false);
   };
