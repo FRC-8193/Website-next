@@ -70,7 +70,7 @@ export default function ContactPage() {
 
   const sendEmail = api.email.sendContactEmail.useMutation();
   const email = api.email.get.useQuery(
-    { turnstileToken: turnstileToken || "" },
+    { turnstileToken: turnstileToken ?? "" },
     { enabled: !!turnstileToken },
   );
 
@@ -250,7 +250,7 @@ export default function ContactPage() {
                   animate={{ opacity: 1 }}
                   className="rounded-md border border-green-200 bg-green-100 p-4 text-sm text-green-600 dark:border-green-700 dark:bg-green-900 dark:text-green-300"
                 >
-                  Message sent successfully! We'll get back to you soon.
+                  Message sent successfully! We&apos;ll get back to you soon.
                 </motion.p>
               )}
               {submitStatus === "error" && (
@@ -285,7 +285,7 @@ export default function ContactPage() {
                   href={`mailto:${email.data}`}
                   className="text-lg font-medium break-all text-black hover:underline dark:text-white"
                 >
-                  {email.data || "Loading..."}
+                  {email.data ?? "Loading..."}
                 </Link>
               ) : (
                 <>

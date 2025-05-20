@@ -70,15 +70,17 @@ export default function Sponsors() {
         </motion.div>
       ) : (
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-          {[...Array(10)].map((_, i) => (
-            <div
-              key={i}
-              className="flex flex-col items-center gap-3 rounded-lg p-4"
-            >
-              <Skeleton className="h-24 w-36" />
-              <Skeleton className="h-4 w-24" />
-            </div>
-          ))}
+          {Array(10)
+            .fill(null)
+            .map((_, i) => (
+              <div
+                key={i}
+                className="flex flex-col items-center gap-3 rounded-lg p-4"
+              >
+                <Skeleton className="h-24 w-36" />
+                <Skeleton className="h-4 w-24" />
+              </div>
+            ))}
         </div>
       )}
     </section>

@@ -15,12 +15,12 @@ export const sponsorRouter = createTRPCRouter({
     try {
       const dirents = await fs.readdir(sponsorsDir, { withFileTypes: true });
       const sponsorPromises = dirents
-        .filter(dirent => dirent.isFile() && dirent.name.endsWith(".json"))
+        .filter((dirent) => dirent.isFile() && dirent.name.endsWith(".json"))
         .map(async (dirent) => {
           const filePath = path.join(sponsorsDir, dirent.name);
           const fileContent = await fs.readFile(filePath, "utf-8");
-          const jsonData = JSON.parse(fileContent);
-          return sponsorSchema.parse(jsonData);
+
+          return sponsorSchema.parse(JSON.parse(fileContent));
         });
       const sponsors = await Promise.all(sponsorPromises);
       return sponsors;

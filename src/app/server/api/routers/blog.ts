@@ -135,7 +135,7 @@ const getPostData = async (
 
     const title = typeof data.title === "string" ? data.title : "Untitled Post";
 
-    const date = data.date;
+    const date = data.date instanceof Date ? data.date : new Date();
     const excerpt = typeof data.excerpt === "string" ? data.excerpt : "";
     const tags = Array.isArray(data.tags)
       ? data.tags.filter((tag): tag is string => typeof tag === "string")
