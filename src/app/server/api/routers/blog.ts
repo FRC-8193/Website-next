@@ -4,11 +4,6 @@ import { TRPCError } from "@trpc/server";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { unified } from "unified";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import rehypeStringify from "rehype-stringify";
-import rehypePrism from "rehype-prism-plus";
 
 const AuthorSchema = z.object({
   name: z.string(),
@@ -81,29 +76,6 @@ const loadAuthors = (): Record<string, z.infer<typeof AuthorSchema>> => {
 const loadedAuthors = loadAuthors();
 
 /**
- * Parse markdown content to HTML
- */
-const markdownToHtml = async (markdown: string): Promise<string> => {
-  try {
-    const result = await unified()
-      .use(remarkParse)
-      .use(remarkRehype)
-      .use(rehypePrism, { ignoreMissing: true })
-      .use(rehypeStringify)
-      .process(markdown);
-    return result.toString();
-  } catch (error) {
-    console.error("Error parsing markdown:", error);
-    // In a tRPC context, you might want to throw an error or handle it differently
-    throw new TRPCError({
-      code: "INTERNAL_SERVER_ERROR",
-      message: "Failed to parse markdown",
-      cause: error,
-    });
-  }
-};
-
-/**
  * Get all blog post slugs
  */
 const getAllPostSlugs = (): string[] => {
@@ -146,8 +118,6 @@ const getPostData = async (
     const frontmatterImageAltData =
       typeof data.imageAlt === "string" ? data.imageAlt : undefined;
 
-    const htmlContent = await markdownToHtml(content);
-
     let authorInfo: z.infer<typeof AuthorSchema> = { name: "Unknown" };
     if (typeof frontmatterAuthorData === "string") {
       authorInfo = loadedAuthors[frontmatterAuthorData] ?? {
@@ -187,7 +157,7 @@ const getPostData = async (
 
     return {
       slug,
-      content: htmlContent,
+      content,
       title,
       date,
       author: authorInfo,
