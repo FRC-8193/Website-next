@@ -17,7 +17,7 @@ const BlogPostCard = ({
 }: BlogPostCardProps) => {
   return (
     <motion.article
-      className="flex h-full flex-col overflow-hidden rounded-lg border border-gray-200 transition-all hover:shadow-lg dark:border-zinc-700"
+      className="flex h-full flex-col overflow-hidden rounded-lg border border-gray-200 transition-all hover:shadow-lg dark:border-zinc-700 dark:shadow-white/20"
       variants={variants}
     >
       <Link href={`/blog/${post.slug}`} className="flex h-full flex-col">

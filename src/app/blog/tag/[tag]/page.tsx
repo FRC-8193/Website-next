@@ -17,8 +17,7 @@ export async function generateMetadata(props: {
   }
 
   return {
-    title: `${decodedTag} | FRC Team 8193 Steel Stingers Blog`,
-    description: `View all blog posts tagged with ${decodedTag}`,
+    title: decodedTag,
   };
 }
 
@@ -50,10 +49,10 @@ export default async function TagPage(props: {
       <div className="mb-12">
         <Back />
 
-        <h1 className="text-4xl font-bold">
+        <h1 className="text-4xl font-bold dark:text-white">
           Posts tagged with &quot;{decodedTag}&quot;
         </h1>
-        <p className="mt-2 text-xl text-gray-600">
+        <p className="mt-2 text-xl text-gray-600 dark:text-zinc-400">
           Found {postsData.length} post{postsData.length !== 1 ? "s" : ""}
         </p>
       </div>
