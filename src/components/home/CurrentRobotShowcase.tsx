@@ -66,7 +66,7 @@ export default function CurrentRobotShowcase() {
   return (
     <motion.section
       ref={sectionRef}
-      className="bg-white text-black"
+      className="bg-white text-black dark:bg-zinc-900 dark:text-white"
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={sectionVariants}
@@ -78,31 +78,31 @@ export default function CurrentRobotShowcase() {
           <motion.div className="text-left" variants={textContainerVariants}>
             <motion.h2
               id="current-robot-heading"
-              className="mb-2 text-3xl font-bold text-black sm:text-4xl lg:text-5xl"
+              className="mb-2 text-3xl font-bold text-black sm:text-4xl lg:text-5xl dark:text-white"
               variants={textChildVariants}
             >
               {robots.data?.[0]?.name} - {robots.data?.[0]?.year}
             </motion.h2>
             <motion.p
-              className="mb-4 text-sm font-medium text-[#333] sm:text-base"
+              className="mb-4 text-sm font-medium text-[#333] sm:text-base dark:text-zinc-300"
               variants={textChildVariants}
             >
               {robots.data?.[0]?.game}
             </motion.p>
             <motion.p
-              className="mb-6 text-base text-[#333] sm:text-lg"
+              className="mb-6 text-base text-[#333] sm:text-lg dark:text-zinc-300"
               variants={textChildVariants}
             >
               {robots.data?.[0]?.description}
             </motion.p>
 
             <motion.h3
-              className="mb-3 text-xl font-semibold text-black sm:text-2xl"
+              className="mb-3 text-xl font-semibold text-black sm:text-2xl dark:text-white"
               variants={textChildVariants}
             >
               Key Features:
             </motion.h3>
-            <motion.ul className="mb-8 list-inside list-disc space-y-2 text-[#333]">
+            <motion.ul className="mb-8 list-inside list-disc space-y-2 text-[#333] dark:text-zinc-300">
               {robots.data?.[0]?.features.map((feature, index) => (
                 <motion.li
                   key={feature}
@@ -119,7 +119,7 @@ export default function CurrentRobotShowcase() {
                 variants={buttonVariants}
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
-                className="inline-block rounded-md bg-black px-8 py-3 text-base font-semibold text-white transition-colors duration-300 hover:bg-[#333] focus:ring-2 focus:ring-black focus:ring-offset-2 focus:outline-none active:bg-gray-700 sm:text-lg"
+                className="inline-block rounded-md bg-black px-8 py-3 text-base font-semibold text-white transition-colors duration-300 hover:bg-[#333] focus:ring-2 focus:ring-black focus:ring-offset-2 focus:outline-none active:bg-gray-700 sm:text-lg dark:bg-white dark:text-black dark:hover:bg-gray-200 dark:focus:ring-white"
               >
                 Meet Our Robots
               </motion.div>

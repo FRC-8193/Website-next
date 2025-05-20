@@ -17,7 +17,7 @@ const BlogPostCard = ({
 }: BlogPostCardProps) => {
   return (
     <motion.article
-      className="flex h-full flex-col overflow-hidden rounded-lg border border-gray-200 transition-all hover:shadow-lg"
+      className="flex h-full flex-col overflow-hidden rounded-lg border border-gray-200 transition-all hover:shadow-lg dark:border-zinc-700"
       variants={variants}
     >
       <Link href={`/blog/${post.slug}`} className="flex h-full flex-col">
@@ -34,7 +34,7 @@ const BlogPostCard = ({
         )}
         <div className="flex flex-grow flex-col p-6">
           <div className="mb-4 flex flex-wrap items-center gap-2">
-            <time className="text-sm text-gray-500">
+            <time className="text-sm text-gray-500 dark:text-zinc-400">
               {new Date(post.date).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
@@ -46,16 +46,20 @@ const BlogPostCard = ({
                 key={tag}
                 className={`rounded-full px-2 py-1 text-xs font-medium ${
                   tag === highlightedTag
-                    ? "bg-black text-white"
-                    : "bg-gray-100 text-gray-700"
+                    ? "bg-black text-white dark:bg-white dark:text-black"
+                    : "bg-gray-100 text-gray-700 dark:bg-zinc-700 dark:text-zinc-300"
                 }`}
               >
                 {tag}
               </span>
             ))}
           </div>
-          <h2 className="mb-2 text-2xl font-bold text-black">{post.title}</h2>
-          <p className="mb-4 flex-grow text-gray-700">{post.excerpt}</p>
+          <h2 className="mb-2 text-2xl font-bold text-black dark:text-white">
+            {post.title}
+          </h2>
+          <p className="mb-4 flex-grow text-gray-700 dark:text-zinc-300">
+            {post.excerpt}
+          </p>
           <div className="mt-auto">
             <AuthorInfo author={post.author} size="sm" />
           </div>

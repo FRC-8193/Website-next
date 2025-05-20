@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/sheet";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 type NavItem = {
   label: string;
@@ -37,7 +38,7 @@ export default function Header() {
 
   return (
     <motion.header
-      className="sticky top-0 z-50 w-full border-b border-zinc-200 bg-white/80 backdrop-blur-sm"
+      className="sticky top-0 z-50 w-full border-b border-zinc-200 bg-white/80 backdrop-blur-sm dark:border-zinc-700 dark:bg-zinc-900"
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -52,7 +53,7 @@ export default function Header() {
               height={75}
               draggable={false}
             />
-            <span className="text-xl font-bold text-black">
+            <span className="text-xl font-bold text-black dark:text-white">
               The Steel Stingers
             </span>
           </Link>
@@ -62,16 +63,16 @@ export default function Header() {
             <SheetTrigger asChild>
               <button
                 aria-label="Open navigation menu"
-                className="p-2 text-black focus:ring-2 focus:ring-black focus:outline-none focus:ring-inset"
+                className="p-2 text-black focus:ring-2 focus:ring-black focus:outline-none focus:ring-inset dark:text-white dark:focus:ring-white"
               >
                 <MenuIcon size={24} />
               </button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
               <SheetHeader className="mb-6">
-                <SheetTitle className="text-left text-2xl font-bold text-black">
+                {/* <SheetTitle className="text-left text-2xl font-bold text-black dark:text-white">
                   The Steel Stingers
-                </SheetTitle>
+                </SheetTitle> */}
               </SheetHeader>
               <nav>
                 <div className="flex flex-col items-center space-y-2">
@@ -86,8 +87,8 @@ export default function Header() {
                             variant={isActive ? "secondary" : "ghost"}
                             className={`w-40 justify-center text-lg ${
                               isActive
-                                ? "font-semibold text-black"
-                                : "text-zinc-700"
+                                ? "font-semibold text-black dark:text-white"
+                                : "text-zinc-700 dark:text-zinc-300"
                             }`}
                             asChild
                           >
@@ -101,10 +102,13 @@ export default function Header() {
                   })}
                 </div>
               </nav>
+              <div className="mt-auto flex justify-center pb-6">
+                <ThemeToggle />
+              </div>
             </SheetContent>
           </Sheet>
         ) : (
-          <nav>
+          <nav className="flex items-center space-x-8">
             <ul className="flex space-x-8">
               {navItems.map((item) => {
                 const isActive =
@@ -114,8 +118,10 @@ export default function Header() {
                   <li key={item.href}>
                     <Link
                       href={item.href}
-                      className={`text-zinc-600 transition-colors hover:text-black ${
-                        isActive ? "font-bold text-black" : ""
+                      className={`transition-colors hover:text-black dark:hover:text-white ${
+                        isActive
+                          ? "font-bold text-black dark:text-white"
+                          : "text-zinc-600 dark:text-zinc-300"
                       }`}
                     >
                       {item.label}
@@ -124,6 +130,7 @@ export default function Header() {
                 );
               })}
             </ul>
+            <ThemeToggle />
           </nav>
         )}
       </div>

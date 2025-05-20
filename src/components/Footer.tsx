@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { SlSocialFacebook } from "react-icons/sl";
 import { FaGithub } from "react-icons/fa6";
 import SocialIcon from "@/components/ui/SocialIcon";
-
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 export default function Footer() {
   const pathname = usePathname();
 
@@ -17,7 +17,7 @@ export default function Footer() {
 
   return (
     <motion.footer
-      className="border-t border-zinc-200 bg-white py-12"
+      className="border-t border-zinc-200 bg-white py-12 dark:border-zinc-700 dark:bg-zinc-900"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.5, duration: 0.5 }}
@@ -33,24 +33,25 @@ export default function Footer() {
                 height={50}
                 draggable={false}
               />
-              <span className="flex text-xl font-bold text-black">
+              <span className="flex text-xl font-bold text-black dark:text-white">
                 Steel Stingers
               </span>
             </div>
-            <p className="text-sm text-zinc-600">
+            <p className="mb-4 text-sm text-zinc-600 dark:text-zinc-300">
               FRC Team 8193 from New Lothrop, Michigan
             </p>
+            <ThemeToggle />
           </div>
 
           <div>
-            <h4 className="mb-4 text-sm font-semibold text-black uppercase">
+            <h4 className="mb-4 text-sm font-semibold text-black uppercase dark:text-white">
               Quick Links
             </h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
                   href="/blog"
-                  className="text-zinc-600 transition-colors hover:text-black"
+                  className="text-zinc-600 transition-colors hover:text-black dark:text-zinc-300 dark:hover:text-white"
                 >
                   Blog
                 </Link>
@@ -58,7 +59,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/robots"
-                  className="text-zinc-600 transition-colors hover:text-black"
+                  className="text-zinc-600 transition-colors hover:text-black dark:text-zinc-300 dark:hover:text-white"
                 >
                   Our Robots
                 </Link>
@@ -66,7 +67,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/contact"
-                  className="text-zinc-600 transition-colors hover:text-black"
+                  className="text-zinc-600 transition-colors hover:text-black dark:text-zinc-300 dark:hover:text-white"
                 >
                   Contact
                 </Link>
@@ -75,14 +76,14 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-4 text-sm font-semibold text-black uppercase">
+            <h4 className="mb-4 text-sm font-semibold text-black uppercase dark:text-white">
               Support
             </h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
                   href="/#sponsors"
-                  className="text-zinc-600 transition-colors hover:text-black"
+                  className="text-zinc-600 transition-colors hover:text-black dark:text-zinc-300 dark:hover:text-white"
                 >
                   Our Sponsors
                 </Link>
@@ -90,7 +91,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/donate"
-                  className="text-zinc-600 transition-colors hover:text-black"
+                  className="text-zinc-600 transition-colors hover:text-black dark:text-zinc-300 dark:hover:text-white"
                 >
                   Donate
                 </Link>
@@ -99,17 +100,17 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="mb-4 text-sm font-semibold text-black uppercase">
+            <h4 className="mb-4 text-sm font-semibold text-black uppercase dark:text-white">
               Contact
             </h4>
             <address className="not-italic">
-              <p className="mb-2 text-sm text-zinc-600">
+              <p className="mb-2 text-sm text-zinc-600 dark:text-zinc-300">
                 New Lothrop Area Public Schools
               </p>
-              <p className="mb-2 text-sm text-zinc-600">
+              <p className="mb-2 text-sm text-zinc-600 dark:text-zinc-300">
                 <Link
                   href="mailto:robotics@newlothrop.k12.mi.us"
-                  className="text-zinc-600 transition-colors hover:text-black"
+                  className="text-zinc-600 transition-colors hover:text-black dark:text-zinc-300 dark:hover:text-white"
                 >
                   robotics@newlothrop.k12.mi.us
                 </Link>

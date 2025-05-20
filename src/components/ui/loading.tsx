@@ -5,8 +5,10 @@ const sizeClasses = {
 };
 
 const colorClasses = {
-  white: "border-gray-500 border-t-white",
-  black: "border-gray-200 border-t-black",
+  white:
+    "border-gray-500 border-t-white dark:border-gray-300 dark:border-t-black",
+  black:
+    "border-gray-200 border-t-black dark:border-zinc-500 dark:border-t-white",
 };
 
 interface LoadingSpinnerProps {

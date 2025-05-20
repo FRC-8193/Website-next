@@ -38,7 +38,7 @@ export default function LatestBlogPost() {
   if (posts.isLoading) {
     return (
       <section>
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-4 text-black dark:text-white">
           <LoadingSpinner />
           Loading latest post...
         </div>
@@ -49,7 +49,7 @@ export default function LatestBlogPost() {
   return (
     <motion.section
       ref={sectionRef}
-      className="text-black"
+      className="text-black dark:text-white"
       variants={sectionVariants}
       initial="hidden"
       // animate={isInView ? "visible" : "hidden"} TODO: fix in view animation
@@ -62,7 +62,9 @@ export default function LatestBlogPost() {
             An error occurred while loading posts.
           </h1>
         ) : posts.data?.length === 0 ? (
-          <h1 className="text-center text-lg">No posts available.</h1>
+          <h1 className="text-center text-lg dark:text-white">
+            No posts available.
+          </h1>
         ) : (
           <motion.div variants={itemVariants}>
             <BlogPosts
@@ -79,13 +81,13 @@ export default function LatestBlogPost() {
           variants={itemVariants}
         >
           <motion.h2
-            className="mb-4 text-3xl font-bold text-black sm:text-4xl lg:text-5xl"
+            className="mb-4 text-3xl font-bold text-black sm:text-4xl lg:text-5xl dark:text-white"
             variants={itemVariants}
           >
             Latest Blog Post
           </motion.h2>
           <motion.p
-            className="mb-6 text-[#333] sm:text-lg"
+            className="mb-6 text-[#333] sm:text-lg dark:text-zinc-300"
             variants={itemVariants}
           >
             Discover the latest news, updates, and stories from our team. We
@@ -96,7 +98,7 @@ export default function LatestBlogPost() {
               variants={itemVariants}
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
-              className="inline-block cursor-pointer rounded-md bg-black px-8 py-3 text-base font-semibold text-white transition-colors duration-300 hover:bg-[#333] focus:ring-2 focus:ring-black focus:ring-offset-2 focus:outline-none active:bg-gray-700 sm:text-lg"
+              className="inline-block cursor-pointer rounded-md bg-black px-8 py-3 text-base font-semibold text-white transition-colors duration-300 hover:bg-[#333] focus:ring-2 focus:ring-black focus:ring-offset-2 focus:outline-none active:bg-gray-700 sm:text-lg dark:bg-white dark:text-black dark:hover:bg-gray-200 dark:focus:ring-white"
             >
               Explore All Posts
             </motion.div>

@@ -8,6 +8,8 @@ import { type ChangeEvent, type FormEvent, useState } from "react";
 import SocialIcon from "@/components/ui/SocialIcon";
 import Link from "next/link";
 import { api } from "~/app/trpc/react";
+import { Turnstile } from "next-turnstile";
+import { env } from "@/env";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -42,8 +44,9 @@ const buttonVariants = {
 };
 
 const inputClasses =
-  "mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-black sm:text-sm placeholder-gray-400 transition-shadow hover:shadow-md";
-const labelClasses = "block text-sm font-medium text-gray-700 mb-1";
+  "mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-black sm:text-sm placeholder-gray-400 transition-shadow hover:shadow-md dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-white dark:focus:border-white";
+const labelClasses =
+  "block text-sm font-medium text-gray-700 mb-1 dark:text-zinc-300";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -63,7 +66,13 @@ export default function ContactPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+
   const sendEmail = api.email.sendContactEmail.useMutation();
+  const email = api.email.get.useQuery(
+    { turnstileToken: turnstileToken || "" },
+    { enabled: !!turnstileToken },
+  );
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -74,6 +83,7 @@ export default function ContactPage() {
       email: formData.email,
       subject: formData.subject,
       message: formData.message,
+      turnstileToken: turnstileToken ?? "",
     });
 
     await new Promise((resolve) => setTimeout(resolve, 1500));
@@ -88,17 +98,17 @@ export default function ContactPage() {
 
   return (
     <motion.div
-      className="min-h-screen bg-white px-4 py-16 text-black sm:px-6 sm:py-24 lg:px-8"
+      className="min-h-screen bg-white px-4 py-16 text-black sm:px-6 sm:py-24 lg:px-8 dark:bg-zinc-900 dark:text-white"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
     >
       <div className="mx-auto max-w-5xl">
         <motion.header className="mb-16 text-center" variants={itemVariants}>
-          <h1 className="text-5xl font-bold tracking-tight text-black sm:text-6xl">
+          <h1 className="text-5xl font-bold tracking-tight text-black sm:text-6xl dark:text-white">
             Contact Us
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600">
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600 dark:text-zinc-300">
             Use the form below to send us an email or reach out through our
             other channels.
           </p>
@@ -106,11 +116,12 @@ export default function ContactPage() {
 
         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-5">
           <motion.section
-            className="rounded-xl bg-gray-50 p-8 shadow-lg lg:col-span-3"
+            className="rounded-xl bg-gray-50 p-8 shadow-lg lg:col-span-3 dark:bg-zinc-700"
             variants={itemVariants}
           >
-            <h2 className="mb-8 flex items-center text-3xl font-semibold text-black">
-              <Send size={28} className="mr-3 text-black" /> Send a Message
+            <h2 className="mb-8 flex items-center text-3xl font-semibold text-black dark:text-white">
+              <Send size={28} className="mr-3 text-black dark:text-white" />{" "}
+              Send a Message
             </h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <motion.div variants={itemVariants}>
@@ -119,7 +130,10 @@ export default function ContactPage() {
                 </label>
                 <div className="relative">
                   <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <User size={18} className="text-gray-400" />
+                    <User
+                      size={18}
+                      className="text-gray-400 dark:text-zinc-400"
+                    />
                   </div>
                   <input
                     type="text"
@@ -140,7 +154,10 @@ export default function ContactPage() {
                 </label>
                 <div className="relative">
                   <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <Mail size={18} className="text-gray-400" />
+                    <Mail
+                      size={18}
+                      className="text-gray-400 dark:text-zinc-400"
+                    />
                   </div>
                   <input
                     type="email"
@@ -161,7 +178,10 @@ export default function ContactPage() {
                 </label>
                 <div className="relative">
                   <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <Briefcase size={18} className="text-gray-400" />
+                    <Briefcase
+                      size={18}
+                      className="text-gray-400 dark:text-zinc-400"
+                    />
                   </div>
                   <input
                     type="text"
@@ -184,7 +204,10 @@ export default function ContactPage() {
                   <div className="pointer-events-none absolute top-3 left-0 flex items-center pl-3">
                     {" "}
                     {/* Adjusted for textarea */}
-                    <MessageSquare size={18} className="text-gray-400" />
+                    <MessageSquare
+                      size={18}
+                      className="text-gray-400 dark:text-zinc-400"
+                    />
                   </div>
                   <textarea
                     name="message"
@@ -199,14 +222,20 @@ export default function ContactPage() {
                   />
                 </div>
               </motion.div>
+              <Turnstile
+                siteKey={env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+                refreshExpired="auto"
+                onVerify={setTurnstileToken}
+                onExpire={() => setTurnstileToken(null)}
+              />
               <motion.div
                 variants={buttonVariants}
                 whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
               >
                 <button
                   type="submit"
-                  disabled={isSubmitting}
-                  className="group flex w-full items-center justify-center rounded-lg border border-transparent bg-black px-6 py-3 text-base font-medium text-white shadow-md transition-all duration-150 ease-in-out hover:bg-gray-800 focus:ring-2 focus:ring-black focus:ring-offset-2 focus:outline-none disabled:opacity-50"
+                  disabled={isSubmitting || !turnstileToken}
+                  className="group flex w-full items-center justify-center rounded-lg border border-transparent bg-black px-6 py-3 text-base font-medium text-white shadow-md transition-all duration-150 ease-in-out hover:bg-gray-800 focus:ring-2 focus:ring-black focus:ring-offset-2 focus:outline-none disabled:opacity-50 dark:bg-white dark:text-black dark:hover:bg-gray-200 dark:focus:ring-white"
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}
                   <Send
@@ -219,7 +248,7 @@ export default function ContactPage() {
                 <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="rounded-md border border-green-200 bg-green-100 p-4 text-sm text-green-600"
+                  className="rounded-md border border-green-200 bg-green-100 p-4 text-sm text-green-600 dark:border-green-700 dark:bg-green-900 dark:text-green-300"
                 >
                   Message sent successfully! We'll get back to you soon.
                 </motion.p>
@@ -228,7 +257,7 @@ export default function ContactPage() {
                 <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="rounded-md border border-red-200 bg-red-100 p-4 text-sm text-red-600"
+                  className="rounded-md border border-red-200 bg-red-100 p-4 text-sm text-red-600 dark:border-red-700 dark:bg-red-900 dark:text-red-300"
                 >
                   Failed to send message. Please try again later or contact us
                   directly via email.
@@ -244,28 +273,38 @@ export default function ContactPage() {
             variants={containerVariants}
           >
             <motion.div
-              className="rounded-xl bg-gray-50 p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl"
+              className="rounded-xl bg-gray-50 p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl dark:bg-zinc-700"
               variants={itemVariants}
             >
-              <h3 className="mb-4 flex items-center text-2xl font-semibold text-black">
-                <Mail size={24} className="mr-3 text-black" /> Email Us
+              <h3 className="mb-4 flex items-center text-2xl font-semibold text-black dark:text-white">
+                <Mail size={24} className="mr-3 text-black dark:text-white" />{" "}
+                Email Us
               </h3>
-              <Link
-                href="mailto:robotics@newlothrop.k12.mi.us"
-                className="text-lg font-medium break-all text-black hover:underline"
-              >
-                robotics@newlothrop.k12.mi.us
-              </Link>
+              {turnstileToken ? (
+                <Link
+                  href={`mailto:${email.data}`}
+                  className="text-lg font-medium break-all text-black hover:underline dark:text-white"
+                >
+                  {email.data || "Loading..."}
+                </Link>
+              ) : (
+                <>
+                  <p className="text-lg font-medium text-gray-500 dark:text-gray-400">
+                    Complete the verification below the form to view email
+                    address
+                  </p>
+                </>
+              )}
             </motion.div>
 
             <motion.div
-              className="rounded-xl bg-gray-50 p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl"
+              className="rounded-xl bg-gray-50 p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl dark:bg-zinc-700"
               variants={itemVariants}
             >
-              <h3 className="mb-4 text-2xl font-semibold text-black">
+              <h3 className="mb-4 text-2xl font-semibold text-black dark:text-white">
                 Connect on Social Media
               </h3>
-              <p className="mb-6 text-gray-600">
+              <p className="mb-6 text-gray-600 dark:text-zinc-300">
                 Follow our journey, see our robots in action, and get the latest
                 updates from Team 8193.
               </p>

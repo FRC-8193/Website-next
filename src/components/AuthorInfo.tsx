@@ -21,12 +21,12 @@ export const AuthorInfo = ({
     <div className={`flex flex-col gap-2 ${className}`}>
       <div className="flex items-center gap-3">
         <div>
-          <div className={`font-medium ${sizeClasses[size]}`}>
+          <div className={`font-medium ${sizeClasses[size]} dark:text-white`}>
             {author.name}
           </div>
           {author.role && (
             <div
-              className={`${size === "sm" ? "text-xs" : "text-sm"} text-gray-500`}
+              className={`${size === "sm" ? "text-xs" : "text-sm"} text-gray-500 dark:text-zinc-400`}
             >
               {author.role}
             </div>

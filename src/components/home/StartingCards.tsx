@@ -50,14 +50,14 @@ export default function StartingCards() {
       <motion.li variants={itemVariants}>
         <Card className="h-full border-zinc-200 transition-all duration-300 hover:shadow-xl">
           <CardHeader>
-            <RocketIcon className="mb-2 h-6 w-6 text-black" />
+            <RocketIcon className="mb-2 h-6 w-6 text-black dark:text-white" />
             <CardTitle>Our Mission</CardTitle>
             <CardDescription>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-zinc-600">
+            <p className="text-zinc-600 dark:text-zinc-300">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
               eiusmod tempor incididunt ut labore et dolore
             </p>
@@ -73,14 +73,14 @@ export default function StartingCards() {
       <motion.li variants={itemVariants}>
         <Card className="h-full border-zinc-200 transition-all duration-300 hover:shadow-xl">
           <CardHeader>
-            <InfoIcon className="mb-2 h-6 w-6 text-black" />
+            <InfoIcon className="mb-2 h-6 w-6 text-black dark:text-white" />
             <CardTitle>About Us</CardTitle>
             <CardDescription>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-zinc-600">
+            <p className="text-zinc-600 dark:text-zinc-300">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
               eiusmod tempor incididunt ut labore
             </p>
@@ -96,12 +96,12 @@ export default function StartingCards() {
       <motion.li variants={itemVariants}>
         <Card className="h-full border-zinc-200 transition-all duration-300 hover:shadow-xl">
           <CardHeader>
-            <Book className="mb-2 h-6 w-6 text-black" />
+            <Book className="mb-2 h-6 w-6 text-black dark:text-white" />
             <CardTitle>Read Our Blog</CardTitle>
             <CardDescription>Lorem ipsum dolor sit amet.</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-zinc-600">
+            <p className="text-zinc-600 dark:text-zinc-300">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
               eiusmod tempor incididunt ut labore et dolore
             </p>

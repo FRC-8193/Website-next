@@ -36,14 +36,16 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
   return (
     <motion.main
       ref={pageRef}
-      className="container mx-auto px-4 py-12"
+      className="container mx-auto px-4 py-12 dark:bg-zinc-900"
       variants={containerVariants}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
     >
       <motion.div variants={itemVariants} className="mb-12 text-center">
-        <h1 className="mb-4 text-4xl font-bold text-black">Team Blog</h1>
-        <p className="mx-auto max-w-2xl text-xl text-gray-700">
+        <h1 className="mb-4 text-4xl font-bold text-black dark:text-white">
+          Team Blog
+        </h1>
+        <p className="mx-auto max-w-2xl text-xl text-gray-700 dark:text-zinc-300">
           Latest news, updates, and stories from FRC Team 8193 Steel Stingers
         </p>
       </motion.div>
@@ -55,10 +57,10 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
       {tags.length > 0 && (
         <motion.div
           variants={itemVariants}
-          className="mt-12 border-t border-gray-200 pt-8"
+          className="mt-12 border-t border-gray-200 pt-8 dark:border-zinc-700"
         >
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <h3 className="mr-3 text-lg font-semibold text-gray-700">
+            <h3 className="mr-3 text-lg font-semibold text-gray-700 dark:text-zinc-300">
               Filter by tags:
             </h3>
             {tags.map((tag) => (
@@ -70,7 +72,7 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
                 <Link href={`/blog/tag/${tag}`}>
                   <Badge
                     variant="outline"
-                    className="px-3 py-1 text-sm transition-colors hover:bg-gray-100"
+                    className="px-3 py-1 text-sm transition-colors hover:bg-gray-100 dark:hover:bg-zinc-700"
                   >
                     {tag}
                   </Badge>

@@ -1,0 +1,14 @@
+.infiniteScroll {
+  animation: infinite-scroll 25s linear infinite;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+@keyframes infinite-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}

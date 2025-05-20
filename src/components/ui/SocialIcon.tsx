@@ -17,7 +17,7 @@ export default function SocialIcon({
   label,
   variants,
   iconSize = 28,
-  className = "text-gray-500 hover:text-black transition-colors",
+  className = "text-gray-500 hover:text-black transition-colors dark:text-zinc-300 dark:hover:text-white",
   hoverScale = 1.1,
 }: SocialIconProps) {
   return (

@@ -102,31 +102,31 @@ export default function RobotCard({ robot, index }: RobotCardProps) {
             variants={textContainerVariants}
           >
             <motion.h2
-              className="mb-2 text-3xl font-bold text-black sm:text-4xl"
+              className="mb-2 text-3xl font-bold text-black sm:text-4xl dark:text-white"
               variants={textChildVariants}
             >
               {robot.name} - {robot.year}
             </motion.h2>
             <motion.p
-              className="mb-4 text-sm font-medium text-[#333] sm:text-base"
+              className="mb-4 text-sm font-medium text-[#333] sm:text-base dark:text-zinc-300"
               variants={textChildVariants}
             >
               {robot.game}
             </motion.p>
             <motion.p
-              className="mb-6 text-base text-[#333] sm:text-lg"
+              className="mb-6 text-base text-[#333] sm:text-lg dark:text-zinc-300"
               variants={textChildVariants}
             >
               {robot.description}
             </motion.p>
 
             <motion.h3
-              className="mb-3 text-xl font-semibold text-black sm:text-2xl"
+              className="mb-3 text-xl font-semibold text-black sm:text-2xl dark:text-white"
               variants={textChildVariants}
             >
               Key Features:
             </motion.h3>
-            <motion.ul className="mb-8 list-inside list-disc space-y-2 text-[#333]">
+            <motion.ul className="mb-8 list-inside list-disc space-y-2 text-[#333] dark:text-zinc-300">
               {robot.features.map((feature, featureIndex) => (
                 <motion.li
                   key={`${robot.id}-feature-${featureIndex}`}
