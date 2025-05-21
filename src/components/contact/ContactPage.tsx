@@ -71,7 +71,11 @@ export default function ContactPage() {
   const sendEmail = api.email.sendContactEmail.useMutation();
   const email = api.email.get.useQuery(
     { turnstileToken: turnstileToken ?? "" },
-    { enabled: !!turnstileToken },
+    {
+      enabled: !!turnstileToken,
+      staleTime: Infinity,
+      refetchOnWindowFocus: false,
+    },
   );
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -116,7 +120,7 @@ export default function ContactPage() {
 
         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-5">
           <motion.section
-            className="rounded-xl bg-gray-50 p-8 shadow-lg lg:col-span-3 dark:bg-zinc-700"
+            className="rounded-xl bg-gray-50 p-8 shadow-lg transition-all duration-300 hover:shadow-xl lg:col-span-3 dark:bg-zinc-800 dark:shadow-white/20"
             variants={itemVariants}
           >
             <h2 className="mb-8 flex items-center text-3xl font-semibold text-black dark:text-white">
@@ -273,7 +277,7 @@ export default function ContactPage() {
             variants={containerVariants}
           >
             <motion.div
-              className="rounded-xl bg-gray-50 p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl dark:bg-zinc-700"
+              className="rounded-xl bg-gray-50 p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl dark:bg-zinc-800 dark:shadow-white/20"
               variants={itemVariants}
             >
               <h3 className="mb-4 flex items-center text-2xl font-semibold text-black dark:text-white">
@@ -298,7 +302,7 @@ export default function ContactPage() {
             </motion.div>
 
             <motion.div
-              className="rounded-xl bg-gray-50 p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl dark:bg-zinc-700"
+              className="rounded-xl bg-gray-50 p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl dark:bg-zinc-800 dark:shadow-white/20"
               variants={itemVariants}
             >
               <h3 className="mb-4 text-2xl font-semibold text-black dark:text-white">
@@ -306,7 +310,7 @@ export default function ContactPage() {
               </h3>
               <p className="mb-6 text-gray-600 dark:text-zinc-300">
                 Follow our journey, see our robots in action, and get the latest
-                updates from Team 8193.
+                updates from The Steel Stingers.
               </p>
               <div className="flex flex-wrap gap-x-6 gap-y-4">
                 <SocialIcon

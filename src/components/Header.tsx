@@ -47,7 +47,7 @@ export default function Header() {
           <Link href="/" className="flex items-center space-x-2">
             <Image
               src="/images/team-logo-transparent.png"
-              alt="Steel Stingers Logo"
+              alt="The Steel Stingers Logo"
               width={75}
               height={75}
               draggable={false}

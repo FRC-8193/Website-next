@@ -46,7 +46,8 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
           Team Blog
         </h1>
         <p className="mx-auto max-w-2xl text-xl text-gray-700 dark:text-zinc-300">
-          Latest news, updates, and stories from FRC Team 8193 Steel Stingers
+          Latest news, updates, and stories from FRC Team 8193 The Steel
+          Stingers
         </p>
       </motion.div>
 
