@@ -24,7 +24,7 @@ export default function Footer() {
       transition={{ delay: 0.5, duration: 0.5 }}
     >
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div>
             <div className="flex flex-row items-center gap-2 pb-3">
               <Image
@@ -73,14 +73,6 @@ export default function Footer() {
                   Contact
                 </Link>
               </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="mb-4 text-sm font-semibold text-black uppercase dark:text-white">
-              Support
-            </h4>
-            <ul className="space-y-2 text-sm">
               <li>
                 <Link
                   href="/#sponsors"
@@ -89,17 +81,8 @@ export default function Footer() {
                   Our Sponsors
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/donate"
-                  className="text-zinc-600 transition-colors hover:text-black dark:text-zinc-300 dark:hover:text-white"
-                >
-                  Donate
-                </Link>
-              </li>
             </ul>
           </div>
-
           <div>
             <h4 className="mb-4 text-sm font-semibold text-black uppercase dark:text-white">
               Contact
