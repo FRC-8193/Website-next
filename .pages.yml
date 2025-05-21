@@ -223,3 +223,19 @@ content:
       default:
         sort: name
         order: asc
+
+  # Whitelisted Emails
+  - name: whitelisted_emails
+    label: Whitelisted Emails
+    type: file
+    path: src/content
+    filename: "whitelisted-user-emails.json"
+    fields:
+      - name: emails
+        label: Allowed Users
+        type: select
+        required: true
+        description: "A list of the emails of the allowed users."
+        options:
+          creatable: true
+          multiple: true
