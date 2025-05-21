@@ -228,8 +228,7 @@ content:
   - name: whitelisted_emails
     label: Whitelisted Emails
     type: file
-    path: src/content
-    filename: "whitelisted-user-emails.json"
+    path: src/content/whitelisted-user-emails.json
     fields:
       - name: emails
         label: Allowed Users
