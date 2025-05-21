@@ -125,7 +125,9 @@ export default function Header() {
                 );
               })}
             </ul>
-            <ThemeToggle />
+            <div className="absolute right-10">
+              <ThemeToggle />
+            </div>
           </nav>
         )}
       </div>
