@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { SlSocialFacebook } from "react-icons/sl";
 import { FaGithub } from "react-icons/fa6";
+import { FaGlobe } from "react-icons/fa";
 import SocialIcon from "@/components/ui/SocialIcon";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 export default function Footer() {
@@ -107,16 +108,13 @@ export default function Footer() {
               <p className="mb-2 text-sm text-zinc-600 dark:text-zinc-300">
                 New Lothrop Area Public Schools
               </p>
-              <p className="mb-2 text-sm text-zinc-600 dark:text-zinc-300">
-                <Link
-                  href="mailto:robotics@newlothrop.k12.mi.us"
-                  className="text-zinc-600 transition-colors hover:text-black dark:text-zinc-300 dark:hover:text-white"
-                >
-                  robotics@newlothrop.k12.mi.us
-                </Link>
-              </p>
             </address>
             <div className="mt-4 flex space-x-4">
+              <SocialIcon
+                href="https://www.newlothrop.k12.mi.us/"
+                icon={FaGlobe}
+                label="Website"
+              />
               <SocialIcon
                 href="https://github.com/FRC-8193"
                 icon={FaGithub}
