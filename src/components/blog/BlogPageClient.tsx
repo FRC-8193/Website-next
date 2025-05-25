@@ -3,8 +3,7 @@
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import BlogPosts from "@/components/blog/BlogPosts";
-import { motion, useInView } from "motion/react";
-import { useRef } from "react";
+import { motion } from "motion/react";
 import type { BlogPost } from "@/lib/types";
 
 interface BlogPageClientProps {
@@ -13,16 +12,6 @@ interface BlogPageClientProps {
 }
 
 export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
-  const pageRef = useRef(null);
-  const isInView = useInView(pageRef, { once: true, amount: 0.1 });
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-    },
-  };
-
   const itemVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -33,19 +22,28 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
     },
   };
 
+  const headerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
   return (
     <motion.main
-      ref={pageRef}
-      className="container mx-auto px-4 py-12 dark:bg-zinc-900"
-      variants={containerVariants}
+      className="min-h-screen bg-white px-4 py-16 text-black sm:px-6 sm:py-24 lg:px-8 dark:bg-zinc-900 dark:text-white"
       initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      animate="visible"
     >
-      <motion.div variants={itemVariants} className="mb-12 text-center">
-        <h1 className="mb-4 text-4xl font-bold text-black dark:text-white">
+      <motion.div variants={headerVariants} className="mb-16 text-center">
+        <h1 className="text-5xl font-bold tracking-tight text-black sm:text-6xl dark:text-white">
           Team Blog
         </h1>
-        <p className="mx-auto max-w-2xl text-xl text-gray-700 dark:text-zinc-300">
+        <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600 dark:text-zinc-300">
           Latest news, updates, and stories from FRC Team 8193 The Steel
           Stingers
         </p>

@@ -11,17 +11,17 @@ import { api } from "~/app/trpc/react";
 import { Turnstile } from "next-turnstile";
 import { env } from "@/env";
 
-const containerVariants = {
+const itemVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
+      duration: 1,
     },
   },
 };
 
-const itemVariants = {
+const headerVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
@@ -105,10 +105,9 @@ export default function ContactPage() {
       className="min-h-screen bg-white px-4 py-16 text-black sm:px-6 sm:py-24 lg:px-8 dark:bg-zinc-900 dark:text-white"
       initial="hidden"
       animate="visible"
-      variants={containerVariants}
     >
       <div className="mx-auto max-w-5xl">
-        <motion.header className="mb-16 text-center" variants={itemVariants}>
+        <motion.header className="mb-16 text-center" variants={headerVariants}>
           <h1 className="text-5xl font-bold tracking-tight text-black sm:text-6xl dark:text-white">
             Contact Us
           </h1>
@@ -274,7 +273,6 @@ export default function ContactPage() {
             className="space-y-8 lg:col-span-2"
             initial="hidden"
             animate="visible"
-            variants={containerVariants}
           >
             <motion.div
               className="rounded-xl bg-gray-50 p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl dark:bg-zinc-800 dark:shadow-white/20"

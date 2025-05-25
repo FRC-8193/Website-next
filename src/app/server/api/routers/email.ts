@@ -33,7 +33,7 @@ export const emailRouter = createTRPCRouter({
     .input(
       z.object({
         name: z.string(),
-        email: z.string(),
+        email: z.string().email(),
         subject: z.string(),
         message: z.string(),
         turnstileToken: z.string(),
