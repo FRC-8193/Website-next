@@ -224,17 +224,17 @@ content:
         sort: name
         order: asc
 
-  # Whitelisted Emails
-  - name: whitelisted_emails
-    label: Whitelisted Emails
+  # Whitelisted CMS Users
+  - name: whitelisted_cms_users
+    label: Whitelisted CMS Users
     type: file
-    path: src/content/whitelisted-user-emails.json
+    path: src/content/whitelisted-cms-users.json
     fields:
-      - name: emails
+      - name: users
         label: Allowed Users
         type: select
         required: true
-        description: "A list of the emails of the allowed users."
+        description: "A list of the usernames of the allowed users."
         options:
           creatable: true
           multiple: true
