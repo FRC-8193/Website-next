@@ -4,7 +4,7 @@ import { type Metadata } from "next";
 import { Inter, JetBrains_Mono, Montserrat } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { TRPCReactProvider } from "../trpc/react";
+import { TRPCReactProvider } from "@/app/trpc/react";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 
 export const metadata: Metadata = {
@@ -39,6 +39,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} ${jetbrainsMono.variable} ${montserrat.variable}`}
+      suppressHydrationWarning /* Official next-themes docs says this is needed */
     >
       <body className="min-h-screen bg-white text-black antialiased dark:bg-zinc-900">
         <ThemeProvider

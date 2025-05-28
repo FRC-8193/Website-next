@@ -51,6 +51,7 @@ export default function Header() {
               width={75}
               height={75}
               draggable={false}
+              className="dark:invert"
             />
             <span className="text-xl font-bold text-black dark:text-white">
               The Steel Stingers

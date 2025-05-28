@@ -3,17 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
-
-interface Robot {
-  id: string;
-  name: string;
-  year: string;
-  game: string;
-  description: string;
-  features: string[];
-  imageUrl: string;
-  imageAlt: string;
-}
+import type { Robot, Media } from "@/payload-types";
 
 interface RobotCardProps {
   robot: Robot;
@@ -87,8 +77,11 @@ export default function RobotCard({ robot, index }: RobotCardProps) {
             variants={imageVariants}
           >
             <Image
-              src={robot.imageUrl}
-              alt={robot.imageAlt}
+              src={
+                process.env.NEXT_PUBLIC_BASE_URL! +
+                ((robot.image as Media).url ?? "")
+              }
+              alt={robot.imageAlt ?? ""}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="transform object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
@@ -134,7 +127,7 @@ export default function RobotCard({ robot, index }: RobotCardProps) {
                   variants={listItemVariants}
                   className="text-base sm:text-lg"
                 >
-                  {feature}
+                  {feature.feature}
                 </motion.li>
               ))}
             </motion.ul>

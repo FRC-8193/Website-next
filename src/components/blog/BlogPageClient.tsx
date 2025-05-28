@@ -4,11 +4,11 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import BlogPosts from "@/components/blog/BlogPosts";
 import { motion } from "motion/react";
-import type { BlogPost } from "@/lib/types";
+import type { Post, Tag } from "@/payload-types";
 
 interface BlogPageClientProps {
-  posts: BlogPost[];
-  tags: string[];
+  posts: Post[];
+  tags: Tag[];
 }
 
 export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
@@ -64,16 +64,16 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
             </h3>
             {tags.map((tag) => (
               <motion.div
-                key={tag}
+                key={tag.id}
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <Link href={`/blog/tag/${tag}`}>
+                <Link href={`/blog/tag/${tag.name}`}>
                   <Badge
                     variant="outline"
                     className="px-3 py-1 text-sm transition-colors hover:bg-gray-100 dark:hover:bg-zinc-700"
                   >
-                    {tag}
+                    {tag.name}
                   </Badge>
                 </Link>
               </motion.div>

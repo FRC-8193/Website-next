@@ -1,7 +1,7 @@
-import type { Author } from "@/lib/types";
+import type { User } from "@/payload-types";
 
 interface AuthorInfoProps {
-  author: Author;
+  author: User;
   size?: "sm" | "md" | "lg";
   className?: string;
 }
@@ -22,7 +22,7 @@ export const AuthorInfo = ({
       <div className="flex items-center gap-3">
         <div>
           <div className={`font-medium ${sizeClasses[size]} dark:text-white`}>
-            {author.name}
+            {author.authorName}
           </div>
           {author.role && (
             <div

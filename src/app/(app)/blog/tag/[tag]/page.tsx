@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import BlogPosts from "@/components/blog/BlogPosts";
-import { api } from "@/app/trpc/server";
+import { client } from "@/clients/payload";
 import { Back } from "@/components/ui/back";
 // Generate metadata for the tag page
 export async function generateMetadata(props: {
@@ -10,9 +10,17 @@ export async function generateMetadata(props: {
   const params = await props.params;
   const decodedTag = decodeURIComponent(params.tag);
 
-  const postsForTag = await api.blog.getByTag({ tag: decodedTag });
+  const postsForTag = await client.find({
+    collection: "post",
+    where: {
+      "tags.tag.name": { in: decodedTag },
+      _status: {
+        equals: "published",
+      },
+    },
+  });
 
-  if (postsForTag.length === 0) {
+  if (postsForTag.docs.length === 0) {
     notFound();
   }
 
@@ -23,11 +31,13 @@ export async function generateMetadata(props: {
 
 // Generate static params for all tags
 export async function generateStaticParams() {
-  const tags = await api.blog.getTags();
+  const tags = await client.find({
+    collection: "tag",
+  });
 
   return (
-    tags?.map((tag: string | { name: string }) => ({
-      tag: typeof tag === "string" ? tag : tag.name,
+    tags.docs?.map((tag) => ({
+      tag: tag.name,
     })) || []
   );
 }
@@ -38,9 +48,19 @@ export default async function TagPage(props: {
   const params = await props.params;
   const decodedTag = decodeURIComponent(params.tag);
 
-  const postsData = await api.blog.getByTag({ tag: decodedTag });
+  const postsForTag = (
+    await client.find({
+      collection: "post",
+      where: {
+        "tags.tag.name": { equals: decodedTag },
+        _status: {
+          equals: "published",
+        },
+      },
+    })
+  ).docs;
 
-  if (postsData.length === 0) {
+  if (postsForTag.length === 0) {
     notFound();
   }
 
@@ -53,12 +73,12 @@ export default async function TagPage(props: {
           Posts tagged with &quot;{decodedTag}&quot;
         </h1>
         <p className="mt-2 text-xl text-gray-600 dark:text-zinc-400">
-          Found {postsData.length} post{postsData.length !== 1 ? "s" : ""}
+          Found {postsForTag.length} post{postsForTag.length !== 1 ? "s" : ""}
         </p>
       </div>
 
-      {postsData.length > 0 && (
-        <BlogPosts posts={postsData} highlightedTag={decodedTag} />
+      {postsForTag.length > 0 && (
+        <BlogPosts posts={postsForTag} highlightedTag={decodedTag} />
       )}
     </main>
   );

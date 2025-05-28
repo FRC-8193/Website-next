@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import type { BlogPost } from "@/lib/types";
+import type { Post } from "@/payload-types";
 import BlogPostCard from "@/components/blog/BlogPostCard";
 import {
   Pagination,
@@ -14,7 +14,7 @@ import {
 import { motion } from "motion/react";
 
 interface BlogPostsProps {
-  posts: BlogPost[];
+  posts: Post[];
   highlightedTag?: string;
   maxPosts?: number;
   pagination?: boolean;
@@ -98,7 +98,7 @@ export default function BlogPosts({
       >
         {currentPosts.map((post) => (
           <BlogPostCard
-            key={post.slug}
+            key={post.id}
             post={post}
             highlightedTag={highlightedTag}
             variants={itemVariants}

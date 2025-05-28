@@ -1,10 +1,27 @@
+import { client } from "@/clients/payload";
+
 import Hero from "@/components/home/Hero";
 import StartingCards from "@/components/home/StartingCards";
 import CurrentRobotShowcase from "@/components/home/CurrentRobotShowcase";
 import LatestBlogPost from "@/components/home/LatestBlogPost";
 import SponsorMarquee from "@/components/home/SponsorMarquee";
 import Sponsors from "@/components/home/Sponsors";
-export default function HomePage() {
+
+export default async function HomePage() {
+  const posts = await client.find({
+    collection: "post",
+    sort: "-createdAt",
+    limit: 1,
+  });
+
+  const sponsors = await client.find({
+    collection: "sponsor",
+  });
+
+  const robots = await client.find({
+    collection: "robot",
+  });
+
   return (
     <div className="flex flex-col bg-white dark:bg-zinc-900">
       <Hero />
@@ -12,15 +29,15 @@ export default function HomePage() {
         <StartingCards />
 
         <div className="scroll-mt-[20vh]">
-          <SponsorMarquee />
+          <SponsorMarquee sponsors={sponsors.docs} />
         </div>
 
-        <CurrentRobotShowcase />
+        <CurrentRobotShowcase robots={robots.docs} />
         <hr className="border-2 border-gray-300 dark:border-zinc-700" />
-        <LatestBlogPost />
+        <LatestBlogPost post={posts.docs[0]} />
         <hr className="border-2 border-gray-300 dark:border-zinc-700" />
         <div id="sponsors">
-          <Sponsors />
+          <Sponsors sponsors={sponsors.docs} />
         </div>
       </div>
     </div>

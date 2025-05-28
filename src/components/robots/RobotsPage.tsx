@@ -3,11 +3,9 @@
 import React from "react";
 import RobotCard from "@/components/robots/RobotCard";
 import { motion } from "motion/react";
-import { api } from "@/app/trpc/react";
+import type { Robot } from "~/payload-types";
 
-export default function RobotsPage() {
-  const robots = api.robot.list.useQuery();
-
+export default function RobotsPage({ robots }: { robots: Robot[] }) {
   const headerVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -35,7 +33,7 @@ export default function RobotsPage() {
       </motion.header>
 
       <main>
-        {robots.data?.map((robot, index) => (
+        {robots.map((robot, index) => (
           <RobotCard key={robot.id} robot={robot} index={index} />
         ))}
       </main>

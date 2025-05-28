@@ -3,10 +3,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { AuthorInfo } from "@/components/AuthorInfo";
-import { api } from "@/app/trpc/server";
+import { client } from "@/clients/payload";
+import type { Media, Tag, User } from "@/payload-types";
+import { RichText } from "@payloadcms/richtext-lexical/react";
 import { Back } from "@/components/ui/back";
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { notFound } from "next/navigation";
 
 // Generate metadata for the blog post
 export async function generateMetadata(props: {
@@ -14,26 +15,38 @@ export async function generateMetadata(props: {
 }): Promise<Metadata> {
   const params = await props.params;
   // Await the params.slug before using it
-  const slug = params.slug;
-  const post = await api.blog.getBySlug({ slug });
+  const slugInPur = params.slug;
+  const post = (
+    await client.find({
+      collection: "post",
+      where: {
+        slug: { equals: slugInPur },
+        _status: {
+          equals: "published",
+        },
+      },
+    })
+  ).docs[0];
 
-  const openGraphImages = post.image
+  if (!post) return {};
+
+  const openGraphImages = (post.coverImage as Media | undefined)?.url
     ? [
         {
-          url: post.image,
+          url: (post.coverImage as Media).url!,
           width: 1200,
           height: 630,
-          alt: post.imageAlt ?? "Blog post image",
+          alt: post.coverImageAlt ?? "Blog post image",
         },
       ]
     : [];
 
   return {
     title: post.title,
-    description: post.excerpt,
+    description: post.subtitle,
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
+      title: post.title ?? undefined,
+      description: post.subtitle ?? undefined,
       images: openGraphImages,
     },
   };
@@ -41,10 +54,17 @@ export async function generateMetadata(props: {
 
 // Generate static params for all blog posts
 export async function generateStaticParams() {
-  const posts = await api.blog.getPosts();
+  const posts = await client.find({
+    collection: "post",
+    where: {
+      _status: {
+        equals: "published",
+      },
+    },
+  });
 
-  return posts.map((post) => ({
-    slug: post.slug,
+  return posts.docs?.map((post) => ({
+    slug: String(post.id),
   }));
 }
 
@@ -52,7 +72,19 @@ export default async function BlogPostPage(props: {
   params: Promise<{ slug: string }>;
 }) {
   const params = await props.params;
-  const post = await api.blog.getBySlug({ slug: params.slug });
+  const post = (
+    await client.find({
+      collection: "post",
+      where: {
+        slug: { equals: params.slug },
+        _status: {
+          equals: "published",
+        },
+      },
+    })
+  ).docs[0];
+
+  if (!post) notFound();
 
   return (
     <main className="container mx-auto px-4 py-12">
@@ -65,33 +97,36 @@ export default async function BlogPostPage(props: {
               {post.title}
             </h1>
             <time className="mb-2 block text-gray-500">
-              {new Date(post.date).toLocaleDateString("en-US", {
+              {new Date(post.createdAt).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
               })}
             </time>
             <div className="flex flex-wrap gap-2">
-              {post.tags.map((tag) => (
-                <Link key={tag} href={`/blog/tag/${tag}`}>
+              {post.tags?.map((tag) => (
+                <Link key={tag.id} href={`/blog/tag/${(tag.tag as Tag).name}`}>
                   <Badge
                     variant="outline"
                     className="text-black dark:text-white"
                   >
-                    {tag}
+                    {(tag.tag as Tag).name}
                   </Badge>
                 </Link>
               ))}
             </div>
           </div>
-          <AuthorInfo author={post.author} size="lg" />
+          <AuthorInfo author={post.author as User} size="lg" />
         </div>
 
-        {post.image && (
+        {post.coverImage && (
           <div className="relative mb-10 aspect-video overflow-hidden rounded-lg">
             <Image
-              src={post.image}
-              alt={post.imageAlt ?? "Blog post image"}
+              src={
+                process.env.NEXT_PUBLIC_BASE_URL! +
+                ((post.coverImage as Media).url ?? "")
+              }
+              alt={post.coverImageAlt ?? "Blog post image"}
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -100,11 +135,11 @@ export default async function BlogPostPage(props: {
         )}
 
         <article className="prose prose-lg dark:prose-invert mb-12 max-w-none">
-          <Markdown remarkPlugins={[remarkGfm]}>{post.content}</Markdown>
+          <RichText data={post.content!} />
         </article>
 
         <div className="mt-8 border-t border-gray-400 pt-8">
-          <AuthorInfo author={post.author} size="lg" />
+          <AuthorInfo author={post.author as User} size="lg" />
         </div>
       </div>
     </main>

@@ -28,11 +28,12 @@ export default function Footer() {
           <div>
             <div className="flex flex-row items-center gap-2 pb-3">
               <Image
-                src="/images/team-logo.png"
+                src="/images/team-logo-transparent.png"
                 alt="Steel Stingers Logo"
                 width={50}
                 height={50}
                 draggable={false}
+                className="dark:invert"
               />
               <span className="flex text-xl font-bold text-black dark:text-white">
                 Steel Stingers

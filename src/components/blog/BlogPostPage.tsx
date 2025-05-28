@@ -1,9 +1,16 @@
-import { api } from "@/app/trpc/server";
 import BlogPageClient from "./BlogPageClient";
+import { client } from "@/clients/payload";
 
 export default async function BlogPostPage() {
-  const posts = await api.blog.getPosts();
-  const tags = await api.blog.getTags();
+  const posts = await client.find({
+    collection: "post",
+    where: {
+      _status: {
+        equals: "published",
+      },
+    },
+  });
+  const tags = await client.find({ collection: "tag" });
 
-  return <BlogPageClient posts={posts} tags={tags} />;
+  return <BlogPageClient posts={posts.docs} tags={tags.docs} />;
 }

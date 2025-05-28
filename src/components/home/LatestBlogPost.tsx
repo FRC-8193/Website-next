@@ -1,12 +1,10 @@
 "use client";
 
 import BlogPosts from "@/components/blog/BlogPosts";
-import { api } from "@/app/trpc/react";
 import { motion } from "motion/react";
-import { useRef } from "react";
+
 import Link from "next/link";
-import type { BlogPost } from "@/lib/types";
-import LoadingSpinner from "../ui/loading";
+import type { Post } from "@/payload-types";
 
 const sectionVariants = {
   hidden: { opacity: 0 },
@@ -29,26 +27,9 @@ const itemVariants = {
   },
 };
 
-export default function LatestBlogPost() {
-  const posts = api.blog.getPosts.useQuery();
-
-  const sectionRef = useRef(null);
-  // const isInView = useInView(sectionRef, { amount: 0.25, once: true });
-
-  if (posts.isLoading) {
-    return (
-      <section>
-        <div className="flex items-center justify-center gap-4 text-black dark:text-white">
-          <LoadingSpinner />
-          Loading latest post...
-        </div>
-      </section>
-    );
-  }
-
+export default function LatestBlogPost({ post }: { post?: Post }) {
   return (
     <motion.section
-      ref={sectionRef}
       className="text-black dark:text-white"
       variants={sectionVariants}
       initial="hidden"
@@ -57,21 +38,13 @@ export default function LatestBlogPost() {
     >
       <div className="container mx-auto grid items-center gap-12 px-4 md:grid-cols-2 md:gap-16">
         {/* Left Column: Latest Blog Post */}
-        {posts.error ? (
-          <h1 className="text-center text-lg text-red-600">
-            An error occurred while loading posts.
-          </h1>
-        ) : posts.data?.length === 0 ? (
+        {!post ? (
           <h1 className="text-center text-lg dark:text-white">
             No posts available.
           </h1>
         ) : (
           <motion.div variants={itemVariants}>
-            <BlogPosts
-              maxPosts={1}
-              posts={posts.data as BlogPost[]}
-              pagination={false}
-            />
+            <BlogPosts posts={[post]} pagination={false} maxPosts={1} />
           </motion.div>
         )}
 

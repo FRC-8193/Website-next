@@ -1,11 +1,11 @@
 import Link from "next/link";
-import Image from "next/image";
-import type { BlogPost } from "@/lib/types";
+import type { Post, Media, User, Tag } from "@/payload-types";
 import { AuthorInfo } from "@/components/AuthorInfo";
 import { motion, type Variants } from "motion/react";
+import Image from "next/image";
 
 interface BlogPostCardProps {
-  post: BlogPost;
+  post: Post;
   highlightedTag?: string;
   variants?: Variants;
 }
@@ -21,12 +21,15 @@ const BlogPostCard = ({
       variants={variants}
     >
       <Link href={`/blog/${post.slug}`} className="flex h-full flex-col">
-        {post.image && (
+        {post.coverImage && (
           <div className="relative aspect-video w-full">
             <Image
-              src={post.image}
-              alt={post.imageAlt ?? "Blog post image"}
+              src={
+                process.env.NEXT_PUBLIC_BASE_URL! +
+                ((post.coverImage as Media).url ?? "")
+              }
               fill
+              alt={post.coverImageAlt ?? "Blog post image"}
               className="object-cover"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
@@ -35,22 +38,22 @@ const BlogPostCard = ({
         <div className="flex flex-grow flex-col p-6">
           <div className="mb-4 flex flex-wrap items-center gap-2">
             <time className="text-sm text-gray-500 dark:text-zinc-400">
-              {new Date(post.date).toLocaleDateString("en-US", {
+              {new Date(post.createdAt).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
               })}
             </time>
-            {post.tags.map((tag) => (
+            {post.tags?.map((tag) => (
               <span
-                key={tag}
+                key={tag.id}
                 className={`rounded-full px-2 py-1 text-xs font-medium ${
                   tag === highlightedTag
                     ? "bg-black text-white dark:bg-white dark:text-black"
                     : "bg-gray-100 text-gray-700 dark:bg-zinc-700 dark:text-zinc-300"
                 }`}
               >
-                {tag}
+                {(tag.tag as Tag).name}
               </span>
             ))}
           </div>
@@ -58,10 +61,10 @@ const BlogPostCard = ({
             {post.title}
           </h2>
           <p className="mb-4 flex-grow text-gray-700 dark:text-zinc-300">
-            {post.excerpt}
+            {post.subtitle}
           </p>
           <div className="mt-auto">
-            <AuthorInfo author={post.author} size="sm" />
+            <AuthorInfo author={post.author as User} size="sm" />
           </div>
         </div>
       </Link>

@@ -9,19 +9,14 @@ import {
 } from "@/components/ui/tooltip";
 import { motion } from "motion/react";
 import Link from "next/link";
-import { api } from "@/app/trpc/react";
-import { Skeleton } from "../ui/skeleton";
 import styles from "./SponsorMarquee.module.css";
-import type { AppRouter } from "~/app/server/api/root";
-import type { inferRouterOutputs } from "@trpc/server";
-
-type RouterOutput = inferRouterOutputs<AppRouter>;
+import type { Sponsor, Media } from "@/payload-types";
 
 function SponsorsList({
   sponsors,
   ariaHidden,
 }: {
-  sponsors: RouterOutput["sponsor"]["list"];
+  sponsors: Sponsor[];
   ariaHidden: boolean;
 }) {
   return (
@@ -37,13 +32,30 @@ function SponsorsList({
               transition={{ duration: 0.2 }}
               className="relative h-16 w-24"
             >
-              <Image
-                src={sponsor.image}
-                alt={sponsor.name}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-contain"
-              />
+              <div className="block dark:hidden">
+                <Image
+                  src={
+                    process.env.NEXT_PUBLIC_BASE_URL! +
+                    ((sponsor.image as Media).url ?? "")
+                  }
+                  alt={sponsor.name}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-contain"
+                />
+              </div>
+              <div className="hidden dark:block">
+                <Image
+                  src={
+                    process.env.NEXT_PUBLIC_BASE_URL! +
+                    ((sponsor.imageDark as Media).url ?? "")
+                  }
+                  alt={sponsor.name}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-contain"
+                />
+              </div>
             </motion.div>
           </li>
         );
@@ -74,10 +86,8 @@ function SponsorsList({
   );
 }
 
-export default function SponsorMarquee() {
-  const sponsors = api.sponsor.list.useQuery();
-
-  if (!sponsors || sponsors.data?.length === 0) {
+export default function SponsorMarquee({ sponsors }: { sponsors: Sponsor[] }) {
+  if (!sponsors || sponsors.length === 0) {
     return null;
   }
 
@@ -88,16 +98,12 @@ export default function SponsorMarquee() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        {sponsors.data ? (
-          <div className="w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
-            <div className="flex">
-              <SponsorsList sponsors={sponsors.data} ariaHidden={false} />
-              <SponsorsList sponsors={sponsors.data} ariaHidden={true} />
-            </div>
+        <div className="w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+          <div className="flex">
+            <SponsorsList sponsors={sponsors} ariaHidden={false} />
+            <SponsorsList sponsors={sponsors} ariaHidden={true} />
           </div>
-        ) : (
-          <Skeleton className="h-16 w-full" />
-        )}
+        </div>
       </motion.div>
     </TooltipProvider>
   );
