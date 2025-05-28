@@ -135,7 +135,7 @@ export default async function BlogPostPage(props: {
         )}
 
         <article className="prose prose-lg dark:prose-invert mb-12 max-w-none">
-          <RichText data={post.content!} />
+          <RichText data={post.content} />
         </article>
 
         <div className="mt-8 border-t border-gray-400 pt-8">
