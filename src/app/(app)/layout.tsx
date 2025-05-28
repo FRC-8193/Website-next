@@ -4,7 +4,7 @@ import { type Metadata } from "next";
 import { Inter, JetBrains_Mono, Montserrat } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { TRPCReactProvider } from "./trpc/react";
+import { TRPCReactProvider } from "../trpc/react";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 
 export const metadata: Metadata = {
