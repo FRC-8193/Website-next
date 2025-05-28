@@ -12,6 +12,9 @@ const config = {
       {
         hostname: "localhost",
       },
+      {
+        hostname: "nlrobotics.org",
+      },
     ],
   },
 };
