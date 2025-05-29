@@ -43,7 +43,7 @@ export default buildConfig({
   sharp,
   folders: {},
   email: resendAdapter({
-    defaultFromAddress: "cms@nlrobotics.com",
+    defaultFromAddress: "cms@nlrobotics.org",
     defaultFromName: "NLRobotics CMS",
     apiKey: process.env.RESEND_API_KEY ?? "",
   }),

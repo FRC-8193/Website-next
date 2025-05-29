@@ -8,8 +8,8 @@ import { type ChangeEvent, type FormEvent, useState } from "react";
 import SocialIcon from "@/components/ui/SocialIcon";
 import Link from "next/link";
 import { api } from "~/app/trpc/react";
-import { Turnstile } from "next-turnstile";
 import { env } from "@/env";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 const itemVariants = {
   hidden: { opacity: 0 },
@@ -66,13 +66,14 @@ export default function ContactPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [emailSendToken, setEmailSendToken] = useState<string | null>(null);
+  const [emailGetToken, setEmailGetToken] = useState<string | null>(null);
 
   const sendEmail = api.email.sendContactEmail.useMutation();
   const email = api.email.get.useQuery(
-    { turnstileToken: turnstileToken ?? "" },
+    { hcaptchaToken: emailGetToken ?? "" },
     {
-      enabled: !!turnstileToken,
+      enabled: !!emailGetToken,
       staleTime: Infinity,
       refetchOnWindowFocus: false,
     },
@@ -82,20 +83,19 @@ export default function ContactPage() {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
-    sendEmail.mutate({
-      name: formData.name,
-      email: formData.email,
-      subject: formData.subject,
-      message: formData.message,
-      turnstileToken: turnstileToken ?? "",
-    });
 
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    if (sendEmail.isError) {
-      setSubmitStatus("error");
-    } else {
+    try {
+      await sendEmail.mutateAsync({
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        hcaptchaToken: emailSendToken ?? "",
+      });
       setSubmitStatus("success");
       setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch {
+      setSubmitStatus("error");
     }
     setIsSubmitting(false);
   };
@@ -225,11 +225,11 @@ export default function ContactPage() {
                   />
                 </div>
               </motion.div>
-              <Turnstile
-                siteKey={env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
-                refreshExpired="auto"
-                onVerify={setTurnstileToken}
-                onExpire={() => setTurnstileToken(null)}
+
+              <HCaptcha
+                sitekey={env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY}
+                onVerify={(token) => setEmailSendToken(token)}
+                onExpire={() => setEmailSendToken(null)}
               />
               <motion.div
                 variants={buttonVariants}
@@ -237,7 +237,7 @@ export default function ContactPage() {
               >
                 <button
                   type="submit"
-                  disabled={isSubmitting || !turnstileToken}
+                  disabled={isSubmitting || !emailSendToken}
                   className="group flex w-full items-center justify-center rounded-lg border border-transparent bg-black px-6 py-3 text-base font-medium text-white shadow-md transition-all duration-150 ease-in-out hover:bg-gray-800 focus:ring-2 focus:ring-black focus:ring-offset-2 focus:outline-none disabled:opacity-50 dark:bg-white dark:text-black dark:hover:bg-gray-200 dark:focus:ring-white"
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}
@@ -282,7 +282,7 @@ export default function ContactPage() {
                 <Mail size={24} className="mr-3 text-black dark:text-white" />{" "}
                 Email Us
               </h3>
-              {turnstileToken ? (
+              {emailGetToken ? (
                 <Link
                   href={`mailto:${email.data}`}
                   className="text-lg font-medium break-all text-black hover:underline dark:text-white"
@@ -291,10 +291,11 @@ export default function ContactPage() {
                 </Link>
               ) : (
                 <>
-                  <p className="text-lg font-medium text-gray-500 dark:text-gray-400">
-                    Complete the verification below the form to view email
-                    address
-                  </p>
+                  <HCaptcha
+                    sitekey={env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY}
+                    onVerify={(token) => setEmailGetToken(token)}
+                    onExpire={() => setEmailGetToken(null)}
+                  />
                 </>
               )}
             </motion.div>
