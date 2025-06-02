@@ -10,6 +10,7 @@ import {
   SheetClose,
   SheetContent,
   SheetHeader,
+  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useMediaQuery } from "@/lib/useMediaQuery";
@@ -69,6 +70,7 @@ export default function Header() {
               </button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+              <SheetTitle />
               <SheetHeader className="mb-6"></SheetHeader>
               <nav>
                 <div className="flex flex-col items-center space-y-2">
