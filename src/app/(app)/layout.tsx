@@ -32,7 +32,7 @@ const montserrat = Montserrat({
   weight: ["400", "700", "900"],
 });
 
-export default function RootLayout({
+export default function AppLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (

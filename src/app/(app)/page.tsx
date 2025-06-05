@@ -7,12 +7,21 @@ import LatestBlogPost from "@/components/home/LatestBlogPost";
 import SponsorMarquee from "@/components/home/SponsorMarquee";
 import Sponsors from "@/components/home/Sponsors";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const posts = await client.find({
     collection: "post",
     sort: "-createdAt",
+    where: {
+      _status: {
+        equals: "published",
+      },
+    },
     limit: 1,
   });
+
+  console.log(posts.docs);
 
   const sponsors = await client.find({
     collection: "sponsor",

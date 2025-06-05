@@ -52,22 +52,6 @@ export async function generateMetadata(props: {
   };
 }
 
-// Generate static params for all blog posts
-export async function generateStaticParams() {
-  const posts = await client.find({
-    collection: "post",
-    where: {
-      _status: {
-        equals: "published",
-      },
-    },
-  });
-
-  return posts.docs?.map((post) => ({
-    slug: String(post.id),
-  }));
-}
-
 export default async function BlogPostPage(props: {
   params: Promise<{ slug: string }>;
 }) {

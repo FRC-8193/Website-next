@@ -29,19 +29,6 @@ export async function generateMetadata(props: {
   };
 }
 
-// Generate static params for all tags
-export async function generateStaticParams() {
-  const tags = await client.find({
-    collection: "tag",
-  });
-
-  return (
-    tags.docs?.map((tag) => ({
-      tag: tag.name,
-    })) || []
-  );
-}
-
 export default async function TagPage(props: {
   params: Promise<{ tag: string }>;
 }) {

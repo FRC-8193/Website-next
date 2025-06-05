@@ -3,6 +3,8 @@ import RobotsPage from "@/components/robots/RobotsPage";
 import type { Metadata } from "next";
 import { client } from "~/clients/payload";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Robots",
 };

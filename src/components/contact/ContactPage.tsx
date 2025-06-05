@@ -5,6 +5,7 @@ import { FaGithub } from "react-icons/fa6";
 import { SlSocialFacebook } from "react-icons/sl";
 import { motion } from "motion/react";
 import { type ChangeEvent, type FormEvent, useState } from "react";
+import { useTheme } from "next-themes";
 import SocialIcon from "@/components/ui/SocialIcon";
 import Link from "next/link";
 import { api } from "~/app/trpc/react";
@@ -49,6 +50,7 @@ const labelClasses =
   "block text-sm font-medium text-gray-700 mb-1 dark:text-zinc-300";
 
 export default function ContactPage() {
+  const { theme } = useTheme();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -230,6 +232,7 @@ export default function ContactPage() {
                 sitekey={env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY}
                 onVerify={(token) => setEmailSendToken(token)}
                 onExpire={() => setEmailSendToken(null)}
+                theme={theme === "dark" ? "dark" : "light"}
               />
               <motion.div
                 variants={buttonVariants}
@@ -295,6 +298,7 @@ export default function ContactPage() {
                     sitekey={env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY}
                     onVerify={(token) => setEmailGetToken(token)}
                     onExpire={() => setEmailGetToken(null)}
+                    theme={theme === "dark" ? "dark" : "light"}
                   />
                 </>
               )}
