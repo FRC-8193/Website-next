@@ -34,7 +34,7 @@ export default function NotFound() {
       className={`${inter.variable} ${jetbrainsMono.variable} ${montserrat.variable}`}
       suppressHydrationWarning /* Official next-themes docs says this is needed */
     >
-      <GoogleTagManager gtmId="G-LSQ5MH6LMH" />
+      <GoogleTagManager gtmId="GTM-TVVHSRLT" />
       <body>
         <ThemeProvider
           attribute="class"

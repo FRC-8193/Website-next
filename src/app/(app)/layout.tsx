@@ -42,7 +42,7 @@ export default function AppLayout({
       className={`${inter.variable} ${jetbrainsMono.variable} ${montserrat.variable}`}
       suppressHydrationWarning /* Official next-themes docs says this is needed */
     >
-      <GoogleTagManager gtmId="G-LSQ5MH6LMH" />
+      <GoogleTagManager gtmId="GTM-TVVHSRLT" />
       <body className="min-h-screen bg-white text-black antialiased dark:bg-zinc-900">
         <ThemeProvider
           attribute="class"
