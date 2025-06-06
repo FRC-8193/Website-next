@@ -24,7 +24,7 @@
     "@payloadcms/next": "^3.39.1",
     "@payloadcms/richtext-lexical": "^3.39.1",
     "@payloadcms/storage-s3": "^3.39.1",
-    "@radix-ui/react-dialog": "^1.1.13",
+    "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-dropdown-menu": "^2.1.15",
     "@radix-ui/react-slot": "^1.2.0",
     "@radix-ui/react-tooltip": "^1.2.6",
