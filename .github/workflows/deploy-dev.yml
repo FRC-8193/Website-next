@@ -20,4 +20,3 @@ jobs:
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           github-token: ${{ secrets.GH_TOKEN }}
           working-directory: "./"
-          vercel-args: "--target=preview"
