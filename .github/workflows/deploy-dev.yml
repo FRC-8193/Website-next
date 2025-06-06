@@ -1,9 +1,9 @@
-name: Deploy to Vercel
+name: Deploy to Vercel Dev
 
 on:
   push:
     branches:
-      - main
+      - dev
 
 jobs:
   deploy:
@@ -13,11 +13,11 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v20
+        uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           github-token: ${{ secrets.GH_TOKEN }}
           working-directory: "./"
-          vercel-args: "--prod"
+          vercel-args: "--target=preview"
