@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { client } from "~/clients/payload";
 
+export const dynamic = "force-dynamic";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://nlrobotics.org";
 
