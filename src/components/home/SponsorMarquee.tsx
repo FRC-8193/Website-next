@@ -26,11 +26,11 @@ function SponsorsList({
     >
       {sponsors.map((sponsor) => {
         const sponsorContent = (
-          <li className="mx-4 flex min-w-0 flex-[0_0_auto] items-center justify-center overflow-hidden p-1">
+          <li className="mx-2 flex min-w-0 flex-[0_0_auto] items-center justify-center overflow-hidden p-1 sm:mx-4">
             <motion.div
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
-              className="relative h-16 w-24"
+              className="relative h-10 w-16 sm:h-12 sm:w-20 md:h-16 md:w-24"
             >
               <div className="block dark:hidden">
                 <Image
@@ -98,7 +98,7 @@ export default function SponsorMarquee({ sponsors }: { sponsors: Sponsor[] }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <div className="w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+        <div className="w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_64px,_black_calc(100%-64px),transparent_100%)] sm:[mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
           <div className="flex">
             <SponsorsList sponsors={sponsors} ariaHidden={false} />
             <SponsorsList sponsors={sponsors} ariaHidden={true} />
