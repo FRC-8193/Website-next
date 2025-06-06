@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Inter, JetBrains_Mono, Montserrat } from "next/font/google";
 import { ThemeProvider } from "next-themes";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   title: "404 | The Steel Stingers",
@@ -33,6 +34,7 @@ export default function NotFound() {
       className={`${inter.variable} ${jetbrainsMono.variable} ${montserrat.variable}`}
       suppressHydrationWarning /* Official next-themes docs says this is needed */
     >
+      <GoogleTagManager gtmId="G-LSQ5MH6LMH" />
       <body>
         <ThemeProvider
           attribute="class"
