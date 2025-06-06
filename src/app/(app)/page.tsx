@@ -21,8 +21,6 @@ export default async function HomePage() {
     limit: 1,
   });
 
-  console.log(posts.docs);
-
   const sponsors = await client.find({
     collection: "sponsor",
   });
