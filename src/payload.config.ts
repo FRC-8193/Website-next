@@ -41,7 +41,6 @@ export default buildConfig({
     },
   }),
   sharp,
-  folders: {},
   email: resendAdapter({
     defaultFromAddress: "cms@nlrobotics.org",
     defaultFromName: "NLRobotics CMS",
