@@ -32,30 +32,34 @@ function SponsorsList({
               transition={{ duration: 0.2 }}
               className="relative h-10 w-16 sm:h-12 sm:w-20 md:h-16 md:w-24"
             >
-              <div className="block dark:hidden">
-                <Image
-                  src={
-                    process.env.NEXT_PUBLIC_BASE_URL! +
-                    ((sponsor.image as Media).url ?? "")
-                  }
-                  alt={sponsor.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-contain"
-                />
-              </div>
-              <div className="hidden dark:block">
-                <Image
-                  src={
-                    process.env.NEXT_PUBLIC_BASE_URL! +
-                    ((sponsor.imageDark as Media).url ?? "")
-                  }
-                  alt={sponsor.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-contain"
-                />
-              </div>
+              {sponsor.image && (
+                <div className="block dark:hidden">
+                  <Image
+                    src={
+                      process.env.NEXT_PUBLIC_BASE_URL! +
+                      ((sponsor.image as Media).url ?? "")
+                    }
+                    alt={sponsor.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-contain"
+                  />
+                </div>
+              )}
+              {sponsor.imageDark && (
+                <div className="hidden dark:block">
+                  <Image
+                    src={
+                      process.env.NEXT_PUBLIC_BASE_URL! +
+                      ((sponsor.imageDark as Media).url ?? "")
+                    }
+                    alt={sponsor.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-contain"
+                  />
+                </div>
+              )}
             </motion.div>
           </li>
         );

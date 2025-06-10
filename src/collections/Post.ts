@@ -52,6 +52,9 @@ export const Post: CollectionConfig = {
       name: "coverImageAlt",
       type: "text",
       required: false,
+      admin: {
+        description: "Required if cover image is used.",
+      },
     },
     {
       name: "author",

@@ -200,6 +200,9 @@ export interface Post {
   title: string;
   subtitle: string;
   coverImage?: (number | null) | Media;
+  /**
+   * Required if cover image is used.
+   */
   coverImageAlt?: string | null;
   author: number | User;
   content: {
@@ -247,6 +250,9 @@ export interface Robot {
   year: string;
   game: string;
   description: string;
+  /**
+   * Recommended to have 3-5 features.
+   */
   features: {
     feature?: string | null;
     id?: string | null;
@@ -264,6 +270,9 @@ export interface Sponsor {
   id: number;
   name: string;
   image: number | Media;
+  /**
+   * The dark image is always required. If we don't have one, just the normal image.
+   */
   imageDark?: (number | null) | Media;
   imageAlt?: string | null;
   website?: string | null;
