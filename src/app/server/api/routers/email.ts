@@ -70,7 +70,7 @@ export const emailRouter = createTRPCRouter({
       }
 
       await resend.emails.send({
-        from: "contact@nlrobotics.org",
+        from: `Website Contact - ${input.name} <contact@nlrobotics.org>`,
         to: "robotics@newlothrop.k12.mi.us",
         subject: input.subject,
         text: input.message,
