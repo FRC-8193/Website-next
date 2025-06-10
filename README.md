@@ -2,6 +2,8 @@
 
 A modern, responsive website for Team 8193 - Steel Stingers.
 
+---
+
 ## 🛠️ Tech Stack
 
 - **[Next.js 15](https://nextjs.org/)**
@@ -10,6 +12,8 @@ A modern, responsive website for Team 8193 - Steel Stingers.
 - **[Payload CMS](https://payloadcms.com/)**
 - **[Motion](https://motion.dev/)**
 - **[tRPC](https://trpc.io/)**
+
+---
 
 ## 📄 License
 

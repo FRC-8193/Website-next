@@ -17,6 +17,9 @@ const config = {
       },
     ],
   },
+  experimental: {
+    isrFlushToDisk: false,
+  },
 };
 
 export default withPayload(config);
