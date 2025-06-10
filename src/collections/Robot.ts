@@ -36,6 +36,9 @@ export const Robot: CollectionConfig = {
           type: "text",
         },
       ],
+      admin: {
+        description: "Recommended to have 3-5 features.",
+      },
     },
     {
       name: "image",
