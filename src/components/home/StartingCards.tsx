@@ -1,16 +1,13 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { RocketIcon, InfoIcon, Book } from "lucide-react";
-import Link from "next/link";
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 
@@ -53,20 +50,16 @@ export default function StartingCards() {
             <RocketIcon className="mb-2 h-6 w-6 text-black dark:text-white" />
             <CardTitle>Our Mission</CardTitle>
             <CardDescription>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Our goal as a team is to learn and work together, and to improve
+              year after year.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-zinc-600 dark:text-zinc-300">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore
+              We hope to inspire and teach the younger generations, and to help
+              improve the world with whatever we plan to do after high school.
             </p>
           </CardContent>
-          <CardFooter>
-            <Button variant="outline" size="sm" className="mt-4">
-              Read More
-            </Button>
-          </CardFooter>
         </Card>
       </motion.li>
 
@@ -76,20 +69,17 @@ export default function StartingCards() {
             <InfoIcon className="mb-2 h-6 w-6 text-black dark:text-white" />
             <CardTitle>About Us</CardTitle>
             <CardDescription>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              We are the New Lothrop FIRST Organization - Determined, inventive,
+              and hardworking.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-zinc-600 dark:text-zinc-300">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore
+              Our team is composed of members between the seventh and twelfth
+              grade. We were established in 2020, and have been growing since
+              our rookie year.
             </p>
           </CardContent>
-          <CardFooter>
-            <Button variant="outline" size="sm" className="mt-4">
-              Team Members
-            </Button>
-          </CardFooter>
         </Card>
       </motion.li>
 
@@ -98,25 +88,17 @@ export default function StartingCards() {
           <CardHeader>
             <Book className="mb-2 h-6 w-6 text-black dark:text-white" />
             <CardTitle>Read Our Blog</CardTitle>
-            <CardDescription>Lorem ipsum dolor sit amet.</CardDescription>
+            <CardDescription>
+              Our blog is where we post updates and information about our team,
+              or FIRST in general.
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-zinc-600 dark:text-zinc-300">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore
+              If you are ever interested in reading about build season,
+              competition season, or off season, this is where you wll find it!
             </p>
           </CardContent>
-          <CardFooter>
-            <Link href="/blog">
-              <Button
-                variant="outline"
-                size="sm"
-                className="mt-4 cursor-pointer"
-              >
-                Go to the Blog Page
-              </Button>
-            </Link>
-          </CardFooter>
         </Card>
       </motion.li>
     </motion.ul>
