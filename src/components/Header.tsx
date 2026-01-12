@@ -1,10 +1,11 @@
 "use client";
 
-import Link from "next/link";
+import { Menu as MenuIcon } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu as MenuIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetClose,
@@ -13,9 +14,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { useMediaQuery } from "@/lib/useMediaQuery";
-import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 
 type NavItem = {
   label: string;
@@ -64,6 +64,7 @@ export default function Header() {
             <SheetTrigger asChild>
               <button
                 aria-label="Open navigation menu"
+                type="button"
                 className="p-2 text-black focus:ring-2 focus:ring-black focus:outline-none focus:ring-inset dark:text-white dark:focus:ring-white"
               >
                 <MenuIcon size={24} />

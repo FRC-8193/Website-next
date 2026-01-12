@@ -25,7 +25,7 @@ export function Marquee({
   return (
     <div
       className={cn(
-        "group flex gap-[1rem] overflow-hidden",
+        "group flex gap-4 overflow-hidden",
         direction === "left" ? "flex-row" : "flex-col",
         className,
       )}
@@ -47,13 +47,14 @@ export function Marquee({
         .fill(0)
         .map((_, i) => (
           <div
+            // biome-ignore lint/suspicious/noArrayIndexKey: no stable index
             key={i}
             className={cn(
-              "flex shrink-0 justify-around gap-[1rem] [--gap:1rem]",
+              "flex shrink-0 justify-around gap-4 [--gap:1rem]",
               direction === "left"
                 ? "animate-marquee-left flex-row"
                 : "animate-marquee-up flex-col",
-              pauseOnHover && "group-hover:[animation-play-state:paused]",
+              pauseOnHover && "group-hover:paused",
               reverse && "direction-reverse",
               innerClassName,
             )}

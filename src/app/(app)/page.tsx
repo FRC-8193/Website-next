@@ -1,11 +1,10 @@
 import { client } from "@/clients/payload";
-
-import Hero from "@/components/home/Hero";
-import StartingCards from "@/components/home/StartingCards";
 import CurrentRobotShowcase from "@/components/home/CurrentRobotShowcase";
+import Hero from "@/components/home/Hero";
 import LatestBlogPost from "@/components/home/LatestBlogPost";
 import SponsorMarquee from "@/components/home/SponsorMarquee";
 import Sponsors from "@/components/home/Sponsors";
+import StartingCards from "@/components/home/StartingCards";
 
 export const dynamic = "force-dynamic";
 

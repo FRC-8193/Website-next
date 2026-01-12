@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import type { Post } from "@/payload-types";
+import { motion } from "motion/react";
+import { useEffect, useState } from "react";
 import BlogPostCard from "@/components/blog/BlogPostCard";
 import {
   Pagination,
@@ -11,7 +11,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { motion } from "motion/react";
+import type { Post } from "@/payload-types";
 
 interface BlogPostsProps {
   posts: Post[];
@@ -122,6 +122,7 @@ export default function BlogPosts({
             )}
 
             {Array.from({ length: totalPages }).map((_, i) => (
+              // biome-ignore lint/suspicious/noArrayIndexKey: no stable index
               <PaginationItem key={i}>
                 <PaginationLink
                   href="#"

@@ -1,8 +1,8 @@
-import { createTRPCRouter, publicProcedure } from "@/app/server/api/trpc";
-import { z } from "zod";
-import { Resend } from "resend";
-import { env } from "@/env";
 import { TRPCError } from "@trpc/server";
+import { Resend } from "resend";
+import { z } from "zod";
+import { createTRPCRouter, publicProcedure } from "@/app/server/api/trpc";
+import { env } from "@/env";
 
 const resend = new Resend(env.RESEND_API_KEY);
 

@@ -1,8 +1,8 @@
-import Link from "next/link";
-import type { Post, Media, User, Tag } from "@/payload-types";
-import { AuthorInfo } from "@/components/AuthorInfo";
 import { motion, type Variants } from "motion/react";
 import Image from "next/image";
+import Link from "next/link";
+import { AuthorInfo } from "@/components/AuthorInfo";
+import type { Media, Post, Tag, User } from "@/payload-types";
 
 interface BlogPostCardProps {
   post: Post;
@@ -25,7 +25,7 @@ const BlogPostCard = ({
           <div className="relative aspect-video w-full">
             <Image
               src={
-                process.env.NEXT_PUBLIC_BASE_URL! +
+                process.env.NEXT_PUBLIC_BASE_URL +
                 ((post.coverImage as Media).url ?? "")
               }
               fill
@@ -35,7 +35,7 @@ const BlogPostCard = ({
             />
           </div>
         )}
-        <div className="flex flex-grow flex-col p-6">
+        <div className="flex grow flex-col p-6">
           <div className="mb-4 flex flex-wrap items-center gap-2">
             <time className="text-sm text-gray-500 dark:text-zinc-400">
               {new Date(post.createdAt).toLocaleDateString("en-US", {
@@ -60,7 +60,7 @@ const BlogPostCard = ({
           <h2 className="mb-2 text-2xl font-bold text-black dark:text-white">
             {post.title}
           </h2>
-          <p className="mb-4 flex-grow text-gray-700 dark:text-zinc-300">
+          <p className="mb-4 grow text-gray-700 dark:text-zinc-300">
             {post.subtitle}
           </p>
           <div className="mt-auto">

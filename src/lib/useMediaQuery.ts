@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export function useMediaQuery(query: string): boolean {
   // Initialize with false for server-side rendering

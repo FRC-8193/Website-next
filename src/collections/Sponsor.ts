@@ -24,8 +24,7 @@ export const Sponsor: CollectionConfig = {
       relationTo: "media",
       required: false,
       admin: {
-        description:
-          "The dark image is always required. If we don't have one, just the normal image.",
+        description: "Only required if the image is different in dark mode.",
       },
     },
     {

@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "motion/react";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { SlSocialFacebook } from "react-icons/sl";
-import { FaGithub } from "react-icons/fa6";
 import { FaGlobe } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa6";
+import { SlSocialFacebook } from "react-icons/sl";
 import SocialIcon from "@/components/ui/SocialIcon";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 export default function Footer() {

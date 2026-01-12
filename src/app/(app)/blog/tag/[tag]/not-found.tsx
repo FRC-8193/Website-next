@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "motion/react";
+import Link from "next/link";
 import { Back } from "@/components/ui/back";
 
 export default function TagNotFound() {

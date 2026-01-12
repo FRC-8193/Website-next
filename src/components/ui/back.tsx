@@ -1,9 +1,9 @@
 "use client";
 
 import { ChevronLeftIcon } from "lucide-react";
+import { motion } from "motion/react";
 import { useRouter } from "next/navigation";
 import { Button } from "./button";
-import { motion } from "motion/react";
 
 export function Back() {
   const router = useRouter();
