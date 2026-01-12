@@ -34,7 +34,11 @@ export default function SponsorMarquee({ sponsors }: { sponsors: Sponsor[] }) {
                   className="relative h-10 w-16 sm:h-12 sm:w-20 md:h-16 md:w-24"
                 >
                   {sponsor.image && (
-                    <div className="block dark:hidden">
+                    <div
+                      className={
+                        sponsor.imageDark ? "block dark:hidden" : "block"
+                      }
+                    >
                       <Image
                         src={
                           process.env.NEXT_PUBLIC_BASE_URL +

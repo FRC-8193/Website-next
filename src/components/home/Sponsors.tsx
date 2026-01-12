@@ -37,7 +37,11 @@ export default function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
                     className="block h-full w-full"
                   >
                     {sponsor.image && (
-                      <div className="block dark:hidden">
+                      <div
+                        className={
+                          sponsor.imageDark ? "block dark:hidden" : "block"
+                        }
+                      >
                         <Image
                           src={
                             process.env.NEXT_PUBLIC_BASE_URL +
@@ -68,7 +72,11 @@ export default function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
                 ) : (
                   <>
                     {sponsor.image && (
-                      <div className="block dark:hidden">
+                      <div
+                        className={
+                          sponsor.imageDark ? "block dark:hidden" : "block"
+                        }
+                      >
                         <Image
                           src={
                             process.env.NEXT_PUBLIC_BASE_URL +

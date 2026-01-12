@@ -249,7 +249,7 @@ export interface Sponsor {
   name: string;
   image: number | Media;
   /**
-   * The dark image is always required. If we don't have one, just the normal image.
+   * Only required if the image is different in dark mode.
    */
   imageDark?: (number | null) | Media;
   imageAlt?: string | null;
