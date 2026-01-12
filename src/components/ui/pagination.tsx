@@ -1,15 +1,13 @@
 "use client";
 
+import type { VariantProps } from "class-variance-authority";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import * as React from "react";
-import type { VariantProps } from "class-variance-authority";
-
-import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav
-    role="navigation"
     aria-label="pagination"
     className={cn("mx-auto flex w-full justify-center", className)}
     {...props}

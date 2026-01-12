@@ -1,8 +1,7 @@
 "use client";
 
-import React from "react";
-import RobotCard from "@/components/robots/RobotCard";
 import { motion } from "motion/react";
+import RobotCard from "@/components/robots/RobotCard";
 import type { Robot } from "~/payload-types";
 
 export default function RobotsPage({ robots }: { robots: Robot[] }) {

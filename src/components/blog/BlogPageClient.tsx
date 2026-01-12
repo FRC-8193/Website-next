@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
-import BlogPosts from "@/components/blog/BlogPosts";
 import { motion } from "motion/react";
+import Link from "next/link";
+import BlogPosts from "@/components/blog/BlogPosts";
+import { Badge } from "@/components/ui/badge";
 import type { Post, Tag } from "@/payload-types";
 
 interface BlogPageClientProps {

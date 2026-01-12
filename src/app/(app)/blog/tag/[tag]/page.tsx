@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import BlogPosts from "@/components/blog/BlogPosts";
 import { client } from "@/clients/payload";
+import BlogPosts from "@/components/blog/BlogPosts";
 import { Back } from "@/components/ui/back";
 // Generate metadata for the tag page
 export async function generateMetadata(props: {

@@ -1,9 +1,8 @@
 "use client";
 
-import BlogPosts from "@/components/blog/BlogPosts";
 import { motion } from "motion/react";
-
 import Link from "next/link";
+import BlogPosts from "@/components/blog/BlogPosts";
 import type { Post } from "@/payload-types";
 
 const sectionVariants = {

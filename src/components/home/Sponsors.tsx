@@ -1,9 +1,9 @@
 "use client";
 
+import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "motion/react";
-import type { Sponsor, Media } from "@/payload-types";
+import type { Media, Sponsor } from "@/payload-types";
 
 export default function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
   return (
@@ -40,7 +40,7 @@ export default function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
                       <div className="block dark:hidden">
                         <Image
                           src={
-                            process.env.NEXT_PUBLIC_BASE_URL! +
+                            process.env.NEXT_PUBLIC_BASE_URL +
                             ((sponsor.image as Media).url ?? "")
                           }
                           alt={sponsor.name}
@@ -54,7 +54,7 @@ export default function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
                       <div className="hidden dark:block">
                         <Image
                           src={
-                            process.env.NEXT_PUBLIC_BASE_URL! +
+                            process.env.NEXT_PUBLIC_BASE_URL +
                             ((sponsor.imageDark as Media).url ?? "")
                           }
                           alt={sponsor.name}
@@ -71,7 +71,7 @@ export default function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
                       <div className="block dark:hidden">
                         <Image
                           src={
-                            process.env.NEXT_PUBLIC_BASE_URL! +
+                            process.env.NEXT_PUBLIC_BASE_URL +
                             ((sponsor.image as Media).url ?? "")
                           }
                           alt={sponsor.name}
@@ -85,7 +85,7 @@ export default function Sponsors({ sponsors }: { sponsors: Sponsor[] }) {
                       <div className="hidden dark:block">
                         <Image
                           src={
-                            process.env.NEXT_PUBLIC_BASE_URL! +
+                            process.env.NEXT_PUBLIC_BASE_URL +
                             ((sponsor.imageDark as Media).url ?? "")
                           }
                           alt={sponsor.name}

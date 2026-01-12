@@ -1,5 +1,8 @@
 "use client";
 
+import { Book, InfoIcon, RocketIcon } from "lucide-react";
+import { motion, useInView } from "motion/react";
+import { useRef } from "react";
 import {
   Card,
   CardContent,
@@ -7,9 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { RocketIcon, InfoIcon, Book } from "lucide-react";
-import { motion, useInView } from "motion/react";
-import { useRef } from "react";
 
 export default function StartingCards() {
   const containerVariants = {

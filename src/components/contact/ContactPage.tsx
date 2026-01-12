@@ -1,16 +1,16 @@
 "use client";
 
-import { Mail, Send, User, MessageSquare, Briefcase } from "lucide-react";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
+import { Briefcase, Mail, MessageSquare, Send, User } from "lucide-react";
+import { motion } from "motion/react";
+import Link from "next/link";
+import { useTheme } from "next-themes";
+import { type ChangeEvent, type FormEvent, useState } from "react";
 import { FaGithub } from "react-icons/fa6";
 import { SlSocialFacebook } from "react-icons/sl";
-import { motion } from "motion/react";
-import { type ChangeEvent, type FormEvent, useState } from "react";
-import { useTheme } from "next-themes";
 import SocialIcon from "@/components/ui/SocialIcon";
-import Link from "next/link";
-import { api } from "~/app/trpc/react";
 import { env } from "@/env";
-import HCaptcha from "@hcaptcha/react-hcaptcha";
+import { api } from "~/app/trpc/react";
 
 const itemVariants = {
   hidden: { opacity: 0 },
@@ -293,14 +293,12 @@ export default function ContactPage() {
                   {email.data ?? "Loading..."}
                 </Link>
               ) : (
-                <>
-                  <HCaptcha
-                    sitekey={env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY}
-                    onVerify={(token) => setEmailGetToken(token)}
-                    onExpire={() => setEmailGetToken(null)}
-                    theme={theme === "dark" ? "dark" : "light"}
-                  />
-                </>
+                <HCaptcha
+                  sitekey={env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY}
+                  onVerify={(token) => setEmailGetToken(token)}
+                  onExpire={() => setEmailGetToken(null)}
+                  theme={theme === "dark" ? "dark" : "light"}
+                />
               )}
             </motion.div>
 

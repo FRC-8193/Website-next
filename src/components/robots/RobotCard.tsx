@@ -1,9 +1,8 @@
 "use client";
 
-import React from "react";
-import Image from "next/image";
 import { motion } from "motion/react";
-import type { Robot, Media } from "@/payload-types";
+import Image from "next/image";
+import type { Media, Robot } from "@/payload-types";
 
 interface RobotCardProps {
   robot: Robot;
@@ -71,14 +70,14 @@ export default function RobotCard({ robot, index }: RobotCardProps) {
         >
           {/* Image Column */}
           <motion.div
-            className={`group relative aspect-[4/3] w-full overflow-hidden rounded-lg shadow-xl ${
+            className={`group relative aspect-4/3 w-full overflow-hidden rounded-lg shadow-xl ${
               isEven ? "md:col-start-2" : "md:col-start-1"
             }`}
             variants={imageVariants}
           >
             <Image
               src={
-                process.env.NEXT_PUBLIC_BASE_URL! +
+                process.env.NEXT_PUBLIC_BASE_URL +
                 ((robot.image as Media).url ?? "")
               }
               alt={robot.imageAlt ?? ""}

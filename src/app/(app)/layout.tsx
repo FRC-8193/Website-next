@@ -1,12 +1,12 @@
 import "~/styles/globals.css";
 
-import { type Metadata } from "next";
-import { Inter, JetBrains_Mono, Montserrat } from "next/font/google";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { TRPCReactProvider } from "@/app/trpc/react";
-import { ThemeProvider } from "@/components/ui/theme-provider";
 import { GoogleTagManager } from "@next/third-parties/google";
+import type { Metadata } from "next";
+import { Inter, JetBrains_Mono, Montserrat } from "next/font/google";
+import { TRPCReactProvider } from "@/app/trpc/react";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import { ThemeProvider } from "@/components/ui/theme-provider";
 
 export const metadata: Metadata = {
   title: {
@@ -53,7 +53,7 @@ export default function AppLayout({
           <TRPCReactProvider>
             <div className="flex min-h-screen flex-col">
               <Header />
-              <main className="flex-grow dark:bg-zinc-900">{children}</main>
+              <main className="grow dark:bg-zinc-900">{children}</main>
               <Footer />
             </div>
           </TRPCReactProvider>

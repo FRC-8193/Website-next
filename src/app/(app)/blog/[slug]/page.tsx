@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
-import { AuthorInfo } from "@/components/AuthorInfo";
-import { client } from "@/clients/payload";
-import type { Media, Tag, User } from "@/payload-types";
 import { RichText } from "@payloadcms/richtext-lexical/react";
-import { Back } from "@/components/ui/back";
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { client } from "@/clients/payload";
+import { AuthorInfo } from "@/components/AuthorInfo";
+import { Back } from "@/components/ui/back";
+import { Badge } from "@/components/ui/badge";
+import type { Media, Tag, User } from "@/payload-types";
 
 // Generate metadata for the blog post
 export async function generateMetadata(props: {
@@ -33,7 +33,7 @@ export async function generateMetadata(props: {
   const openGraphImages = (post.coverImage as Media | undefined)?.url
     ? [
         {
-          url: (post.coverImage as Media).url!,
+          url: (post.coverImage as Media).url ?? "",
           width: 1200,
           height: 630,
           alt: post.coverImageAlt ?? "Blog post image",
@@ -107,7 +107,7 @@ export default async function BlogPostPage(props: {
           <div className="relative mb-10 aspect-video overflow-hidden rounded-lg">
             <Image
               src={
-                process.env.NEXT_PUBLIC_BASE_URL! +
+                process.env.NEXT_PUBLIC_BASE_URL +
                 ((post.coverImage as Media).url ?? "")
               }
               alt={post.coverImageAlt ?? "Blog post image"}

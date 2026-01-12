@@ -1,11 +1,11 @@
-import Page404 from "@/components/ui/404";
 import type { Metadata } from "next";
+import Page404 from "@/components/ui/404";
 import "@/styles/globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { GoogleTagManager } from "@next/third-parties/google";
 import { Inter, JetBrains_Mono, Montserrat } from "next/font/google";
 import { ThemeProvider } from "next-themes";
-import { GoogleTagManager } from "@next/third-parties/google";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "404 | The Steel Stingers",

@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useRef } from "react";
+import { motion, useInView } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useInView } from "motion/react";
+import { useRef } from "react";
 import type { Media, Robot } from "@/payload-types";
 
 // const formattedRobotName = robotName.toLowerCase().replace(/\s+/g, "-");
@@ -126,12 +126,12 @@ export default function CurrentRobotShowcase({ robots }: { robots: Robot[] }) {
 
           {robots[0]?.image && (
             <motion.div
-              className="group relative aspect-[4/3] w-full overflow-hidden rounded-lg shadow-xl"
+              className="group relative aspect-4/3 w-full overflow-hidden rounded-lg shadow-xl"
               variants={imageVariants}
             >
               <Image
                 src={
-                  process.env.NEXT_PUBLIC_BASE_URL! +
+                  process.env.NEXT_PUBLIC_BASE_URL +
                   ((robots[0]?.image as Media).url ?? "")
                 }
                 alt={robots[0]?.imageAlt ?? ""}

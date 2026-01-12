@@ -1,5 +1,5 @@
-import BlogPageClient from "./BlogPageClient";
 import { client } from "@/clients/payload";
+import BlogPageClient from "./BlogPageClient";
 
 export default async function BlogPostPage() {
   const posts = await client.find({

@@ -1,6 +1,5 @@
-import React from "react";
-import RobotsPage from "@/components/robots/RobotsPage";
 import type { Metadata } from "next";
+import RobotsPage from "@/components/robots/RobotsPage";
 import { client } from "~/clients/payload";
 
 export const dynamic = "force-dynamic";

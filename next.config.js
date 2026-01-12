@@ -16,10 +16,7 @@ const config = {
         hostname: "nlrobotics.org",
       },
     ],
-  },
-  experimental: {
-    isrFlushToDisk: false,
-  },
+  }
 };
 
 export default withPayload(config);

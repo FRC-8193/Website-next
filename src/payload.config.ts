@@ -1,19 +1,19 @@
 // storage-adapter-import-placeholder
+
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { postgresAdapter } from "@payloadcms/db-postgres";
-import { s3Storage } from "@payloadcms/storage-s3";
 import { resendAdapter } from "@payloadcms/email-resend";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
-import path from "path";
+import { s3Storage } from "@payloadcms/storage-s3";
 import { buildConfig } from "payload";
-import { fileURLToPath } from "url";
 import sharp from "sharp";
-
-import { User } from "./collections/User";
 import { Media } from "./collections/Media";
 import { Post } from "./collections/Post";
 import { Robot } from "./collections/Robot";
 import { Sponsor } from "./collections/Sponsor";
 import { Tag } from "./collections/Tag";
+import { User } from "./collections/User";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
