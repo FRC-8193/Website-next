@@ -1,0 +1,27 @@
+name: PR Build & Test Check
+
+on:
+    pull_request_target:
+        types: [opened, synchronize, reopened]
+        branches:
+            - dev
+
+jobs:
+    build-and-test:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+              with:
+                  # Security: checkout the PR head ref, not the target branch
+                  ref: ${{ github.event.pull_request.head.sha }}
+
+            - name: Deploy PR to Vercel
+              uses: amondnet/vercel-action@v25
+              with:
+                  vercel-token: ${{ secrets.VERCEL_TOKEN }}
+                  vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+                  vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+                  github-token: ${{ secrets.GH_TOKEN }}
+                  working-directory: "./"
