@@ -1,4 +1,3 @@
-import { motion, type Variants } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { AuthorInfo } from "@/components/AuthorInfo";
@@ -7,19 +6,11 @@ import type { Media, Post, Tag, User } from "@/payload-types";
 interface BlogPostCardProps {
   post: Post;
   highlightedTag?: string;
-  variants?: Variants;
 }
 
-const BlogPostCard = ({
-  post,
-  highlightedTag,
-  variants,
-}: BlogPostCardProps) => {
+const BlogPostCard = ({ post, highlightedTag }: BlogPostCardProps) => {
   return (
-    <motion.article
-      className="flex h-full flex-col overflow-hidden rounded-lg border border-gray-200 transition-all hover:shadow-lg dark:border-zinc-700 dark:shadow-white/20"
-      variants={variants}
-    >
+    <article className="flex h-full flex-col overflow-hidden rounded-lg border border-gray-200 transition-all hover:shadow-lg dark:border-zinc-700 dark:shadow-white/20">
       <Link href={`/blog/${post.slug}`} className="flex h-full flex-col">
         {post.coverImage && (
           <div className="relative aspect-video w-full">
@@ -68,7 +59,7 @@ const BlogPostCard = ({
           </div>
         </div>
       </Link>
-    </motion.article>
+    </article>
   );
 };
 

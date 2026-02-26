@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import BlogPostCard from "@/components/blog/BlogPostCard";
 import {
@@ -20,25 +19,6 @@ interface BlogPostsProps {
   pagination?: boolean;
 }
 
-// Animation variants for the container and items
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut" as const,
-    },
-  },
-};
-
 export default function BlogPosts({
   posts,
   highlightedTag,
@@ -47,7 +27,7 @@ export default function BlogPosts({
 }: BlogPostsProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(6);
-  const [windowWidth, setWindowWidth] = useState(0);
+  const [windowWidth, setWindowWidth] = useState<number | undefined>(undefined);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -61,6 +41,7 @@ export default function BlogPosts({
   }, []);
 
   useEffect(() => {
+    if (windowWidth === undefined) return;
     if (windowWidth < 768) {
       setPostsPerPage(5);
     } else if (windowWidth < 1024) {
@@ -90,21 +71,17 @@ export default function BlogPosts({
 
   return (
     <div className="space-y-8">
-      <motion.div
+      <div
         className={`grid grid-cols-1 gap-8 ${maxPosts === 1 ? "md:grid-cols-1" : maxPosts === 2 ? "md:grid-cols-2" : "md:grid-cols-2 lg:grid-cols-3"}`}
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
       >
         {currentPosts.map((post) => (
           <BlogPostCard
             key={post.id}
             post={post}
             highlightedTag={highlightedTag}
-            variants={itemVariants}
           />
         ))}
-      </motion.div>
+      </div>
 
       {pagination && totalPages > 1 && (
         <Pagination>
